@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "MSTabBarController.h"
 
 @interface AppDelegate () <UIApplicationDelegate>
 {
@@ -19,18 +20,27 @@
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [self _setupController];
+
     return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {}
-
 - (void)applicationDidEnterBackground:(UIApplication *)application {}
-
 - (void)applicationWillEnterForeground:(UIApplication *)application {}
-
 - (void)applicationDidBecomeActive:(UIApplication *)application {}
-
 - (void)applicationWillTerminate:(UIApplication *)application {}
+
+#pragma mark - Private
+
+- (void)_setupController {
+    MSTabBarController *tabBarController = [MSTabBarController new];
+
+    _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    _window.backgroundColor = [UIColor whiteColor];
+    _window.rootViewController = tabBarController;
+
+    [_window makeKeyAndVisible];
+}
 
 @end
