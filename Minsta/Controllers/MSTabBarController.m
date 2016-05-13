@@ -8,10 +8,6 @@
 
 #import "MSTabBarController.h"
 
-static const NSString *kViewControllerClassName = @"class";
-static const NSString *kTabBarItemImageString = @"image";
-static const NSString *kTabBarItemSelectedImageString = @"selectedImage";
-
 @implementation MSTabBarController
 
 #pragma mark - Lifecycle
@@ -19,34 +15,27 @@ static const NSString *kTabBarItemSelectedImageString = @"selectedImage";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    NSArray *imageDics = @[@{kViewControllerClassName : @"MSHomeViewController",
-                             kTabBarItemImageString : @"tabbar-home-icon",
-                             kTabBarItemSelectedImageString : @"tabbar-home-icon-highlighted"},
-                           @{kViewControllerClassName : @"MSSearchViewController",
-                             kTabBarItemImageString : @"tabbar-search-icon",
-                             kTabBarItemSelectedImageString : @"tabbar-search-icon-highlighted"},
-                           @{kViewControllerClassName : @"MSCameraViewController",
-                             kTabBarItemImageString : @"tabbar-camera-icon",
-                             kTabBarItemSelectedImageString : @"tabbar-camera-icon-highlighted"},
-                           @{kViewControllerClassName : @"MSActivityViewController",
-                             kTabBarItemImageString : @"tabbar-activity-icon",
-                             kTabBarItemSelectedImageString : @"tabbar-activity-icon-highlighted"},
-                           @{kViewControllerClassName : @"MSProfileViewController",
-                             kTabBarItemImageString : @"tabbar-profile-icon",
-                             kTabBarItemSelectedImageString : @"tabbar-profile-icon-highlighted"}];
-    NSMutableArray *viewControllers = [NSMutableArray arrayWithCapacity:imageDics.count];
+    NSArray *identifiers = @[@"home", @"search", @"camera", @"activity", @"profile"];
+    NSMutableArray *viewControllers = [NSMutableArray arrayWithCapacity:identifiers.count];
 
-    for (NSDictionary *imageDic in imageDics) {
-        UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:nil image:[UIImage imageNamed:imageDic[kTabBarItemImageString]] selectedImage:[UIImage imageNamed:imageDic[kTabBarItemSelectedImageString]]];
-        tabBarItem.imageInsets = (UIEdgeInsets){6.f, 0.f, -6.f, 0.f};
-        ASViewController *viewController = [NSClassFromString(imageDic[kViewControllerClassName]) new];
-        ASNavigationController *navigationController = [[ASNavigationController alloc] initWithRootViewController:viewController];
-        navigationController.tabBarItem = tabBarItem;
+    for (NSString *identifier in identifiers) {
+        UIImage *image         = [UIImage imageNamed:[NSString stringWithFormat:@"tabbar-%@-icon", identifier]];
+        UIImage *selectedImage = [UIImage imageNamed:[NSString stringWithFormat:@"tabbar-%@-icon-h", identifier]];
+        Class class            = NSClassFromString([NSString stringWithFormat:@"MS%@ViewController", identifier.capitalizedString]);
+
+        UITabBarItem *barItem = [[UITabBarItem alloc] initWithTitle:nil image:image selectedImage:selectedImage];
+        barItem.imageInsets   = (UIEdgeInsets){6.f, 0.f, -6.f, 0.f};
+
+        ASViewController *viewController               = [class new];
+        ASNavigationController *navigationController   = [[ASNavigationController alloc] initWithRootViewController:viewController];
+        navigationController.tabBarItem                = barItem;
+        navigationController.navigationBar.translucent = NO;
 
         [viewControllers addObject:navigationController];
     }
 
-    self.viewControllers = viewControllers;
+    self.viewControllers    = viewControllers;
+    self.tabBar.translucent = NO;
 }
 
 @end
