@@ -1,0 +1,372 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		16B9AC61B8297C1DF90670D7 /* libPods-Minsta.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF9707987C62347B728FBB6 /* libPods-Minsta.a */; };
+		672875A91CE5F5C300085068 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 672875A81CE5F5C300085068 /* main.m */; };
+		672875AC1CE5F5C300085068 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 672875AB1CE5F5C300085068 /* AppDelegate.m */; };
+		672875B41CE5F5C300085068 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 672875B31CE5F5C300085068 /* Assets.xcassets */; };
+		672875B71CE5F5C300085068 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 672875B51CE5F5C300085068 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		253163E9B25F9A4C9152FEEB /* Pods-Minsta.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minsta.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Minsta/Pods-Minsta.debug.xcconfig"; sourceTree = "<group>"; };
+		2EF9707987C62347B728FBB6 /* libPods-Minsta.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Minsta.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4417997E28E78C283D43683A /* Pods-Minsta.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minsta.release.xcconfig"; path = "Pods/Target Support Files/Pods-Minsta/Pods-Minsta.release.xcconfig"; sourceTree = "<group>"; };
+		672875A41CE5F5C300085068 /* Minsta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Minsta.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		672875A81CE5F5C300085068 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		672875AA1CE5F5C300085068 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		672875AB1CE5F5C300085068 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		672875B31CE5F5C300085068 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		672875B61CE5F5C300085068 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		672875B81CE5F5C300085068 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		672875A11CE5F5C300085068 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				16B9AC61B8297C1DF90670D7 /* libPods-Minsta.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6728759B1CE5F5C300085068 = {
+			isa = PBXGroup;
+			children = (
+				672875A61CE5F5C300085068 /* Minsta */,
+				672875A51CE5F5C300085068 /* Products */,
+				89BFDA21BCAAD42B4C304CD4 /* Pods */,
+				CA11DD355C6AD40250F45373 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		672875A51CE5F5C300085068 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				672875A41CE5F5C300085068 /* Minsta.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		672875A61CE5F5C300085068 /* Minsta */ = {
+			isa = PBXGroup;
+			children = (
+				672875AA1CE5F5C300085068 /* AppDelegate.h */,
+				672875AB1CE5F5C300085068 /* AppDelegate.m */,
+				672875B31CE5F5C300085068 /* Assets.xcassets */,
+				672875B51CE5F5C300085068 /* LaunchScreen.storyboard */,
+				672875B81CE5F5C300085068 /* Info.plist */,
+				672875A71CE5F5C300085068 /* Supporting Files */,
+			);
+			path = Minsta;
+			sourceTree = "<group>";
+		};
+		672875A71CE5F5C300085068 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				672875A81CE5F5C300085068 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		89BFDA21BCAAD42B4C304CD4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				253163E9B25F9A4C9152FEEB /* Pods-Minsta.debug.xcconfig */,
+				4417997E28E78C283D43683A /* Pods-Minsta.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		CA11DD355C6AD40250F45373 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2EF9707987C62347B728FBB6 /* libPods-Minsta.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		672875A31CE5F5C300085068 /* Minsta */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 672875BB1CE5F5C300085068 /* Build configuration list for PBXNativeTarget "Minsta" */;
+			buildPhases = (
+				FAF6D8E6EE41ABCC7D765AF2 /* 📦 Check Pods Manifest.lock */,
+				672875A01CE5F5C300085068 /* Sources */,
+				672875A11CE5F5C300085068 /* Frameworks */,
+				672875A21CE5F5C300085068 /* Resources */,
+				00D450DF988BC785239F418A /* 📦 Embed Pods Frameworks */,
+				2A758DD8311224461F725BE8 /* 📦 Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Minsta;
+			productName = Minsta;
+			productReference = 672875A41CE5F5C300085068 /* Minsta.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6728759C1CE5F5C300085068 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = jjj2mdd;
+				TargetAttributes = {
+					672875A31CE5F5C300085068 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 892BD8624L;
+					};
+				};
+			};
+			buildConfigurationList = 6728759F1CE5F5C300085068 /* Build configuration list for PBXProject "Minsta" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6728759B1CE5F5C300085068;
+			productRefGroup = 672875A51CE5F5C300085068 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				672875A31CE5F5C300085068 /* Minsta */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		672875A21CE5F5C300085068 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				672875B71CE5F5C300085068 /* LaunchScreen.storyboard in Resources */,
+				672875B41CE5F5C300085068 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		00D450DF988BC785239F418A /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Minsta/Pods-Minsta-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2A758DD8311224461F725BE8 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Minsta/Pods-Minsta-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FAF6D8E6EE41ABCC7D765AF2 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		672875A01CE5F5C300085068 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				672875AC1CE5F5C300085068 /* AppDelegate.m in Sources */,
+				672875A91CE5F5C300085068 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		672875B51CE5F5C300085068 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				672875B61CE5F5C300085068 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		672875B91CE5F5C300085068 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		672875BA1CE5F5C300085068 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		672875BC1CE5F5C300085068 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 253163E9B25F9A4C9152FEEB /* Pods-Minsta.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Minsta/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.maocl023.Minsta;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		672875BD1CE5F5C300085068 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4417997E28E78C283D43683A /* Pods-Minsta.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Minsta/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.maocl023.Minsta;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6728759F1CE5F5C300085068 /* Build configuration list for PBXProject "Minsta" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				672875B91CE5F5C300085068 /* Debug */,
+				672875BA1CE5F5C300085068 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		672875BB1CE5F5C300085068 /* Build configuration list for PBXNativeTarget "Minsta" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				672875BC1CE5F5C300085068 /* Debug */,
+				672875BD1CE5F5C300085068 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6728759C1CE5F5C300085068 /* Project object */;
+}
