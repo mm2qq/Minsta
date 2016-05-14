@@ -8,16 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		16B9AC61B8297C1DF90670D7 /* libPods-Minsta.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF9707987C62347B728FBB6 /* libPods-Minsta.a */; };
-		672875A91CE5F5C300085068 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 672875A81CE5F5C300085068 /* main.m */; };
-		672875AC1CE5F5C300085068 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 672875AB1CE5F5C300085068 /* AppDelegate.m */; };
-		672875B41CE5F5C300085068 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 672875B31CE5F5C300085068 /* Assets.xcassets */; };
-		672875B71CE5F5C300085068 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 672875B51CE5F5C300085068 /* LaunchScreen.storyboard */; };
-		677CEE4F1CE6131600BF8261 /* MSTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677CEE4E1CE6131600BF8261 /* MSTabBarController.m */; };
-		677CEE541CE62CDC00BF8261 /* MSHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677CEE531CE62CDC00BF8261 /* MSHomeViewController.m */; };
-		677CEE571CE62D0600BF8261 /* MSSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677CEE561CE62D0600BF8261 /* MSSearchViewController.m */; };
-		677CEE5A1CE62D2300BF8261 /* MSCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677CEE591CE62D2300BF8261 /* MSCameraViewController.m */; };
-		677CEE5D1CE62D3D00BF8261 /* MSActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677CEE5C1CE62D3D00BF8261 /* MSActivityViewController.m */; };
-		677CEE601CE62D5600BF8261 /* MSProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677CEE5F1CE62D5600BF8261 /* MSProfileViewController.m */; };
+		673124BA1CE7461E006C25F1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 673124991CE7461E006C25F1 /* AppDelegate.m */; };
+		673124BB1CE7461E006C25F1 /* MSActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6731249C1CE7461E006C25F1 /* MSActivityViewController.m */; };
+		673124BC1CE7461E006C25F1 /* MSCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6731249E1CE7461E006C25F1 /* MSCameraViewController.m */; };
+		673124BD1CE7461E006C25F1 /* MSHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 673124A01CE7461E006C25F1 /* MSHomeViewController.m */; };
+		673124BE1CE7461E006C25F1 /* MSProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 673124A21CE7461E006C25F1 /* MSProfileViewController.m */; };
+		673124BF1CE7461E006C25F1 /* MSSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 673124A41CE7461E006C25F1 /* MSSearchViewController.m */; };
+		673124C01CE7461E006C25F1 /* MSTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 673124A61CE7461E006C25F1 /* MSTabBarController.m */; };
+		673124C11CE7461E006C25F1 /* MSUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 673124A91CE7461E006C25F1 /* MSUser.m */; };
+		673124C21CE7461E006C25F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 673124AC1CE7461E006C25F1 /* Assets.xcassets */; };
+		673124C41CE7461E006C25F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 673124AE1CE7461E006C25F1 /* LaunchScreen.storyboard */; };
+		673124C51CE7461E006C25F1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 673124AF1CE7461E006C25F1 /* main.m */; };
+		673124C71CE7461E006C25F1 /* MSPhotoCellNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 673124B71CE7461E006C25F1 /* MSPhotoCellNode.m */; };
+		673124C81CE7461E006C25F1 /* MSFeedHeaderNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 673124B91CE7461E006C25F1 /* MSFeedHeaderNode.m */; };
+		673124CB1CE7466B006C25F1 /* MSHomeOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 673124CA1CE7466B006C25F1 /* MSHomeOperation.m */; };
+		67DC1C001CE74EFA006B0676 /* MSBaseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DC1BFF1CE74EFA006B0676 /* MSBaseOperation.m */; };
+		67DC1C031CE767A8006B0676 /* MSPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DC1C021CE767A8006B0676 /* MSPhoto.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,24 +31,37 @@
 		2EF9707987C62347B728FBB6 /* libPods-Minsta.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Minsta.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4417997E28E78C283D43683A /* Pods-Minsta.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minsta.release.xcconfig"; path = "Pods/Target Support Files/Pods-Minsta/Pods-Minsta.release.xcconfig"; sourceTree = "<group>"; };
 		672875A41CE5F5C300085068 /* Minsta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Minsta.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		672875A81CE5F5C300085068 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		672875AA1CE5F5C300085068 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		672875AB1CE5F5C300085068 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		672875B31CE5F5C300085068 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		672875B61CE5F5C300085068 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		672875B81CE5F5C300085068 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		677CEE4D1CE6131600BF8261 /* MSTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSTabBarController.h; sourceTree = "<group>"; };
-		677CEE4E1CE6131600BF8261 /* MSTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSTabBarController.m; sourceTree = "<group>"; };
-		677CEE521CE62CDC00BF8261 /* MSHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSHomeViewController.h; sourceTree = "<group>"; };
-		677CEE531CE62CDC00BF8261 /* MSHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSHomeViewController.m; sourceTree = "<group>"; };
-		677CEE551CE62D0600BF8261 /* MSSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSearchViewController.h; sourceTree = "<group>"; };
-		677CEE561CE62D0600BF8261 /* MSSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSearchViewController.m; sourceTree = "<group>"; };
-		677CEE581CE62D2300BF8261 /* MSCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSCameraViewController.h; sourceTree = "<group>"; };
-		677CEE591CE62D2300BF8261 /* MSCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSCameraViewController.m; sourceTree = "<group>"; };
-		677CEE5B1CE62D3D00BF8261 /* MSActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSActivityViewController.h; sourceTree = "<group>"; };
-		677CEE5C1CE62D3D00BF8261 /* MSActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSActivityViewController.m; sourceTree = "<group>"; };
-		677CEE5E1CE62D5600BF8261 /* MSProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSProfileViewController.h; sourceTree = "<group>"; };
-		677CEE5F1CE62D5600BF8261 /* MSProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSProfileViewController.m; sourceTree = "<group>"; };
+		673124981CE7461E006C25F1 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Minsta/AppDelegate.h; sourceTree = "<group>"; };
+		673124991CE7461E006C25F1 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Minsta/AppDelegate.m; sourceTree = "<group>"; };
+		6731249B1CE7461E006C25F1 /* MSActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSActivityViewController.h; sourceTree = "<group>"; };
+		6731249C1CE7461E006C25F1 /* MSActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSActivityViewController.m; sourceTree = "<group>"; };
+		6731249D1CE7461E006C25F1 /* MSCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSCameraViewController.h; sourceTree = "<group>"; };
+		6731249E1CE7461E006C25F1 /* MSCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSCameraViewController.m; sourceTree = "<group>"; };
+		6731249F1CE7461E006C25F1 /* MSHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSHomeViewController.h; sourceTree = "<group>"; };
+		673124A01CE7461E006C25F1 /* MSHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSHomeViewController.m; sourceTree = "<group>"; };
+		673124A11CE7461E006C25F1 /* MSProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSProfileViewController.h; sourceTree = "<group>"; };
+		673124A21CE7461E006C25F1 /* MSProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSProfileViewController.m; sourceTree = "<group>"; };
+		673124A31CE7461E006C25F1 /* MSSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSearchViewController.h; sourceTree = "<group>"; };
+		673124A41CE7461E006C25F1 /* MSSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSearchViewController.m; sourceTree = "<group>"; };
+		673124A51CE7461E006C25F1 /* MSTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSTabBarController.h; sourceTree = "<group>"; };
+		673124A61CE7461E006C25F1 /* MSTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSTabBarController.m; sourceTree = "<group>"; };
+		673124A81CE7461E006C25F1 /* MSUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSUser.h; sourceTree = "<group>"; };
+		673124A91CE7461E006C25F1 /* MSUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSUser.m; sourceTree = "<group>"; };
+		673124AC1CE7461E006C25F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		673124AD1CE7461E006C25F1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		673124AE1CE7461E006C25F1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		673124AF1CE7461E006C25F1 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		673124B11CE7461E006C25F1 /* MinstaMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinstaMacro.h; sourceTree = "<group>"; };
+		673124B61CE7461E006C25F1 /* MSPhotoCellNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPhotoCellNode.h; sourceTree = "<group>"; };
+		673124B71CE7461E006C25F1 /* MSPhotoCellNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPhotoCellNode.m; sourceTree = "<group>"; };
+		673124B81CE7461E006C25F1 /* MSFeedHeaderNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSFeedHeaderNode.h; sourceTree = "<group>"; };
+		673124B91CE7461E006C25F1 /* MSFeedHeaderNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSFeedHeaderNode.m; sourceTree = "<group>"; };
+		673124C91CE7466B006C25F1 /* MSHomeOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSHomeOperation.h; sourceTree = "<group>"; };
+		673124CA1CE7466B006C25F1 /* MSHomeOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSHomeOperation.m; sourceTree = "<group>"; };
+		67DC1BFE1CE74EFA006B0676 /* MSBaseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSBaseOperation.h; sourceTree = "<group>"; };
+		67DC1BFF1CE74EFA006B0676 /* MSBaseOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSBaseOperation.m; sourceTree = "<group>"; };
+		67DC1C011CE767A8006B0676 /* MSPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPhoto.h; sourceTree = "<group>"; };
+		67DC1C021CE767A8006B0676 /* MSPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPhoto.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +79,14 @@
 		6728759B1CE5F5C300085068 = {
 			isa = PBXGroup;
 			children = (
-				672875A61CE5F5C300085068 /* Minsta */,
+				673124981CE7461E006C25F1 /* AppDelegate.h */,
+				673124991CE7461E006C25F1 /* AppDelegate.m */,
+				6731249A1CE7461E006C25F1 /* Controllers */,
+				673124A71CE7461E006C25F1 /* Models */,
+				673124AA1CE7461E006C25F1 /* Operations */,
+				673124AB1CE7461E006C25F1 /* Supporting Files */,
+				673124B01CE7461E006C25F1 /* Utils */,
+				673124B51CE7461E006C25F1 /* Views */,
 				672875A51CE5F5C300085068 /* Products */,
 				89BFDA21BCAAD42B4C304CD4 /* Pods */,
 				CA11DD355C6AD40250F45373 /* Frameworks */,
@@ -75,69 +101,81 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		672875A61CE5F5C300085068 /* Minsta */ = {
+		6731249A1CE7461E006C25F1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				672875AA1CE5F5C300085068 /* AppDelegate.h */,
-				672875AB1CE5F5C300085068 /* AppDelegate.m */,
-				677CEE491CE60C9600BF8261 /* Controllers */,
-				677CEE4A1CE60C9600BF8261 /* Models */,
-				677CEE4B1CE60C9600BF8261 /* Utils */,
-				677CEE4C1CE60C9600BF8261 /* Views */,
-				672875A71CE5F5C300085068 /* Supporting Files */,
+				6731249B1CE7461E006C25F1 /* MSActivityViewController.h */,
+				6731249C1CE7461E006C25F1 /* MSActivityViewController.m */,
+				6731249D1CE7461E006C25F1 /* MSCameraViewController.h */,
+				6731249E1CE7461E006C25F1 /* MSCameraViewController.m */,
+				6731249F1CE7461E006C25F1 /* MSHomeViewController.h */,
+				673124A01CE7461E006C25F1 /* MSHomeViewController.m */,
+				673124A11CE7461E006C25F1 /* MSProfileViewController.h */,
+				673124A21CE7461E006C25F1 /* MSProfileViewController.m */,
+				673124A31CE7461E006C25F1 /* MSSearchViewController.h */,
+				673124A41CE7461E006C25F1 /* MSSearchViewController.m */,
+				673124A51CE7461E006C25F1 /* MSTabBarController.h */,
+				673124A61CE7461E006C25F1 /* MSTabBarController.m */,
 			);
-			path = Minsta;
+			name = Controllers;
+			path = Minsta/Controllers;
 			sourceTree = "<group>";
 		};
-		672875A71CE5F5C300085068 /* Supporting Files */ = {
+		673124A71CE7461E006C25F1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				672875B31CE5F5C300085068 /* Assets.xcassets */,
-				672875B51CE5F5C300085068 /* LaunchScreen.storyboard */,
-				672875A81CE5F5C300085068 /* main.m */,
-				672875B81CE5F5C300085068 /* Info.plist */,
+				67DC1C011CE767A8006B0676 /* MSPhoto.h */,
+				67DC1C021CE767A8006B0676 /* MSPhoto.m */,
+				673124A81CE7461E006C25F1 /* MSUser.h */,
+				673124A91CE7461E006C25F1 /* MSUser.m */,
+			);
+			name = Models;
+			path = Minsta/Models;
+			sourceTree = "<group>";
+		};
+		673124AA1CE7461E006C25F1 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				67DC1BFE1CE74EFA006B0676 /* MSBaseOperation.h */,
+				67DC1BFF1CE74EFA006B0676 /* MSBaseOperation.m */,
+				673124C91CE7466B006C25F1 /* MSHomeOperation.h */,
+				673124CA1CE7466B006C25F1 /* MSHomeOperation.m */,
+			);
+			name = Operations;
+			path = Minsta/Operations;
+			sourceTree = "<group>";
+		};
+		673124AB1CE7461E006C25F1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				673124AC1CE7461E006C25F1 /* Assets.xcassets */,
+				673124AD1CE7461E006C25F1 /* Info.plist */,
+				673124AE1CE7461E006C25F1 /* LaunchScreen.storyboard */,
+				673124AF1CE7461E006C25F1 /* main.m */,
 			);
 			name = "Supporting Files";
+			path = "Minsta/Supporting Files";
 			sourceTree = "<group>";
 		};
-		677CEE491CE60C9600BF8261 /* Controllers */ = {
+		673124B01CE7461E006C25F1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				677CEE4D1CE6131600BF8261 /* MSTabBarController.h */,
-				677CEE4E1CE6131600BF8261 /* MSTabBarController.m */,
-				677CEE521CE62CDC00BF8261 /* MSHomeViewController.h */,
-				677CEE531CE62CDC00BF8261 /* MSHomeViewController.m */,
-				677CEE551CE62D0600BF8261 /* MSSearchViewController.h */,
-				677CEE561CE62D0600BF8261 /* MSSearchViewController.m */,
-				677CEE581CE62D2300BF8261 /* MSCameraViewController.h */,
-				677CEE591CE62D2300BF8261 /* MSCameraViewController.m */,
-				677CEE5B1CE62D3D00BF8261 /* MSActivityViewController.h */,
-				677CEE5C1CE62D3D00BF8261 /* MSActivityViewController.m */,
-				677CEE5E1CE62D5600BF8261 /* MSProfileViewController.h */,
-				677CEE5F1CE62D5600BF8261 /* MSProfileViewController.m */,
+				673124B11CE7461E006C25F1 /* MinstaMacro.h */,
 			);
-			path = Controllers;
+			name = Utils;
+			path = Minsta/Utils;
 			sourceTree = "<group>";
 		};
-		677CEE4A1CE60C9600BF8261 /* Models */ = {
+		673124B51CE7461E006C25F1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				673124B61CE7461E006C25F1 /* MSPhotoCellNode.h */,
+				673124B71CE7461E006C25F1 /* MSPhotoCellNode.m */,
+				673124B81CE7461E006C25F1 /* MSFeedHeaderNode.h */,
+				673124B91CE7461E006C25F1 /* MSFeedHeaderNode.m */,
 			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		677CEE4B1CE60C9600BF8261 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
-		677CEE4C1CE60C9600BF8261 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
+			name = Views;
+			path = Minsta/Views;
 			sourceTree = "<group>";
 		};
 		89BFDA21BCAAD42B4C304CD4 /* Pods */ = {
@@ -218,8 +256,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				672875B71CE5F5C300085068 /* LaunchScreen.storyboard in Resources */,
-				672875B41CE5F5C300085068 /* Assets.xcassets in Resources */,
+				673124C41CE7461E006C25F1 /* LaunchScreen.storyboard in Resources */,
+				673124C21CE7461E006C25F1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,29 +316,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				677CEE4F1CE6131600BF8261 /* MSTabBarController.m in Sources */,
-				677CEE5A1CE62D2300BF8261 /* MSCameraViewController.m in Sources */,
-				677CEE541CE62CDC00BF8261 /* MSHomeViewController.m in Sources */,
-				672875AC1CE5F5C300085068 /* AppDelegate.m in Sources */,
-				677CEE601CE62D5600BF8261 /* MSProfileViewController.m in Sources */,
-				672875A91CE5F5C300085068 /* main.m in Sources */,
-				677CEE5D1CE62D3D00BF8261 /* MSActivityViewController.m in Sources */,
-				677CEE571CE62D0600BF8261 /* MSSearchViewController.m in Sources */,
+				673124BE1CE7461E006C25F1 /* MSProfileViewController.m in Sources */,
+				673124BA1CE7461E006C25F1 /* AppDelegate.m in Sources */,
+				67DC1C031CE767A8006B0676 /* MSPhoto.m in Sources */,
+				673124C11CE7461E006C25F1 /* MSUser.m in Sources */,
+				673124CB1CE7466B006C25F1 /* MSHomeOperation.m in Sources */,
+				673124BF1CE7461E006C25F1 /* MSSearchViewController.m in Sources */,
+				673124C01CE7461E006C25F1 /* MSTabBarController.m in Sources */,
+				67DC1C001CE74EFA006B0676 /* MSBaseOperation.m in Sources */,
+				673124BD1CE7461E006C25F1 /* MSHomeViewController.m in Sources */,
+				673124BC1CE7461E006C25F1 /* MSCameraViewController.m in Sources */,
+				673124C81CE7461E006C25F1 /* MSFeedHeaderNode.m in Sources */,
+				673124C71CE7461E006C25F1 /* MSPhotoCellNode.m in Sources */,
+				673124C51CE7461E006C25F1 /* main.m in Sources */,
+				673124BB1CE7461E006C25F1 /* MSActivityViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		672875B51CE5F5C300085068 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				672875B61CE5F5C300085068 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		672875B91CE5F5C300085068 /* Debug */ = {
@@ -392,7 +425,9 @@
 			baseConfigurationReference = 253163E9B25F9A4C9152FEEB /* Pods-Minsta.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = Minsta/Info.plist;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = "$(SRCROOT)/Minsta/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.maocl023.Minsta;
@@ -405,7 +440,9 @@
 			baseConfigurationReference = 4417997E28E78C283D43683A /* Pods-Minsta.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = Minsta/Info.plist;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = "$(SRCROOT)/Minsta/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.maocl023.Minsta;

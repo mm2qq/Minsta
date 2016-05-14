@@ -7,10 +7,17 @@
 //
 
 #import "MSHomeViewController.h"
+#import "MSHomeOperation.h"
+#import "MSPhotoCellNode.h"
+#import "MSPhoto.h"
+#import "MinstaMacro.h"
 
 @interface MSHomeViewController () <ASTableDataSource, ASTableDelegate>
 
-@property (nonatomic, copy) NSArray *imageCategories;
+@property (nonatomic, assign) NSUInteger currentPage;
+@property (nonatomic, assign) NSUInteger totalPages;
+@property (nonatomic, assign) NSUInteger totalItems;
+@property (nonatomic, copy) NSMutableArray<MSPhoto *> *photos;
 
 @end
 
@@ -24,6 +31,11 @@
     if (self = [super initWithNode:tableNode]) {
         tableNode.dataSource = self;
         tableNode.delegate = self;
+
+        _currentPage = 0;
+        _totalPages = 0;
+        _totalItems = 0;
+        _photos = [NSMutableArray array];
     }
 
     return self;
@@ -32,25 +44,96 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    _imageCategories = @[@"abstract", @"animals", @"business", @"cats", @"city", @"food", @"nightlife", @"fashion", @"people", @"nature", @"sports", @"technics", @"transport"];
+    [self _loadPhotosWithContext:nil atPage:++_currentPage];
 }
 
 #pragma mark - Getters & setters
 
 #pragma mark - ASTableDataSource & ASTableDelegate
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return _photos.count;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _imageCategories.count;
+    return 0 == _photos.count ? 0 : 1;
 }
 
 - (ASCellNodeBlock)tableView:(ASTableView *)tableView nodeBlockForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *imageCategory = _imageCategories[indexPath.row];
+    MSPhoto *photo = _photos[indexPath.row];
 
-    return ^{
-        ASTextCellNode *textCellNode = [ASTextCellNode new];
-        textCellNode.text = [imageCategory capitalizedString];
-        return textCellNode;
+    return ^ASCellNode *() {
+        MSPhotoCellNode *cellNode = [[MSPhotoCellNode alloc] initWithPhoto:photo];
+        return cellNode;
     };
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 40.f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, tableView.frame.size.width, 40.f}];
+    view.backgroundColor = [UIColor redColor];
+    return view;
+}
+
+- (void)tableView:(ASTableView *)tableView willBeginBatchFetchWithContext:(ASBatchContext *)context {
+    [context beginBatchFetching];
+    [self _loadPhotosWithContext:context atPage:++_currentPage];
+}
+
+#pragma mark - Private
+
+- (void)_loadPhotosWithContext:(ASBatchContext *)context atPage:(NSUInteger)page {
+    dispatch_async_on_global_queue(^{
+        NSMutableArray *newPhotos = [NSMutableArray array];
+
+        // FIXME:try a valid id
+        [[MSHomeOperation sharedInstance] retrievePhotosWithUserId:123
+                                                         imageSize:[self _imageSizeForScreenWidth]
+                                                            atPage:page
+                                                        completion:^(id  _Nullable data, NSError * _Nullable error)
+         {
+             if (!data || error) {
+                 NSLog(@"%@", error.localizedDescription);
+                 return;
+             }
+
+             NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+
+             if ([response isKindOfClass:[NSDictionary class]]) {
+                 _currentPage = [response[@"current_page"] unsignedIntegerValue];
+                 _totalPages  = [response[@"total_pages"] unsignedIntegerValue];
+                 _totalItems  = [response[@"total_items"] unsignedIntegerValue];
+                 NSArray *photos = response[@"photos"];
+
+                 for (NSDictionary *photoDict in photos) {
+                     MSPhoto *photo = [MSPhoto modelObjectWithDictionary:photoDict];
+                     [newPhotos addObject:photo];
+                 }
+             }
+         }];
+
+        dispatch_async_on_main_queue(^{
+            [_photos addObjectsFromArray:newPhotos];
+
+            ASTableNode *tableNode = (ASTableNode *)self.node;
+            [tableNode.view reloadData];
+//            [tableNode.view insertSections:[[NSIndexSet alloc] initWithIndex:tableNode.view.numberOfSections + 1]
+//                          withRowAnimation:UITableViewRowAnimationNone];
+
+            if (context) {
+                [context completeBatchFetching:YES];
+            }
+        });
+    });
+}
+
+- (CGSize)_imageSizeForScreenWidth {
+    CGRect screenRect   = [[UIScreen mainScreen] bounds];
+    CGFloat screenScale = [[UIScreen mainScreen] scale];
+    return CGSizeMake(screenRect.size.width * screenScale, screenRect.size.width * screenScale);
 }
 
 #pragma mark - Override
