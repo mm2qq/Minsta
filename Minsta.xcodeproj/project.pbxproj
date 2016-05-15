@@ -22,6 +22,8 @@
 		673124C71CE7461E006C25F1 /* MSPhotoFeedCellNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 673124B71CE7461E006C25F1 /* MSPhotoFeedCellNode.m */; };
 		673124C81CE7461E006C25F1 /* MSPhotoFeedHeaderNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 673124B91CE7461E006C25F1 /* MSPhotoFeedHeaderNode.m */; };
 		673124CB1CE7466B006C25F1 /* MSHomeOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 673124CA1CE7466B006C25F1 /* MSHomeOperation.m */; };
+		67900DC21CE88A4000C71A4C /* MSComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 67900DC11CE88A4000C71A4C /* MSComment.m */; };
+		67900DC51CE88F3100C71A4C /* MSCommentFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 67900DC41CE88F3100C71A4C /* MSCommentFeed.m */; };
 		67BB42B31CE84EA500D47036 /* MSPhotoFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 67BB42B21CE84EA500D47036 /* MSPhotoFeed.m */; };
 		67DC1C001CE74EFA006B0676 /* MSBaseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DC1BFF1CE74EFA006B0676 /* MSBaseOperation.m */; };
 		67DC1C031CE767A8006B0676 /* MSPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DC1C021CE767A8006B0676 /* MSPhoto.m */; };
@@ -59,6 +61,10 @@
 		673124B91CE7461E006C25F1 /* MSPhotoFeedHeaderNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPhotoFeedHeaderNode.m; sourceTree = "<group>"; };
 		673124C91CE7466B006C25F1 /* MSHomeOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSHomeOperation.h; sourceTree = "<group>"; };
 		673124CA1CE7466B006C25F1 /* MSHomeOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSHomeOperation.m; sourceTree = "<group>"; };
+		67900DC01CE88A4000C71A4C /* MSComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSComment.h; sourceTree = "<group>"; };
+		67900DC11CE88A4000C71A4C /* MSComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSComment.m; sourceTree = "<group>"; };
+		67900DC31CE88F3100C71A4C /* MSCommentFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSCommentFeed.h; sourceTree = "<group>"; };
+		67900DC41CE88F3100C71A4C /* MSCommentFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSCommentFeed.m; sourceTree = "<group>"; };
 		67BB42B11CE84EA500D47036 /* MSPhotoFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPhotoFeed.h; sourceTree = "<group>"; };
 		67BB42B21CE84EA500D47036 /* MSPhotoFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPhotoFeed.m; sourceTree = "<group>"; };
 		67DC1BFE1CE74EFA006B0676 /* MSBaseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSBaseOperation.h; sourceTree = "<group>"; };
@@ -128,6 +134,8 @@
 		673124A71CE7461E006C25F1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				67900DC01CE88A4000C71A4C /* MSComment.h */,
+				67900DC11CE88A4000C71A4C /* MSComment.m */,
 				67DC1C011CE767A8006B0676 /* MSPhoto.h */,
 				67DC1C021CE767A8006B0676 /* MSPhoto.m */,
 				673124A81CE7461E006C25F1 /* MSUser.h */,
@@ -185,6 +193,8 @@
 		67BB42B01CE84E3400D47036 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				67900DC31CE88F3100C71A4C /* MSCommentFeed.h */,
+				67900DC41CE88F3100C71A4C /* MSCommentFeed.m */,
 				67BB42B11CE84EA500D47036 /* MSPhotoFeed.h */,
 				67BB42B21CE84EA500D47036 /* MSPhotoFeed.m */,
 			);
@@ -339,6 +349,8 @@
 				673124C01CE7461E006C25F1 /* MSTabBarController.m in Sources */,
 				67DC1C001CE74EFA006B0676 /* MSBaseOperation.m in Sources */,
 				673124BD1CE7461E006C25F1 /* MSHomeViewController.m in Sources */,
+				67900DC51CE88F3100C71A4C /* MSCommentFeed.m in Sources */,
+				67900DC21CE88A4000C71A4C /* MSComment.m in Sources */,
 				673124BC1CE7461E006C25F1 /* MSCameraViewController.m in Sources */,
 				673124C81CE7461E006C25F1 /* MSPhotoFeedHeaderNode.m in Sources */,
 				673124C71CE7461E006C25F1 /* MSPhotoFeedCellNode.m in Sources */,

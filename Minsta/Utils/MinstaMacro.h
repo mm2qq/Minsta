@@ -16,6 +16,8 @@
 
 #define FHPX_BASE_URL_STRING     @"https://api.500px.com/v1/"
 #define FHPX_CONSUMER_KEY        @"V0AITekRLDJsvMWIAvrBYoILAOrOQyCPTLdiXeLG"
+// FIXME: this id is just for testing
+#define FHPX_TEST_USER_ID        17507891
 
 #pragma mark - Utilities
 

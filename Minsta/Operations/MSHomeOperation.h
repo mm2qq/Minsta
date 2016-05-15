@@ -22,13 +22,26 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param imageSize Image size
  *  @param page      Page numbering is 1-based
  *  @param pageSize  Page size, can not be over 100, default 20
- *  @param callback  Call handler
+ *  @param callback  Callback handler
  */
 - (void)retrievePhotosWithUserId:(NSUInteger)userId
                        imageSize:(CGSize)imageSize
                           atPage:(NSUInteger)page
                         pageSize:(NSUInteger)pageSize
                       completion:(nullable MSCompletionCallback)callback;
+
+/**
+ *  Retrieve photo's comments
+ *
+ *  @param photoId  Photo identifier
+ *  @param page     Page numbering is 1-based
+ *  @param pageSize Page size, can not be over 100, default 20
+ *  @param callback Callback handler
+ */
+- (void)retrieveCommentsWithPhotoId:(NSUInteger)photoId
+                             atPage:(NSUInteger)page
+                           pageSize:(NSUInteger)pageSize
+                         completion:(nullable MSCompletionCallback)callback;
 
 @end
 

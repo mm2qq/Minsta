@@ -10,16 +10,13 @@
 #import "MSHomeOperation.h"
 #import "MinstaMacro.h"
 
-// FIXME:should not use this id
-static const NSUInteger MSTestUserId = 17507891;
-
 @interface MSPhotoFeed ()
 
 @property (nonatomic, assign) BOOL fetchPhotosInProgress;
 @property (nonatomic, assign) BOOL refreshPhotosInProgress;
 @property (nonatomic, assign) NSUInteger currentPage;
 @property (nonatomic, assign) NSUInteger totalCount;
-@property (nonatomic, assign) NSUInteger totalPages;///< Total page count of photos
+@property (nonatomic, assign) NSUInteger totalPages;                    ///< Total page count of photos
 @property (nonatomic, assign) CGSize frameSize;
 @property (nonatomic, copy) NSMutableArray<MSPhoto *> *photos;
 @property (nonatomic, copy) NSMutableArray<NSNumber *> *photoIds;
@@ -89,7 +86,7 @@ static const NSUInteger MSTestUserId = 17507891;
         NSMutableArray *newPhotos = [NSMutableArray array];
         NSMutableArray *newPhotoIds = [NSMutableArray array];
 
-        [[MSHomeOperation sharedInstance] retrievePhotosWithUserId:MSTestUserId
+        [[MSHomeOperation sharedInstance] retrievePhotosWithUserId:FHPX_TEST_USER_ID
                                                          imageSize:standardSizeForFrameSize(_frameSize)
                                                             atPage:++_currentPage
                                                           pageSize:size

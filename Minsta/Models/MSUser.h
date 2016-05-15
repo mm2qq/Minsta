@@ -45,14 +45,13 @@ typedef NS_ENUM(NSUInteger, MSUserGender) {
 @property (nonatomic, assign, readonly) BOOL admin;
 @property (nonatomic, copy, readonly) NSDictionary *avatars;
 
+// authenticated property
+
 @property (nonatomic, copy, readonly) NSString *email;
 @property (nonatomic, assign, readonly) NSUInteger uploadLimit;
 @property (nonatomic, copy, readonly) NSString *uploadLimitExpiry;
 @property (nonatomic, copy, readonly) NSString *upgradeExpiryDate;
 @property (nonatomic, copy, readonly) NSDictionary *auth;
-
-// authenticated property
-
 @property (nonatomic, assign, readonly) BOOL following;
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;

@@ -57,4 +57,29 @@
           }];
 }
 
+- (void)retrieveCommentsWithPhotoId:(NSUInteger)photoId
+                             atPage:(NSUInteger)page
+                           pageSize:(NSUInteger)pageSize
+                         completion:(MSCompletionCallback)callback {
+    NSString *pathString = [NSString stringWithFormat:@"photos/%d/comments", photoId];
+    NSUInteger realPage = page == 0 ? 1 : page;
+    NSUInteger realPageSize = pageSize > 100 ? 100 : pageSize;
+
+    NSString *URLString = [NSURL URLWithString:pathString relativeToURL:_manager.baseURL].absoluteString;
+    NSMutableDictionary *params = @{@"consumer_key" : FHPX_CONSUMER_KEY}.mutableCopy;
+
+    if (realPage > 0) [params addEntriesFromDictionary:@{@"page" : @(realPage)}];
+    if (realPageSize > 0) [params addEntriesFromDictionary:@{@"rpp" : @(realPageSize)}];
+
+    [_manager GET:URLString
+       parameters:params
+         progress:NULL
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              !callback ? : callback(responseObject, nil);
+          }
+          failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              !callback ? : callback(nil, error);
+          }];
+}
+
 @end
