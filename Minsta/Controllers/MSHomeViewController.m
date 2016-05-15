@@ -62,7 +62,7 @@
 }
 
 - (ASCellNodeBlock)tableView:(ASTableView *)tableView nodeBlockForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MSPhoto *photo = [_feed photoAtIndex:indexPath.row];
+    MSPhoto *photo = [_feed photoAtIndex:indexPath.section];
 
     return ^ASCellNode *() {
         MSPhotoFeedCellNode *cellNode = [[MSPhotoFeedCellNode alloc] initWithPhoto:photo];
@@ -110,14 +110,12 @@
 }
 
 - (void)_insertRows:(NSArray<MSPhoto *> *)photos {
-    NSMutableArray *indexPaths = [NSMutableArray array];
-
-    for (NSUInteger section = _feed.totalCount - photos.count; section < _feed.totalCount; section++) {
-        NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:section];
-        [indexPaths addObject:path];
+    for (NSUInteger section = _feed.count - photos.count; section < _feed.count; section++) {
+        [self.tableNode.view beginUpdates];
+        [self.tableNode.view insertSections:[NSIndexSet indexSetWithIndex:section]
+                           withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableNode.view endUpdates];
     }
-
-    [_tableNode.view insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark - Override

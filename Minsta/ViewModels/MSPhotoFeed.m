@@ -15,7 +15,7 @@
 @property (nonatomic, assign) BOOL fetchPhotosInProgress;
 @property (nonatomic, assign) BOOL refreshPhotosInProgress;
 @property (nonatomic, assign) NSUInteger currentPage;
-@property (nonatomic, assign) NSUInteger totalCount;
+@property (nonatomic, assign) NSUInteger totalCount;                    ///< Total count of photos
 @property (nonatomic, assign) NSUInteger totalPages;                    ///< Total page count of photos
 @property (nonatomic, assign) CGSize frameSize;
 @property (nonatomic, copy) NSMutableArray<MSPhoto *> *photos;
@@ -82,60 +82,58 @@
     // return while data reach the bottom
     if (_totalPages > 0 && _currentPage == _totalPages) return;
 
-    dispatch_async_on_global_queue(^{
-        NSMutableArray *newPhotos = [NSMutableArray array];
-        NSMutableArray *newPhotoIds = [NSMutableArray array];
+    NSMutableArray *newPhotos = [NSMutableArray array];
+    NSMutableArray *newPhotoIds = [NSMutableArray array];
 
-        [[MSHomeOperation sharedInstance] retrievePhotosWithUserId:FHPX_TEST_USER_ID
-                                                         imageSize:standardSizeForFrameSize(_frameSize)
-                                                            atPage:++_currentPage
-                                                          pageSize:size
-                                                        completion:^(id  _Nullable data, NSError * _Nullable error)
-         {
-             if (!data || error) {
-                 NSLog(@"%@", error.localizedDescription);
-                 return;
-             }
+    [[MSHomeOperation sharedInstance] retrievePhotosWithUserId:FHPX_TEST_USER_ID
+                                                     imageSize:MSStandardSizeForFrameSize(_frameSize)
+                                                        atPage:++_currentPage
+                                                      pageSize:size
+                                                    completion:^(id  _Nullable data, NSError * _Nullable error)
+     {
+         if (!data || error) {
+             NSLog(@"%@", error.localizedDescription);
+             return;
+         }
 
-             NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
 
-             if ([response isKindOfClass:[NSDictionary class]]) {
-                 _currentPage = [response[@"current_page"] unsignedIntegerValue];
-                 _totalPages  = [response[@"total_pages"] unsignedIntegerValue];
-                 _totalCount  = [response[@"total_items"] unsignedIntegerValue];
+         if ([response isKindOfClass:[NSDictionary class]]) {
+             _currentPage = [response[@"current_page"] unsignedIntegerValue];
+             _totalPages  = [response[@"total_pages"] unsignedIntegerValue];
+             _totalCount  = [response[@"total_items"] unsignedIntegerValue];
 
-                 for (NSDictionary *photoDict in response[@"photos"]) {
-                     MSPhoto *photo = [MSPhoto modelObjectWithDictionary:photoDict];
-                     NSNumber *photoId = @(photo.photoId);
+             for (NSDictionary *photoDict in response[@"photos"]) {
+                 MSPhoto *photo = [MSPhoto modelObjectWithDictionary:photoDict];
+                 NSNumber *photoId = @(photo.photoId);
 
-                     // avoid inserting null object
-                     if (!photo) continue;
+                 // avoid inserting null object
+                 if (!photo) continue;
 
-                     if (replace || ![_photoIds containsObject:photoId]) {
-                         [newPhotos addObject:photo];
-                         [newPhotoIds addObject:photoId];
-                     }
+                 if (replace || ![_photoIds containsObject:photoId]) {
+                     [newPhotos addObject:photo];
+                     [newPhotoIds addObject:photoId];
                  }
              }
-         }];
+         }
 
-        dispatch_async_on_main_queue(^{
-            if (replace) {
-                _photos = newPhotos;
-                _photoIds = newPhotoIds;
-            } else {
-                [_photos addObjectsFromArray:newPhotos];
-                [_photoIds addObjectsFromArray:newPhotoIds];
-            }
+         dispatch_async_on_main_queue(^{
+             if (replace) {
+                 _photos = newPhotos;
+                 _photoIds = newPhotoIds;
+             } else {
+                 [_photos addObjectsFromArray:newPhotos];
+                 [_photoIds addObjectsFromArray:newPhotoIds];
+             }
 
-            // invoke callback
-            !callback ? : callback(newPhotos);
+             // invoke callback
+             !callback ? : callback(newPhotos);
 
-            // reset status value
-            _fetchPhotosInProgress = NO;
-            _refreshPhotosInProgress = NO;
-        });
-    });
+             // reset status value
+             _fetchPhotosInProgress = NO;
+             _refreshPhotosInProgress = NO;
+         });
+     }];
 }
 
 @end

@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MSPhotoFeed : NSObject
 
-@property (nonatomic, assign, readonly) NSUInteger totalCount;  ///< Total count of photos
 @property (nonatomic, assign, readonly) NSUInteger count;       ///< The count of photos in current page
 
 - (instancetype)init NS_UNAVAILABLE;

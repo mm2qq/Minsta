@@ -29,7 +29,7 @@
                           atPage:(NSUInteger)page
                         pageSize:(NSUInteger)pageSize
                       completion:(MSCompletionCallback)callback {
-    NSUInteger sizeId = imageSizeIdForStandardSize(imageSize);
+    NSUInteger sizeId = MSImageSizeIdForStandardSize(imageSize);
     NSUInteger realPage = page == 0 ? 1 : page;
     NSUInteger realPageSize = pageSize > 100 ? 100 : pageSize;
 

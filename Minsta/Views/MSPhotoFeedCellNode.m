@@ -12,6 +12,10 @@
 
 @interface MSPhotoFeedCellNode () <ASNetworkImageNodeDelegate, ASTextNodeDelegate>
 
+@property (nonatomic, strong) MSPhoto *photo;
+
+@property (nonatomic, strong) ASNetworkImageNode *photoNode;
+
 @end
 
 @implementation MSPhotoFeedCellNode
@@ -20,15 +24,27 @@
 
 - (instancetype)initWithPhoto:(MSPhoto *)photo {
     if (self = [super init]) {
+        _photo = photo;
 
+        [self _setupSubnodes];
     }
 
     return self;
 }
 
-//- (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
-//
-//}
+- (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
+    ASStackLayoutSpec *verticalStack = [ASStackLayoutSpec verticalStackLayoutSpec];
+
+    if (_photoNode) {
+        // vertical stack
+        CGFloat cellWidth = constrainedSize.max.width;
+        _photoNode.preferredFrameSize = CGSizeMake(cellWidth, cellWidth);  // constrain photo frame size
+        verticalStack.alignItems = ASStackLayoutAlignItemsStretch;    // stretch headerStack to fill horizontal space
+        [verticalStack setChildren:@[_photoNode]];
+    }
+
+    return verticalStack;
+}
 
 #pragma mark - ASNetworkImageNodeDelegate
 
@@ -40,5 +56,29 @@
 #pragma mark - ASTextNodeDelegate
 
 #pragma mark - Private
+
+- (void)_setupSubnodes {
+    NSString *photoUrlString = _photo.images[0][@"url"];
+
+    if (_photo && ![@"" isEqualToString:photoUrlString]) {
+        _photoNode = [ASNetworkImageNode new];
+        _photoNode.backgroundColor = ASDisplayNodeDefaultPlaceholderColor();
+        _photoNode.URL = [NSURL URLWithString:photoUrlString];
+        _photoNode.imageModificationBlock = ^UIImage *(UIImage *image) {
+            UIImage *modifiedImage;
+            CGRect rect = CGRectMake(0.f, 0.f, image.size.width, image.size.height);
+
+            UIGraphicsBeginImageContextWithOptions(image.size, false, [UIScreen mainScreen].scale);
+            [[UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:8.0] addClip];
+            [image drawInRect:rect];
+            modifiedImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+
+            return modifiedImage;
+        };
+
+        [self addSubnode:_photoNode];
+    }
+}
 
 @end

@@ -73,7 +73,7 @@ static inline void dispatch_async_on_global_queue(void (^block)()) {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);
 }
 
-static inline CGSize standardSizeForFrameSize(CGSize size) {
+static inline CGSize MSStandardSizeForFrameSize(CGSize size) {
     CGFloat scale = [UIScreen mainScreen].scale;
     return (CGSize){size.width * scale, size.height * scale};
 }
@@ -86,7 +86,7 @@ static inline CGSize standardSizeForFrameSize(CGSize size) {
  *
  *  @return 500px image size ID
  */
-static inline NSUInteger imageSizeIdForStandardSize(CGSize size) {
+static inline NSUInteger MSImageSizeIdForStandardSize(CGSize size) {
     BOOL isCropped = size.height == size.width;
 
     if (isCropped) {

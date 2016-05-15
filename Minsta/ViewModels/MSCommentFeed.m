@@ -15,7 +15,7 @@
 @property (nonatomic, assign) BOOL fetchCommentsInProgress;
 @property (nonatomic, assign) BOOL refreshCommentsInProgress;
 @property (nonatomic, assign) NSUInteger currentPage;
-@property (nonatomic, assign) NSUInteger totalCount;
+@property (nonatomic, assign) NSUInteger totalCount;                    ///< Total count of comments
 @property (nonatomic, assign) NSUInteger totalPages;                    ///< Total page count of comments
 @property (nonatomic, assign) NSUInteger photoId;
 @property (nonatomic, copy) NSMutableArray<MSComment *> *comments;
@@ -82,59 +82,57 @@
     // return while data reach the bottom
     if (_totalPages > 0 && _currentPage == _totalPages) return;
 
-    dispatch_async_on_global_queue(^{
-        NSMutableArray *newComments = [NSMutableArray array];
-        NSMutableArray *newCommentsIds = [NSMutableArray array];
+    NSMutableArray *newComments = [NSMutableArray array];
+    NSMutableArray *newCommentsIds = [NSMutableArray array];
 
-        [[MSHomeOperation sharedInstance] retrieveCommentsWithPhotoId:_photoId
-                                                               atPage:++_currentPage
-                                                             pageSize:size
-                                                           completion:^(id  _Nullable data, NSError * _Nullable error)
-         {
-             if (!data || error) {
-                 NSLog(@"%@", error.localizedDescription);
-                 return;
-             }
+    [[MSHomeOperation sharedInstance] retrieveCommentsWithPhotoId:_photoId
+                                                           atPage:++_currentPage
+                                                         pageSize:size
+                                                       completion:^(id  _Nullable data, NSError * _Nullable error)
+     {
+         if (!data || error) {
+             NSLog(@"%@", error.localizedDescription);
+             return;
+         }
 
-             NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
 
-             if ([response isKindOfClass:[NSDictionary class]]) {
-                 _currentPage = [response[@"current_page"] unsignedIntegerValue];
-                 _totalPages  = [response[@"total_pages"] unsignedIntegerValue];
-                 _totalCount  = [response[@"total_items"] unsignedIntegerValue];
+         if ([response isKindOfClass:[NSDictionary class]]) {
+             _currentPage = [response[@"current_page"] unsignedIntegerValue];
+             _totalPages  = [response[@"total_pages"] unsignedIntegerValue];
+             _totalCount  = [response[@"total_items"] unsignedIntegerValue];
 
-                 for (NSDictionary *commentDict in response[@"comments"]) {
-                     MSComment *comment = [MSComment modelObjectWithDictionary:commentDict];
-                     NSNumber *commentId = @(comment.commentId);
+             for (NSDictionary *commentDict in response[@"comments"]) {
+                 MSComment *comment = [MSComment modelObjectWithDictionary:commentDict];
+                 NSNumber *commentId = @(comment.commentId);
 
-                     // avoid inserting null object
-                     if (!comment) continue;
+                 // avoid inserting null object
+                 if (!comment) continue;
 
-                     if (replace || ![_commentIds containsObject:commentId]) {
-                         [newComments addObject:comment];
-                         [newCommentsIds addObject:commentId];
-                     }
+                 if (replace || ![_commentIds containsObject:commentId]) {
+                     [newComments addObject:comment];
+                     [newCommentsIds addObject:commentId];
                  }
              }
-         }];
+         }
 
-        dispatch_async_on_main_queue(^{
-            if (replace) {
-                _comments = newComments;
-                _commentIds = newCommentsIds;
-            } else {
-                [_comments addObjectsFromArray:newComments];
-                [_commentIds addObjectsFromArray:newCommentsIds];
-            }
+         dispatch_async_on_main_queue(^{
+             if (replace) {
+                 _comments = newComments;
+                 _commentIds = newCommentsIds;
+             } else {
+                 [_comments addObjectsFromArray:newComments];
+                 [_commentIds addObjectsFromArray:newCommentsIds];
+             }
 
-            // invoke callback
-            !callback ? : callback(newComments);
+             // invoke callback
+             !callback ? : callback(newComments);
 
-            // reset status value
-            _fetchCommentsInProgress = NO;
-            _refreshCommentsInProgress = NO;
-        });
-    });
+             // reset status value
+             _fetchCommentsInProgress = NO;
+             _refreshCommentsInProgress = NO;
+         });
+     }];
 }
 
 @end
