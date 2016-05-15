@@ -8,9 +8,12 @@
 
 #import "MSHomeViewController.h"
 #import "MSHomeOperation.h"
-#import "MSPhotoCellNode.h"
+#import "MSFeedCellNode.h"
 #import "MSPhoto.h"
 #import "MinstaMacro.h"
+
+// TODO:should not use this id
+static const NSUInteger MSTestUserId = 17507891;
 
 @interface MSHomeViewController () <ASTableDataSource, ASTableDelegate>
 
@@ -63,7 +66,7 @@
     MSPhoto *photo = _photos[indexPath.row];
 
     return ^ASCellNode *() {
-        MSPhotoCellNode *cellNode = [[MSPhotoCellNode alloc] initWithPhoto:photo];
+        MSFeedCellNode *cellNode = [[MSFeedCellNode alloc] initWithPhoto:photo];
         return cellNode;
     };
 }
@@ -87,11 +90,10 @@
 
 - (void)_loadPhotosWithContext:(ASBatchContext *)context atPage:(NSUInteger)page {
     dispatch_async_on_global_queue(^{
-        NSMutableArray *newPhotos = [NSMutableArray array];
+        CGSize screenSize   = [UIScreen mainScreen].bounds.size;
 
-        // FIXME:try a valid id
-        [[MSHomeOperation sharedInstance] retrievePhotosWithUserId:123
-                                                         imageSize:[self _imageSizeForScreenWidth]
+        [[MSHomeOperation sharedInstance] retrievePhotosWithUserId:MSTestUserId
+                                                         imageSize:standardSizeForFrameSize((CGSize){screenSize.width, screenSize.width})
                                                             atPage:page
                                                         completion:^(id  _Nullable data, NSError * _Nullable error)
          {
@@ -110,30 +112,20 @@
 
                  for (NSDictionary *photoDict in photos) {
                      MSPhoto *photo = [MSPhoto modelObjectWithDictionary:photoDict];
-                     [newPhotos addObject:photo];
+                     [_photos addObject:photo];
                  }
              }
          }];
 
         dispatch_async_on_main_queue(^{
-            [_photos addObjectsFromArray:newPhotos];
-
             ASTableNode *tableNode = (ASTableNode *)self.node;
             [tableNode.view reloadData];
-//            [tableNode.view insertSections:[[NSIndexSet alloc] initWithIndex:tableNode.view.numberOfSections + 1]
-//                          withRowAnimation:UITableViewRowAnimationNone];
 
             if (context) {
                 [context completeBatchFetching:YES];
             }
         });
     });
-}
-
-- (CGSize)_imageSizeForScreenWidth {
-    CGRect screenRect   = [[UIScreen mainScreen] bounds];
-    CGFloat screenScale = [[UIScreen mainScreen] scale];
-    return CGSizeMake(screenRect.size.width * screenScale, screenRect.size.width * screenScale);
 }
 
 #pragma mark - Override

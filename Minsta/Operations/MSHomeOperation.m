@@ -28,8 +28,7 @@
                       completion:(MSCompletionCallback)callback {
     NSString *URLString = [NSURL URLWithString:@"photos" relativeToURL:_manager.baseURL].absoluteString;
     NSDictionary *params = @{@"feature" : @"user_friends",
-//                             @"user_id" : @(userId),
-                             @"username" : @"jjj2mdd",
+                             @"user_id" : @(userId),
                              @"image_size" : @(imageSizeIdForStandardSize(size)),
                              @"page" : page == 0 ? @1 : @(page),
                              @"consumer_key" : FHPX_CONSUMER_KEY};

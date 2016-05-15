@@ -71,6 +71,11 @@ static inline void dispatch_async_on_global_queue(void (^block)()) {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);
 }
 
+static inline CGSize standardSizeForFrameSize(CGSize size) {
+    CGFloat scale = [UIScreen mainScreen].scale;
+    return (CGSize){size.width * scale, size.height * scale};
+}
+
 /**
  *  Return the 500px image size ID from a CGSize
  *  https://github.com/500px/api-documentation/blob/master/basics/formats_and_terms.md#image-urls-and-image-sizes

@@ -1,5 +1,5 @@
 //
-//  MSPhotoCellNode.h
+//  MSFeedCellNode.h
 //  Minsta
 //
 //  Created by maocl023 on 16/5/12.
@@ -10,7 +10,7 @@
 
 @class MSPhoto;
 
-@interface MSPhotoCellNode : ASCellNode
+@interface MSFeedCellNode : ASCellNode
 
 - (instancetype)initWithPhoto:(MSPhoto *)photo;
 
