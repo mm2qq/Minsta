@@ -61,7 +61,7 @@
                              atPage:(NSUInteger)page
                            pageSize:(NSUInteger)pageSize
                          completion:(MSCompletionCallback)callback {
-    NSString *pathString = [NSString stringWithFormat:@"photos/%d/comments", photoId];
+    NSString *pathString = [NSString stringWithFormat:@"photos/%d/comments", (int)photoId];
     NSUInteger realPage = page == 0 ? 1 : page;
     NSUInteger realPageSize = pageSize > 100 ? 100 : pageSize;
 

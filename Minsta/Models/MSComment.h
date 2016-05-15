@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@class MSUser;
-
 NS_ASSUME_NONNULL_BEGIN
+
+@class MSUser;
 
 @interface MSComment : NSObject
 

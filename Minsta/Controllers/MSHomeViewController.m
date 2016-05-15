@@ -30,6 +30,7 @@
         tableNode.dataSource = self;
         tableNode.delegate = self;
         tableNode.view.separatorStyle = UITableViewCellSeparatorStyleNone;
+        tableNode.view.leadingScreensForBatching = 4.0;
     }
 
     return self;
@@ -77,8 +78,8 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    MSPhotoFeedHeaderNode *headerNode = [MSPhotoFeedHeaderNode new];
-    headerNode.backgroundColor = [UIColor redColor];
+    MSPhoto *photo = [_feed photoAtIndex:section];
+    MSPhotoFeedHeaderNode *headerNode = [[MSPhotoFeedHeaderNode alloc] initWithPhoto:photo];
     return headerNode.view;
 }
 
@@ -110,12 +111,14 @@
 }
 
 - (void)_insertRows:(NSArray<MSPhoto *> *)photos {
+    [self.tableNode.view beginUpdates];
+
     for (NSUInteger section = _feed.count - photos.count; section < _feed.count; section++) {
-        [self.tableNode.view beginUpdates];
         [self.tableNode.view insertSections:[NSIndexSet indexSetWithIndex:section]
                            withRowAnimation:UITableViewRowAnimationNone];
-        [self.tableNode.view endUpdates];
     }
+
+    [self.tableNode.view endUpdates];
 }
 
 #pragma mark - Override

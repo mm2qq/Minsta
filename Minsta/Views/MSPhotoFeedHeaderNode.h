@@ -8,6 +8,15 @@
 
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+@class MSPhoto;
+
 @interface MSPhotoFeedHeaderNode : ASDisplayNode
 
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithPhoto:(MSPhoto *)photo NS_DESIGNATED_INITIALIZER;
+
 @end
+
+NS_ASSUME_NONNULL_END

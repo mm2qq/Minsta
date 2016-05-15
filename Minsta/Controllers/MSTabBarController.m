@@ -26,16 +26,18 @@
         UITabBarItem *barItem = [[UITabBarItem alloc] initWithTitle:nil image:image selectedImage:selectedImage];
         barItem.imageInsets   = (UIEdgeInsets){6.f, 0.f, -6.f, 0.f};
 
-        ASViewController *viewController               = [class new];
-        ASNavigationController *navigationController   = [[ASNavigationController alloc] initWithRootViewController:viewController];
-        navigationController.tabBarItem                = barItem;
-        navigationController.navigationBar.translucent = NO;
+        ASViewController *viewController                = [class new];
+        ASNavigationController *navigationController    = [[ASNavigationController alloc] initWithRootViewController:viewController];
+        navigationController.tabBarItem                 = barItem;
+        navigationController.navigationBar.translucent  = NO;
+        navigationController.navigationBar.barTintColor = [UIColor colorWithRed:.976 green:.976 blue:.976 alpha:1.f];
 
         [viewControllers addObject:navigationController];
     }
 
-    self.viewControllers    = viewControllers;
-    self.tabBar.translucent = NO;
+    self.viewControllers     = viewControllers;
+    self.tabBar.translucent  = NO;
+    self.tabBar.barTintColor = [UIColor colorWithRed:.957 green:.957 blue:.957 alpha:1.f];
 }
 
 @end
