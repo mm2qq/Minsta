@@ -1,5 +1,5 @@
 //
-//  MSFeedCellNode.h
+//  MSPhotoFeedHeaderNode.h
 //  Minsta
 //
 //  Created by maocl023 on 16/5/12.
@@ -8,10 +8,6 @@
 
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
 
-@class MSPhoto;
-
-@interface MSFeedCellNode : ASCellNode
-
-- (instancetype)initWithPhoto:(MSPhoto *)photo;
+@interface MSPhotoFeedHeaderNode : ASDisplayNode
 
 @end

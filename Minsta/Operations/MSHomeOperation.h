@@ -16,16 +16,18 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)sharedInstance;
 
 /**
- *  Retrieve user friends' photos
+ *  Retrieve user friends' photo feeds
  *
- *  @param userId   User identifier
- *  @param size     Photo size
- *  @param page     Page numbering is 1-based
- *  @param callback Completion handler
+ *  @param userId    User identifier
+ *  @param imageSize Image size
+ *  @param page      Page numbering is 1-based
+ *  @param pageSize  Page size, can not be over 100, default 20
+ *  @param callback  Call handler
  */
 - (void)retrievePhotosWithUserId:(NSUInteger)userId
-                       imageSize:(CGSize)size
+                       imageSize:(CGSize)imageSize
                           atPage:(NSUInteger)page
+                        pageSize:(NSUInteger)pageSize
                       completion:(nullable MSCompletionCallback)callback;
 
 @end

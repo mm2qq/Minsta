@@ -22,16 +22,29 @@
     return operation;
 }
 
+#pragma mark - Public
+
 - (void)retrievePhotosWithUserId:(NSUInteger)userId
-                       imageSize:(CGSize)size
+                       imageSize:(CGSize)imageSize
                           atPage:(NSUInteger)page
+                        pageSize:(NSUInteger)pageSize
                       completion:(MSCompletionCallback)callback {
+    NSUInteger sizeId = imageSizeIdForStandardSize(imageSize);
+    NSUInteger realPage = page == 0 ? 1 : page;
+    NSUInteger realPageSize = pageSize > 100 ? 100 : pageSize;
+
     NSString *URLString = [NSURL URLWithString:@"photos" relativeToURL:_manager.baseURL].absoluteString;
-    NSDictionary *params = @{@"feature" : @"user_friends",
-                             @"user_id" : @(userId),
-                             @"image_size" : @(imageSizeIdForStandardSize(size)),
-                             @"page" : page == 0 ? @1 : @(page),
-                             @"consumer_key" : FHPX_CONSUMER_KEY};
+    NSMutableDictionary *params = @{@"feature" : @"fresh_today",
+                                    @"consumer_key" : FHPX_CONSUMER_KEY}.mutableCopy;
+
+    if (userId > 0) {
+        [params setValue:@"user_friends" forKey:@"feature"];
+        [params addEntriesFromDictionary:@{@"user_id" : @(userId)}];
+    }
+
+    if (sizeId > 0) [params addEntriesFromDictionary:@{@"image_size" : @(sizeId)}];
+    if (realPage > 0) [params addEntriesFromDictionary:@{@"page" : @(realPage)}];
+    if (realPageSize > 0) [params addEntriesFromDictionary:@{@"rpp" : @(realPageSize)}];
 
     [_manager GET:URLString
        parameters:params

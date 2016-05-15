@@ -7,20 +7,15 @@
 //
 
 #import "MSHomeViewController.h"
-#import "MSHomeOperation.h"
-#import "MSFeedCellNode.h"
-#import "MSPhoto.h"
+#import "MSPhotoFeedCellNode.h"
+#import "MSPhotoFeedHeaderNode.h"
+#import "MSPhotoFeed.h"
 #import "MinstaMacro.h"
-
-// TODO:should not use this id
-static const NSUInteger MSTestUserId = 17507891;
 
 @interface MSHomeViewController () <ASTableDataSource, ASTableDelegate>
 
-@property (nonatomic, assign) NSUInteger currentPage;
-@property (nonatomic, assign) NSUInteger totalPages;
-@property (nonatomic, assign) NSUInteger totalItems;
-@property (nonatomic, copy) NSMutableArray<MSPhoto *> *photos;
+@property (nonatomic, strong) ASTableNode *tableNode;
+@property (nonatomic, strong) MSPhotoFeed *feed;
 
 @end
 
@@ -34,98 +29,95 @@ static const NSUInteger MSTestUserId = 17507891;
     if (self = [super initWithNode:tableNode]) {
         tableNode.dataSource = self;
         tableNode.delegate = self;
-
-        _currentPage = 0;
-        _totalPages = 0;
-        _totalItems = 0;
-        _photos = [NSMutableArray array];
+        tableNode.view.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
 
     return self;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)loadView {
+    [super loadView];
 
-    [self _loadPhotosWithContext:nil atPage:++_currentPage];
+    CGSize screenSize = [UIScreen mainScreen].bounds.size;
+    _feed = [[MSPhotoFeed alloc] initWithFrameSize:(CGSize){screenSize.width, screenSize.width}];
+
+    // load datasource
+    [self _refreshPhotos];
 }
 
-#pragma mark - Getters & setters
+#pragma mark - Properties
 
-#pragma mark - ASTableDataSource & ASTableDelegate
+- (ASTableNode *)tableNode {
+    return (ASTableNode *)self.node;
+}
+
+#pragma mark - ASTableDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return _photos.count;
+    return _feed.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0 == _photos.count ? 0 : 1;
+    return 0 == _feed.count ? 0 : 1;
 }
 
 - (ASCellNodeBlock)tableView:(ASTableView *)tableView nodeBlockForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MSPhoto *photo = _photos[indexPath.row];
+    MSPhoto *photo = [_feed photoAtIndex:indexPath.row];
 
     return ^ASCellNode *() {
-        MSFeedCellNode *cellNode = [[MSFeedCellNode alloc] initWithPhoto:photo];
+        MSPhotoFeedCellNode *cellNode = [[MSPhotoFeedCellNode alloc] initWithPhoto:photo];
         return cellNode;
     };
 }
 
+#pragma mark - ASTableDelegate
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 40.f;
+    return 50.f;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] initWithFrame:(CGRect){CGPointZero, tableView.frame.size.width, 40.f}];
-    view.backgroundColor = [UIColor redColor];
-    return view;
+    MSPhotoFeedHeaderNode *headerNode = [MSPhotoFeedHeaderNode new];
+    headerNode.backgroundColor = [UIColor redColor];
+    return headerNode.view;
 }
 
 - (void)tableView:(ASTableView *)tableView willBeginBatchFetchWithContext:(ASBatchContext *)context {
     [context beginBatchFetching];
-    [self _loadPhotosWithContext:context atPage:++_currentPage];
+    [self _loadPhotosWithContext:context];
 }
 
 #pragma mark - Private
 
-- (void)_loadPhotosWithContext:(ASBatchContext *)context atPage:(NSUInteger)page {
-    dispatch_async_on_global_queue(^{
-        CGSize screenSize   = [UIScreen mainScreen].bounds.size;
+- (void)_refreshPhotos {
+    @weakify(self)
+    [_feed refreshPhotosOnCompletion:^(NSArray<MSPhoto *> * _Nonnull photos) {
+        @strongify(self)
+        [self _insertRows:photos];
+        [self _loadPhotosWithContext:nil];
+    } pageSize:5];
+}
 
-        [[MSHomeOperation sharedInstance] retrievePhotosWithUserId:MSTestUserId
-                                                         imageSize:standardSizeForFrameSize((CGSize){screenSize.width, screenSize.width})
-                                                            atPage:page
-                                                        completion:^(id  _Nullable data, NSError * _Nullable error)
-         {
-             if (!data || error) {
-                 NSLog(@"%@", error.localizedDescription);
-                 return;
-             }
+- (void)_loadPhotosWithContext:(ASBatchContext *)context {
+    @weakify(self)
+    [_feed fetchPhotosOnCompletion:^(NSArray<MSPhoto *> * _Nonnull photos) {
+        @strongify(self)
+        [self _insertRows:photos];
 
-             NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        // complete batch fetching
+        if (context) [context completeBatchFetching:YES];
+    } pageSize:10];
+}
 
-             if ([response isKindOfClass:[NSDictionary class]]) {
-                 _currentPage = [response[@"current_page"] unsignedIntegerValue];
-                 _totalPages  = [response[@"total_pages"] unsignedIntegerValue];
-                 _totalItems  = [response[@"total_items"] unsignedIntegerValue];
-                 NSArray *photos = response[@"photos"];
+- (void)_insertRows:(NSArray<MSPhoto *> *)photos {
+    NSMutableArray *indexPaths = [NSMutableArray array];
 
-                 for (NSDictionary *photoDict in photos) {
-                     MSPhoto *photo = [MSPhoto modelObjectWithDictionary:photoDict];
-                     [_photos addObject:photo];
-                 }
-             }
-         }];
+    for (NSUInteger section = _feed.totalCount - photos.count; section < _feed.totalCount; section++) {
+        NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:section];
+        [indexPaths addObject:path];
+    }
 
-        dispatch_async_on_main_queue(^{
-            ASTableNode *tableNode = (ASTableNode *)self.node;
-            [tableNode.view reloadData];
-
-            if (context) {
-                [context completeBatchFetching:YES];
-            }
-        });
-    });
+    [_tableNode.view insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark - Override
