@@ -19,6 +19,10 @@
 // FIXME: this id is just for testing
 #define FHPX_TEST_USER_ID        17507891
 
+#pragma mark - Constants
+
+#define MS_HOME_PHOTO_RATIO      9.f / 16.f
+
 #pragma mark - Utilities
 
 #ifndef weakify

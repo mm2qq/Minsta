@@ -9,6 +9,7 @@
 #import "MSPhotoFeedCellNode.h"
 #import "MSPhoto.h"
 #import "MSUser.h"
+#import "MinstaMacro.h"
 
 @interface MSPhotoFeedCellNode () <ASNetworkImageNodeDelegate, ASTextNodeDelegate>
 
@@ -33,17 +34,13 @@
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
-    ASStackLayoutSpec *verticalStack = [ASStackLayoutSpec verticalStackLayoutSpec];
+    ASRatioLayoutSpec *ratioLayout = nil;
 
     if (_photoNode) {
-        // vertical stack
-        CGFloat cellWidth = constrainedSize.max.width;
-        _photoNode.preferredFrameSize = CGSizeMake(cellWidth, cellWidth);  // constrain photo frame size
-        verticalStack.alignItems = ASStackLayoutAlignItemsStretch;    // stretch headerStack to fill horizontal space
-        [verticalStack setChildren:@[_photoNode]];
+        ratioLayout = [ASRatioLayoutSpec ratioLayoutSpecWithRatio:MS_HOME_PHOTO_RATIO child:_photoNode];
     }
 
-    return verticalStack;
+    return ratioLayout;
 }
 
 #pragma mark - ASNetworkImageNodeDelegate

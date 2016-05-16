@@ -39,7 +39,7 @@
     [super loadView];
 
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    _feed = [[MSPhotoFeed alloc] initWithFrameSize:(CGSize){screenSize.width, screenSize.width}];
+    _feed = [[MSPhotoFeed alloc] initWithFrameSize:(CGSize){screenSize.width, screenSize.width * MS_HOME_PHOTO_RATIO}];
 
     // load datasource
     [self _refreshPhotos];
