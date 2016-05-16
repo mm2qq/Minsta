@@ -15,7 +15,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    NSArray *identifiers = @[@"home", @"search", @"camera", @"activity", @"profile"];
+    CGFloat yOffset                 = 9.f;
+    NSArray *identifiers            = @[@"home", @"search", @"camera", @"activity", @"profile"];
     NSMutableArray *viewControllers = [NSMutableArray arrayWithCapacity:identifiers.count];
 
     for (NSString *identifier in identifiers) {
@@ -24,7 +25,7 @@
         Class class            = NSClassFromString([NSString stringWithFormat:@"MS%@ViewController", identifier.capitalizedString]);
 
         UITabBarItem *barItem = [[UITabBarItem alloc] initWithTitle:nil image:image selectedImage:selectedImage];
-        barItem.imageInsets   = (UIEdgeInsets){6.f, 0.f, -6.f, 0.f};
+        barItem.imageInsets   = (UIEdgeInsets){yOffset / 3.f, 0.f, -yOffset / 3.f, 0.f};
 
         ASViewController *viewController                = [class new];
         ASNavigationController *navigationController    = [[ASNavigationController alloc] initWithRootViewController:viewController];
@@ -38,7 +39,8 @@
 
     self.viewControllers     = viewControllers;
     self.tabBar.translucent  = NO;
-    self.tabBar.barTintColor = [UIColor colorWithRed:.957 green:.957 blue:.957 alpha:1.f];
+    self.tabBar.barTintColor = [UIColor colorWithRed:.976 green:.976 blue:.976 alpha:1.f];
+    self.tabBar.bounds       = (CGRect){CGPointZero, CGRectGetWidth(self.tabBar.bounds), CGRectGetHeight(self.tabBar.bounds) - yOffset};
 }
 
 @end
