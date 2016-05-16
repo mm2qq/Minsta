@@ -73,12 +73,14 @@
 #pragma mark - ASTableDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 50.f;
+    return 52.f;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    CGRect frame = (CGRect){CGPointZero, tableView.frame.size.width, 52.f};
     MSPhoto *photo = [_feed photoAtIndex:section];
-    MSPhotoFeedHeaderNode *headerNode = [[MSPhotoFeedHeaderNode alloc] initWithPhoto:photo];
+    MSPhotoFeedHeaderNode *headerNode = [[MSPhotoFeedHeaderNode alloc] initWithFrame:frame photo:photo];
+
     return headerNode.view;
 }
 
@@ -94,7 +96,6 @@
     [_feed refreshPhotosOnCompletion:^(NSArray<MSPhoto *> * _Nonnull photos) {
         @strongify(self)
         [self _insertRows:photos];
-        [self _loadPhotosWithContext:nil];
     } pageSize:5];
 }
 
@@ -106,7 +107,7 @@
 
         // complete batch fetching
         if (context) [context completeBatchFetching:YES];
-    } pageSize:20];
+    } pageSize:30];
 }
 
 - (void)_insertRows:(NSArray<MSPhoto *> *)photos {

@@ -11,7 +11,7 @@
 #import "MSUser.h"
 #import "MinstaMacro.h"
 
-@interface MSPhotoFeedCellNode () <ASNetworkImageNodeDelegate, ASTextNodeDelegate>
+@interface MSPhotoFeedCellNode ()
 
 @property (nonatomic, strong) MSPhoto *photo;
 
@@ -34,30 +34,17 @@
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
-    ASRatioLayoutSpec *ratioLayout = nil;
-
-    if (_photoNode) {
-        ratioLayout = [ASRatioLayoutSpec ratioLayoutSpecWithRatio:MS_HOME_PHOTO_RATIO child:_photoNode];
-    }
+    ASRatioLayoutSpec *ratioLayout = [ASRatioLayoutSpec ratioLayoutSpecWithRatio:MS_HOME_PHOTO_RATIO child:_photoNode];
 
     return ratioLayout;
 }
-
-#pragma mark - ASNetworkImageNodeDelegate
-
-- (void)imageNode:(ASNetworkImageNode *)imageNode didLoadImage:(UIImage *)image {
-    // layout if image node load image
-    [self setNeedsLayout];
-}
-
-#pragma mark - ASTextNodeDelegate
 
 #pragma mark - Private
 
 - (void)_setupSubnodes {
     NSString *photoUrlString = _photo.images[0].url;
 
-    if (_photo && ![@"" isEqualToString:photoUrlString]) {
+    if (photoUrlString && ![@"" isEqualToString:photoUrlString]) {
         _photoNode = [ASNetworkImageNode new];
         _photoNode.backgroundColor = ASDisplayNodeDefaultPlaceholderColor();
         _photoNode.URL = [NSURL URLWithString:photoUrlString];

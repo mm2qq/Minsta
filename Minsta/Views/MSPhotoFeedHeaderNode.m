@@ -9,6 +9,11 @@
 #import "MSPhotoFeedHeaderNode.h"
 #import "MSPhoto.h"
 #import "MSUser.h"
+#import "NSString+MinstaAdd.h"
+
+static const CGFloat kAvatarLeadingMargin = 8.f;
+static const CGFloat kAvatarSizeWidth = 36.f;
+#define kUserNameFont [UIFont boldSystemFontOfSize:13.f]
 
 @interface MSPhotoFeedHeaderNode ()
 
@@ -17,6 +22,7 @@
 
 @property (nonatomic, strong) ASNetworkImageNode *avatarNode;
 @property (nonatomic, strong) ASTextNode *userNameNode;
+@property (nonatomic, strong) ASImageNode *moreNode;
 
 @end
 
@@ -24,11 +30,13 @@
 
 #pragma mark - Lifecycle
 
-- (instancetype)initWithPhoto:(MSPhoto *)photo {
+- (instancetype)initWithFrame:(CGRect)frame photo:(MSPhoto *)photo {
     if (self = [super init]) {
+        self.frame = frame;
         self.backgroundColor = [UIColor whiteColor];
+
         _user = photo.user;
-        _photoUrlString = photo ? photo.images[0].url : @"";
+        _photoUrlString = photo.images[0].url ? photo.images[0].url : @"";
 
         [self _setupSubnodes];
     }
@@ -36,34 +44,31 @@
     return self;
 }
 
-- (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
-    _avatarNode.preferredFrameSize = CGSizeMake(30.f, 30.f);
-    _userNameNode.spacingBefore    = 10.f;
-    UIEdgeInsets avatarInsets      = UIEdgeInsetsMake(10.f, 0.f, 10.f, 10.f);
-    ASInsetLayoutSpec *avatarInset = [ASInsetLayoutSpec insetLayoutSpecWithInsets:avatarInsets child:_avatarNode];
+- (void)layout {
+    [super layout];
 
-    ASStackLayoutSpec *headerStack = [ASStackLayoutSpec horizontalStackLayoutSpec];
-    headerStack.alignItems         = ASStackLayoutAlignItemsCenter; // center items vertically in horizontal stack
-    headerStack.justifyContent     = ASStackLayoutJustifyContentStart; // justify content to the left side of the header stack
-    [headerStack setChildren:@[avatarInset, _userNameNode]];
+    _avatarNode.frame = (CGRect){kAvatarLeadingMargin, (CGRectGetHeight(self.frame) - kAvatarSizeWidth) / 2.f, kAvatarSizeWidth, kAvatarSizeWidth};
 
-    // header inset stack
-    UIEdgeInsets insets                = UIEdgeInsetsMake(0, 10.f, 0, 10.f);
-    ASInsetLayoutSpec *headerWithInset = [ASInsetLayoutSpec insetLayoutSpecWithInsets:insets child:headerStack];
+    CGFloat userNameNodeWidth = [_user.userName widthForFont:kUserNameFont];
+    CGFloat userNameNodeHeight = [_user.userName heightForFont:kUserNameFont width:userNameNodeWidth];
+    _userNameNode.frame = (CGRect){kAvatarLeadingMargin + CGRectGetMaxX(_avatarNode.frame), (CGRectGetHeight(self.frame) - userNameNodeHeight) / 2.f, userNameNodeWidth, userNameNodeHeight};
 
-    return headerWithInset;
+    _moreNode.frame = (CGRect){CGRectGetWidth(self.frame) - CGRectGetHeight(self.frame), (CGRectGetHeight(self.frame) - CGRectGetHeight(self.frame)) / 2.f, CGRectGetHeight(self.frame), CGRectGetHeight(self.frame)};
 }
 
 #pragma mark - Private
 
 - (void)_setupSubnodes {
-    if (![@"" isEqualToString:_user.userPicUrl]) {
+    NSString *userPicUrlString = _user.userPicUrl;
+    NSString *userName = _user.userName;
+
+    if (userPicUrlString && ![@"" isEqualToString:userPicUrlString]) {
         _avatarNode = [ASNetworkImageNode new];
-        _avatarNode.backgroundColor = ASDisplayNodeDefaultPlaceholderColor();
-        _avatarNode.URL = [NSURL URLWithString:_user.userPicUrl];
+        _avatarNode.backgroundColor = self.backgroundColor;
+        _avatarNode.URL = [NSURL URLWithString:userPicUrlString];
         _avatarNode.imageModificationBlock = ^UIImage *(UIImage *image) {
             // make a CGRect with the image's size
-            CGRect circleRect = (CGRect){CGPointZero, (CGSize){30.f, 30.f}};
+            CGRect circleRect = (CGRect){CGPointZero, kAvatarSizeWidth, kAvatarSizeWidth};
 
             // begin the image context since we're not in a drawRect:
             UIGraphicsBeginImageContextWithOptions(circleRect.size, NO, 0);
@@ -91,14 +96,27 @@
             return roundedImage;
         };
 
+        [self addSubnode:_avatarNode];
+    }
+
+    if (userName && ![@"" isEqualToString:userName]) {
         _userNameNode = [ASTextNode new];
-        _userNameNode.attributedString = [[NSAttributedString alloc] initWithString:_user.userName attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:13.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}];
+        _userNameNode.backgroundColor = self.backgroundColor;
+        _userNameNode.attributedString = [[NSAttributedString alloc] initWithString:userName attributes:@{NSFontAttributeName : kUserNameFont}];
         _userNameNode.flexShrink = YES; //if name and username don't fit to cell width, allow username shrink
         _userNameNode.truncationMode = NSLineBreakByTruncatingTail;
         _userNameNode.maximumNumberOfLines = 1;
-
-        [self addSubnode:_avatarNode];
+        
         [self addSubnode:_userNameNode];
+    }
+
+    if (![@"" isEqualToString:_photoUrlString]) {
+        _moreNode = [ASImageNode new];
+        _moreNode.image = [UIImage imageNamed:@"more"];
+        _moreNode.contentMode = UIViewContentModeCenter;
+        _moreNode.backgroundColor = self.backgroundColor;
+
+        [self addSubnode:_moreNode];
     }
 }
 
