@@ -55,7 +55,7 @@
 #pragma mark - Private
 
 - (void)_setupSubnodes {
-    NSString *photoUrlString = _photo.images[0][@"url"];
+    NSString *photoUrlString = _photo.images[0].url;
 
     if (_photo && ![@"" isEqualToString:photoUrlString]) {
         _photoNode = [ASNetworkImageNode new];

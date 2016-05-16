@@ -6,13 +6,13 @@
 //  Copyright © 2016年 jjj2mdd. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "MSModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class MSUser;
 
-@interface MSComment : NSObject
+@interface MSComment : MSModel <MSModelProtocol>
 
 @property (nonatomic, assign, readonly) NSUInteger commentId;
 @property (nonatomic, assign, readonly) NSUInteger userId;
@@ -22,9 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) NSUInteger parentId;
 @property (nonatomic, strong, readonly) MSUser *user;
 @property (nonatomic, copy, readonly) NSMutableArray<MSComment *> *replies;
-
-+ (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
-- (instancetype)initWithDictionary:(NSDictionary *)dict;
 
 @end
 

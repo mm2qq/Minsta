@@ -28,7 +28,7 @@
     if (self = [super init]) {
         self.backgroundColor = [UIColor whiteColor];
         _user = photo.user;
-        _photoUrlString = photo ? photo.images[0][@"url"] : @"";
+        _photoUrlString = photo ? photo.images[0].url : @"";
 
         [self _setupSubnodes];
     }

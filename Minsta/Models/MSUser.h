@@ -6,7 +6,7 @@
 //  Copyright © 2016年 jjj2mdd. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "MSModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,7 +16,7 @@ typedef NS_ENUM(NSUInteger, MSUserGender) {
     MSUserGenderFemale,
 };
 
-@interface MSUser : NSObject
+@interface MSUser : MSModel <MSModelProtocol>
 
 @property (nonatomic, assign, readonly) NSUInteger userId;
 @property (nonatomic, copy, readonly) NSString *userName;
@@ -53,9 +53,6 @@ typedef NS_ENUM(NSUInteger, MSUserGender) {
 @property (nonatomic, copy, readonly) NSString *upgradeExpiryDate;
 @property (nonatomic, copy, readonly) NSDictionary *auth;
 @property (nonatomic, assign, readonly) BOOL following;
-
-+ (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
-- (instancetype)initWithDictionary:(NSDictionary *)dict;
 
 @end
 

@@ -38,11 +38,4 @@
     return self;
 }
 
-#pragma mark - Helper Method
-
-- (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict {
-    id object = [dict objectForKey:aKey];
-    return [object isEqual:[NSNull null]] ? nil : object;
-}
-
 @end

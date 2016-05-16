@@ -6,13 +6,23 @@
 //  Copyright © 2016年 jjj2mdd. All rights reserved.
 //
 
+#import "MSModel.h"
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class MSUser;
 
-@interface MSPhoto : NSObject
+@interface MSImage : MSModel <MSModelProtocol>
+
+@property (nonatomic, assign, readonly) NSUInteger sizeId;
+@property (nonatomic, copy, readonly) NSString *format;
+@property (nonatomic, copy, readonly) NSString *httpsUrl;
+@property (nonatomic, copy, readonly) NSString *url;
+
+@end
+
+@interface MSPhoto : MSModel <MSModelProtocol>
 
 @property (nonatomic, assign, readonly) NSUInteger photoId;
 @property (nonatomic, copy, readonly) NSString *photoName;
@@ -43,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) CGFloat hightestRating;
 @property (nonatomic, copy, readonly) NSString *hightestRatingDate;
 @property (nonatomic, assign, readonly) NSUInteger licenseType;
-@property (nonatomic, copy, readonly) NSArray *images;
+@property (nonatomic, copy, readonly) NSMutableArray<MSImage *> *images;
 @property (nonatomic, strong, readonly) MSUser *user;
 @property (nonatomic, copy, readonly) NSArray *comments;
 @property (nonatomic, assign, readonly) BOOL storeDownload;
@@ -56,9 +66,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign, readonly) BOOL voted;
 @property (nonatomic, assign, readonly) BOOL purchased;
-
-+ (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
-- (instancetype)initWithDictionary:(NSDictionary *)dict;
 
 @end
 

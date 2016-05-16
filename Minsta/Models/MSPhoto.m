@@ -9,6 +9,27 @@
 #import "MSPhoto.h"
 #import "MSUser.h"
 
+@implementation MSImage
+
++ (instancetype)modelObjectWithDictionary:(NSDictionary *)dict {
+    return [[self alloc] initWithDictionary:dict];
+}
+
+- (instancetype)initWithDictionary:(NSDictionary *)dict {
+    self = [super init];
+
+    if (self && [dict isKindOfClass:[NSDictionary class]]) {
+        _sizeId = [[self objectOrNilForKey:@"size" fromDictionary:dict] unsignedIntegerValue];
+        _format = [self objectOrNilForKey:@"format" fromDictionary:dict];
+        _httpsUrl = [self objectOrNilForKey:@"https_url" fromDictionary:dict];
+        _url = [self objectOrNilForKey:@"url" fromDictionary:dict];
+    }
+
+    return self;
+}
+
+@end
+
 @implementation MSPhoto
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict {
@@ -48,7 +69,6 @@
         _hightestRating = [[self objectOrNilForKey:@"hightest_rating" fromDictionary:dict] floatValue];
         _hightestRatingDate = [self objectOrNilForKey:@"hightest_rating_date" fromDictionary:dict];
         _licenseType = [[self objectOrNilForKey:@"license_type" fromDictionary:dict] unsignedIntegerValue];
-        _images = [self objectOrNilForKey:@"images" fromDictionary:dict];
         _user = [MSUser modelObjectWithDictionary:[self objectOrNilForKey:@"user" fromDictionary:dict]];
         _comments = [self objectOrNilForKey:@"comments" fromDictionary:dict];
         _storeDownload = [[self objectOrNilForKey:@"store_download" fromDictionary:dict] boolValue];
@@ -58,16 +78,16 @@
         _galleriesCount = [[self objectOrNilForKey:@"galleries_count" fromDictionary:dict] unsignedIntegerValue];
         _voted = [[self objectOrNilForKey:@"voted" fromDictionary:dict] boolValue];
         _purchased = [[self objectOrNilForKey:@"purchased" fromDictionary:dict] boolValue];
+        NSArray *images = [self objectOrNilForKey:@"images" fromDictionary:dict];
+
+        for (NSDictionary *imageDict in images) {
+            MSImage *image = [MSImage modelObjectWithDictionary:imageDict];
+            if (!image) continue;
+            [_images addObject:image];
+        }
     }
 
     return self;
-}
-
-#pragma mark - Helper Method
-
-- (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict {
-    id object = [dict objectForKey:aKey];
-    return [object isEqual:[NSNull null]] ? nil : object;
 }
 
 @end
