@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		16B9AC61B8297C1DF90670D7 /* libPods-Minsta.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF9707987C62347B728FBB6 /* libPods-Minsta.a */; };
+		671B9C531CEA10AD006FAE41 /* MSWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 671B9C521CEA10AD006FAE41 /* MSWindow.m */; };
 		673124BA1CE7461E006C25F1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 673124991CE7461E006C25F1 /* AppDelegate.m */; };
 		673124BB1CE7461E006C25F1 /* MSActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6731249C1CE7461E006C25F1 /* MSActivityViewController.m */; };
 		673124BC1CE7461E006C25F1 /* MSCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6731249E1CE7461E006C25F1 /* MSCameraViewController.m */; };
@@ -35,6 +36,8 @@
 		253163E9B25F9A4C9152FEEB /* Pods-Minsta.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minsta.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Minsta/Pods-Minsta.debug.xcconfig"; sourceTree = "<group>"; };
 		2EF9707987C62347B728FBB6 /* libPods-Minsta.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Minsta.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4417997E28E78C283D43683A /* Pods-Minsta.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minsta.release.xcconfig"; path = "Pods/Target Support Files/Pods-Minsta/Pods-Minsta.release.xcconfig"; sourceTree = "<group>"; };
+		671B9C511CEA10AD006FAE41 /* MSWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSWindow.h; sourceTree = "<group>"; };
+		671B9C521CEA10AD006FAE41 /* MSWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSWindow.m; sourceTree = "<group>"; };
 		672875A41CE5F5C300085068 /* Minsta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Minsta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		673124981CE7461E006C25F1 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Minsta/AppDelegate.h; sourceTree = "<group>"; };
 		673124991CE7461E006C25F1 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Minsta/AppDelegate.m; sourceTree = "<group>"; };
@@ -191,6 +194,8 @@
 		673124B51CE7461E006C25F1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				671B9C511CEA10AD006FAE41 /* MSWindow.h */,
+				671B9C521CEA10AD006FAE41 /* MSWindow.m */,
 				673124B61CE7461E006C25F1 /* MSPhotoFeedCellNode.h */,
 				673124B71CE7461E006C25F1 /* MSPhotoFeedCellNode.m */,
 				673124B81CE7461E006C25F1 /* MSPhotoFeedHeaderNode.h */,
@@ -355,6 +360,7 @@
 				67DC1C031CE767A8006B0676 /* MSPhoto.m in Sources */,
 				673124C11CE7461E006C25F1 /* MSUser.m in Sources */,
 				673124CB1CE7466B006C25F1 /* MSHomeOperation.m in Sources */,
+				671B9C531CEA10AD006FAE41 /* MSWindow.m in Sources */,
 				675FD3A11CEA054A00F282F0 /* NSString+MinstaAdd.m in Sources */,
 				673124BF1CE7461E006C25F1 /* MSSearchViewController.m in Sources */,
 				673124C01CE7461E006C25F1 /* MSTabBarController.m in Sources */,

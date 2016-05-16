@@ -89,6 +89,10 @@
     [self _loadPhotosWithContext:context];
 }
 
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    self.navigationController.navigationBarHidden = NO;
+}
+
 #pragma mark - Private
 
 - (void)_refreshPhotos {

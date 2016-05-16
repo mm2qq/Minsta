@@ -7,11 +7,12 @@
 //
 
 #import "AppDelegate.h"
+#import "MSWindow.h"
 #import "MSTabBarController.h"
 
 @interface AppDelegate () <UIApplicationDelegate>
 {
-    UIWindow *_window;
+    MSWindow *_window;
 }
 @end
 
@@ -36,7 +37,7 @@
 - (void)_setupController {
     MSTabBarController *tabBarController = [MSTabBarController new];
 
-    _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    _window = [[MSWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     _window.backgroundColor = [UIColor whiteColor];
     _window.rootViewController = tabBarController;
 

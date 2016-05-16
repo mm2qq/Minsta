@@ -45,8 +45,6 @@ static const CGFloat kAvatarSizeWidth = 36.f;
 }
 
 - (void)layout {
-    [super layout];
-
     _avatarNode.frame = (CGRect){kAvatarLeadingMargin, (CGRectGetHeight(self.frame) - kAvatarSizeWidth) / 2.f, kAvatarSizeWidth, kAvatarSizeWidth};
 
     CGFloat userNameNodeWidth = [_user.userName widthForFont:kUserNameFont];
@@ -54,6 +52,8 @@ static const CGFloat kAvatarSizeWidth = 36.f;
     _userNameNode.frame = (CGRect){kAvatarLeadingMargin + CGRectGetMaxX(_avatarNode.frame), (CGRectGetHeight(self.frame) - userNameNodeHeight) / 2.f, userNameNodeWidth, userNameNodeHeight};
 
     _moreNode.frame = (CGRect){CGRectGetWidth(self.frame) - CGRectGetHeight(self.frame), (CGRectGetHeight(self.frame) - CGRectGetHeight(self.frame)) / 2.f, CGRectGetHeight(self.frame), CGRectGetHeight(self.frame)};
+
+    [super layout];
 }
 
 #pragma mark - Private

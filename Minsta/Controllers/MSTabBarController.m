@@ -29,6 +29,7 @@
         ASViewController *viewController                = [class new];
         ASNavigationController *navigationController    = [[ASNavigationController alloc] initWithRootViewController:viewController];
         navigationController.tabBarItem                 = barItem;
+        navigationController.hidesBarsOnSwipe           = YES;
         navigationController.navigationBar.translucent  = NO;
         navigationController.navigationBar.barTintColor = [UIColor colorWithRed:.976 green:.976 blue:.976 alpha:1.f];
 
