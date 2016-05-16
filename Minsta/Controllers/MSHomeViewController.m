@@ -30,7 +30,6 @@
         tableNode.dataSource = self;
         tableNode.delegate = self;
         tableNode.view.separatorStyle = UITableViewCellSeparatorStyleNone;
-        tableNode.view.leadingScreensForBatching = 4.0;
     }
 
     return self;
@@ -107,7 +106,7 @@
 
         // complete batch fetching
         if (context) [context completeBatchFetching:YES];
-    } pageSize:10];
+    } pageSize:20];
 }
 
 - (void)_insertRows:(NSArray<MSPhoto *> *)photos {
