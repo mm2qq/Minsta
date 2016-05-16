@@ -27,12 +27,15 @@
         _parentId = [[self objectOrNilForKey:@"parent_id" fromDictionary:dict] unsignedIntegerValue];
         _user = [MSUser modelObjectWithDictionary:[self objectOrNilForKey:@"user" fromDictionary:dict]];
         NSArray *replies = [self objectOrNilForKey:@"replies" fromDictionary:dict];
+        NSMutableArray *newReplies = [NSMutableArray arrayWithCapacity:replies.count];
 
         for (NSDictionary *replyDict in replies) {
             MSComment *comment = [MSComment modelObjectWithDictionary:replyDict];
             if (!comment) continue;
-            [_replies addObject:comment];
+            [newReplies addObject:comment];
         }
+
+        _replies = newReplies;
     }
 
     return self;

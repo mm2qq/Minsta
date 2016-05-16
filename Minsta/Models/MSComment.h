@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSString *createdAt;
 @property (nonatomic, assign, readonly) NSUInteger parentId;
 @property (nonatomic, strong, readonly) MSUser *user;
-@property (nonatomic, copy, readonly) NSMutableArray<MSComment *> *replies;
+@property (nonatomic, copy, readonly) NSArray<MSComment *> *replies;
 
 @end
 

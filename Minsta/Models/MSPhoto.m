@@ -79,12 +79,15 @@
         _voted = [[self objectOrNilForKey:@"voted" fromDictionary:dict] boolValue];
         _purchased = [[self objectOrNilForKey:@"purchased" fromDictionary:dict] boolValue];
         NSArray *images = [self objectOrNilForKey:@"images" fromDictionary:dict];
+        NSMutableArray *newImages = [NSMutableArray arrayWithCapacity:images.count];
 
         for (NSDictionary *imageDict in images) {
             MSImage *image = [MSImage modelObjectWithDictionary:imageDict];
             if (!image) continue;
-            [_images addObject:image];
+            [newImages addObject:image];
         }
+
+        _images = newImages;
     }
 
     return self;

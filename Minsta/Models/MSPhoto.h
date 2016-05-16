@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) CGFloat hightestRating;
 @property (nonatomic, copy, readonly) NSString *hightestRatingDate;
 @property (nonatomic, assign, readonly) NSUInteger licenseType;
-@property (nonatomic, copy, readonly) NSMutableArray<MSImage *> *images;
+@property (nonatomic, copy, readonly) NSArray<MSImage *> *images;
 @property (nonatomic, strong, readonly) MSUser *user;
 @property (nonatomic, copy, readonly) NSArray *comments;
 @property (nonatomic, assign, readonly) BOOL storeDownload;
