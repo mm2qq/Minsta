@@ -29,7 +29,7 @@
     if (self = [super initWithNode:tableNode]) {
         tableNode.dataSource = self;
         tableNode.delegate = self;
-        tableNode.view.separatorStyle = UITableViewCellSeparatorStyleNone;
+        tableNode.view.allowsSelection = NO;
     }
 
     return self;

@@ -11,11 +11,16 @@
 #import "MSUser.h"
 #import "MinstaMacro.h"
 
+static const CGFloat kFunctionNodeSizeWidth = 44.f;
+
 @interface MSPhotoFeedCellNode ()
 
 @property (nonatomic, strong) MSPhoto *photo;
 
 @property (nonatomic, strong) ASNetworkImageNode *photoNode;
+@property (nonatomic, strong) ASImageNode *likeNode;
+@property (nonatomic, strong) ASImageNode *commentNode;
+@property (nonatomic, strong) ASImageNode *sendNode;
 
 @end
 
@@ -25,6 +30,7 @@
 
 - (instancetype)initWithPhoto:(MSPhoto *)photo {
     if (self = [super init]) {
+        self.backgroundColor = [UIColor whiteColor];
         _photo = photo;
 
         [self _setupSubnodes];
@@ -34,9 +40,16 @@
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
+    // photo ratio layout
     ASRatioLayoutSpec *ratioLayout = [ASRatioLayoutSpec ratioLayoutSpecWithRatio:MS_HOME_PHOTO_RATIO child:_photoNode];
 
-    return ratioLayout;
+    // horizontal stack layout
+    ASStackLayoutSpec *hStackLayout = [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal spacing:0.f justifyContent:ASStackLayoutJustifyContentStart alignItems:ASStackLayoutAlignItemsStart children:@[_likeNode, _commentNode, _sendNode]];
+
+    // vertical stack layout
+    ASStackLayoutSpec *vStackLayout = [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionVertical spacing:0.f justifyContent:ASStackLayoutJustifyContentStart alignItems:ASStackLayoutAlignItemsStart children:@[ratioLayout, hStackLayout]];
+
+    return vStackLayout;
 }
 
 #pragma mark - Private
@@ -49,7 +62,28 @@
         _photoNode.backgroundColor = ASDisplayNodeDefaultPlaceholderColor();
         _photoNode.URL = [NSURL URLWithString:photoUrlString];
 
+        _likeNode = [ASImageNode new];
+        _likeNode.image = [UIImage imageNamed:@"like"];
+        _likeNode.contentMode = UIViewContentModeCenter;
+        _likeNode.backgroundColor = self.backgroundColor;
+        _likeNode.preferredFrameSize = (CGSize){kFunctionNodeSizeWidth, kFunctionNodeSizeWidth};
+
+        _commentNode = [ASImageNode new];
+        _commentNode.image = [UIImage imageNamed:@"comment"];
+        _commentNode.contentMode = UIViewContentModeCenter;
+        _commentNode.backgroundColor = self.backgroundColor;
+        _commentNode.preferredFrameSize = _likeNode.preferredFrameSize;
+
+        _sendNode = [ASImageNode new];
+        _sendNode.image = [UIImage imageNamed:@"send"];
+        _sendNode.contentMode = UIViewContentModeCenter;
+        _sendNode.backgroundColor = self.backgroundColor;
+        _sendNode.preferredFrameSize = _likeNode.preferredFrameSize;
+
         [self addSubnode:_photoNode];
+        [self addSubnode:_likeNode];
+        [self addSubnode:_commentNode];
+        [self addSubnode:_sendNode];
     }
 }
 
