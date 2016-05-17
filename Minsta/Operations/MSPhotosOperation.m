@@ -66,7 +66,8 @@
     NSUInteger realPageSize = pageSize > 100 ? 100 : pageSize;
 
     NSString *URLString = [NSURL URLWithString:pathString relativeToURL:_manager.baseURL].absoluteString;
-    NSMutableDictionary *params = @{@"consumer_key" : FHPX_CONSUMER_KEY}.mutableCopy;
+    NSMutableDictionary *params = @{@"nested" : @"",
+                                    @"consumer_key" : FHPX_CONSUMER_KEY}.mutableCopy;
 
     if (realPage > 0) [params addEntriesFromDictionary:@{@"page" : @(realPage)}];
     if (realPageSize > 0) [params addEntriesFromDictionary:@{@"rpp" : @(realPageSize)}];

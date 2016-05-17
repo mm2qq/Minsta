@@ -28,7 +28,6 @@
 		67900DC21CE88A4000C71A4C /* MSComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 67900DC11CE88A4000C71A4C /* MSComment.m */; };
 		67900DC51CE88F3100C71A4C /* MSCommentFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 67900DC41CE88F3100C71A4C /* MSCommentFeed.m */; };
 		67BB42B31CE84EA500D47036 /* MSPhotoFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 67BB42B21CE84EA500D47036 /* MSPhotoFeed.m */; };
-		67C299E51CEAF732009106AA /* MSCommentFeedCellNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 67C299E41CEAF732009106AA /* MSCommentFeedCellNode.m */; };
 		67DC1C001CE74EFA006B0676 /* MSBaseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DC1BFF1CE74EFA006B0676 /* MSBaseOperation.m */; };
 		67DC1C031CE767A8006B0676 /* MSPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DC1C021CE767A8006B0676 /* MSPhoto.m */; };
 		67EF2C9C1CEB29B00026FE24 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 67EF2C971CEB29B00026FE24 /* Localizable.strings */; };
@@ -81,8 +80,6 @@
 		67900DC41CE88F3100C71A4C /* MSCommentFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSCommentFeed.m; sourceTree = "<group>"; };
 		67BB42B11CE84EA500D47036 /* MSPhotoFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPhotoFeed.h; sourceTree = "<group>"; };
 		67BB42B21CE84EA500D47036 /* MSPhotoFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPhotoFeed.m; sourceTree = "<group>"; };
-		67C299E31CEAF732009106AA /* MSCommentFeedCellNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSCommentFeedCellNode.h; sourceTree = "<group>"; };
-		67C299E41CEAF732009106AA /* MSCommentFeedCellNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSCommentFeedCellNode.m; sourceTree = "<group>"; };
 		67DC1BFE1CE74EFA006B0676 /* MSBaseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSBaseOperation.h; sourceTree = "<group>"; };
 		67DC1BFF1CE74EFA006B0676 /* MSBaseOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSBaseOperation.m; sourceTree = "<group>"; };
 		67DC1C011CE767A8006B0676 /* MSPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPhoto.h; sourceTree = "<group>"; };
@@ -215,8 +212,6 @@
 			children = (
 				671B9C511CEA10AD006FAE41 /* MSWindow.h */,
 				671B9C521CEA10AD006FAE41 /* MSWindow.m */,
-				67C299E31CEAF732009106AA /* MSCommentFeedCellNode.h */,
-				67C299E41CEAF732009106AA /* MSCommentFeedCellNode.m */,
 				673124B61CE7461E006C25F1 /* MSPhotoFeedCellNode.h */,
 				673124B71CE7461E006C25F1 /* MSPhotoFeedCellNode.m */,
 				673124B81CE7461E006C25F1 /* MSPhotoFeedHeaderNode.h */,
@@ -415,7 +410,6 @@
 				673124C81CE7461E006C25F1 /* MSPhotoFeedHeaderNode.m in Sources */,
 				673124C71CE7461E006C25F1 /* MSPhotoFeedCellNode.m in Sources */,
 				67BB42B31CE84EA500D47036 /* MSPhotoFeed.m in Sources */,
-				67C299E51CEAF732009106AA /* MSCommentFeedCellNode.m in Sources */,
 				673124C51CE7461E006C25F1 /* main.m in Sources */,
 				673124BB1CE7461E006C25F1 /* MSActivityViewController.m in Sources */,
 			);

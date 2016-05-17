@@ -134,7 +134,7 @@ static const CGFloat kAvatarSizeWidth = 36.f;
     if (userName && ![@"" isEqualToString:userName]) {
         _userNameNode = [ASTextNode new];
         _userNameNode.backgroundColor = self.backgroundColor;
-        _userNameNode.attributedString = [[NSAttributedString alloc] initWithString:userName attributes:@{NSFontAttributeName : kUserNameFont}];
+        _userNameNode.attributedString = [[ASMutableAttributedStringBuilder alloc] initWithString:userName attributes:@{NSFontAttributeName : kUserNameFont}];
         _userNameNode.flexShrink = YES; //if name and username don't fit to cell width, allow username shrink
         _userNameNode.truncationMode = NSLineBreakByTruncatingTail;
         _userNameNode.maximumNumberOfLines = 1;
