@@ -7,7 +7,7 @@
 //
 
 #import "MSCommentFeed.h"
-#import "MSHomeOperation.h"
+#import "MSPhotosOperation.h"
 #import "MinstaMacro.h"
 
 @interface MSCommentFeed ()
@@ -85,10 +85,10 @@
     NSMutableArray *newComments = [NSMutableArray array];
     NSMutableArray *newCommentsIds = [NSMutableArray array];
 
-    [[MSHomeOperation sharedInstance] retrieveCommentsWithPhotoId:_photoId
-                                                           atPage:++_currentPage
-                                                         pageSize:size
-                                                       completion:^(id  _Nullable data, NSError * _Nullable error)
+    [[MSPhotosOperation sharedInstance] retrieveCommentsWithPhotoId:_photoId
+                                                             atPage:++_currentPage
+                                                           pageSize:size
+                                                         completion:^(id  _Nullable data, NSError * _Nullable error)
      {
          if (!data || error) {
              NSLog(@"%@", error.localizedDescription);

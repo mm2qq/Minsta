@@ -90,6 +90,7 @@ static const CGFloat kSeparatorNodeLeadingMargin = 10.f;
 
         _separatorNode = [ASDisplayNode new];
         _separatorNode.backgroundColor = [UIColor lightGrayColor];
+        _separatorNode.layerBacked = YES;
 
         [self addSubnode:_photoNode];
         [self addSubnode:_likeNode];

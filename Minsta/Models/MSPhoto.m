@@ -70,7 +70,6 @@
         _hightestRatingDate = [self objectOrNilForKey:@"hightest_rating_date" fromDictionary:dict];
         _licenseType = [[self objectOrNilForKey:@"license_type" fromDictionary:dict] unsignedIntegerValue];
         _user = [MSUser modelObjectWithDictionary:[self objectOrNilForKey:@"user" fromDictionary:dict]];
-        _comments = [self objectOrNilForKey:@"comments" fromDictionary:dict];
         _storeDownload = [[self objectOrNilForKey:@"store_download" fromDictionary:dict] boolValue];
         _storePrint = [[self objectOrNilForKey:@"store_print" fromDictionary:dict] boolValue];
         _editorsChoice = [[self objectOrNilForKey:@"editors_choice" fromDictionary:dict] boolValue];

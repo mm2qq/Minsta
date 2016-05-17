@@ -1,22 +1,22 @@
 //
-//  MSHomeOperation.m
+//  MSPhotosOperation.m
 //  Minsta
 //
 //  Created by maocl023 on 16/5/12.
 //  Copyright © 2016年 jjj2mdd. All rights reserved.
 //
 
-#import "MSHomeOperation.h"
+#import "MSPhotosOperation.h"
 #import "MinstaMacro.h"
 #import <AFNetworking/AFNetworking.h>
 
-@implementation MSHomeOperation
+@implementation MSPhotosOperation
 
 + (instancetype)sharedInstance {
-    static MSHomeOperation *operation;
+    static MSPhotosOperation *operation;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        operation = [MSHomeOperation new];
+        operation = [MSPhotosOperation new];
     });
 
     return operation;

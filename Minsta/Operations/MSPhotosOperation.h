@@ -1,5 +1,5 @@
 //
-//  MSHomeOperation.h
+//  MSPhotosOperation.h
 //  Minsta
 //
 //  Created by maocl023 on 16/5/12.
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MSHomeOperation : MSBaseOperation
+@interface MSPhotosOperation : MSBaseOperation
 
 + (instancetype)sharedInstance;
 

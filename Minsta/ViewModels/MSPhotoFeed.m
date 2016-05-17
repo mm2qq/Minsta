@@ -7,7 +7,7 @@
 //
 
 #import "MSPhotoFeed.h"
-#import "MSHomeOperation.h"
+#import "MSPhotosOperation.h"
 #import "MinstaMacro.h"
 
 @interface MSPhotoFeed ()
@@ -85,11 +85,11 @@
     NSMutableArray *newPhotos = [NSMutableArray array];
     NSMutableArray *newPhotoIds = [NSMutableArray array];
 
-    [[MSHomeOperation sharedInstance] retrievePhotosWithUserId:FHPX_TEST_USER_ID
-                                                     imageSize:MSStandardSizeForFrameSize(_frameSize)
-                                                        atPage:++_currentPage
-                                                      pageSize:size
-                                                    completion:^(id  _Nullable data, NSError * _Nullable error)
+    [[MSPhotosOperation sharedInstance] retrievePhotosWithUserId:FHPX_TEST_USER_ID
+                                                       imageSize:MSStandardSizeForFrameSize(_frameSize)
+                                                          atPage:++_currentPage
+                                                        pageSize:size
+                                                      completion:^(id  _Nullable data, NSError * _Nullable error)
      {
          if (!data || error) {
              NSLog(@"%@", error.localizedDescription);

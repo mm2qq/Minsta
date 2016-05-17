@@ -55,7 +55,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) NSUInteger licenseType;
 @property (nonatomic, copy, readonly) NSArray<MSImage *> *images;
 @property (nonatomic, strong, readonly) MSUser *user;
-@property (nonatomic, copy, readonly) NSArray *comments;
 @property (nonatomic, assign, readonly) BOOL storeDownload;
 @property (nonatomic, assign, readonly) BOOL storePrint;
 @property (nonatomic, assign, readonly) BOOL editorsChoice;

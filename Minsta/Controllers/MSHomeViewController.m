@@ -7,6 +7,7 @@
 //
 
 #import "MSHomeViewController.h"
+#import "MSCommentFeedCellNode.h"
 #import "MSPhotoFeedCellNode.h"
 #import "MSPhotoFeedHeaderNode.h"
 #import "MSPhotoFeed.h"
@@ -15,7 +16,7 @@
 @interface MSHomeViewController () <ASTableDataSource, ASTableDelegate>
 
 @property (nonatomic, strong) ASTableNode *tableNode;
-@property (nonatomic, strong) MSPhotoFeed *feed;
+@property (nonatomic, strong) MSPhotoFeed *photoFeed;
 
 @end
 
@@ -40,7 +41,7 @@
     [super loadView];
 
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    _feed = [[MSPhotoFeed alloc] initWithFrameSize:(CGSize){screenSize.width, screenSize.width * MS_HOME_PHOTO_RATIO}];
+    _photoFeed = [[MSPhotoFeed alloc] initWithFrameSize:(CGSize){screenSize.width, screenSize.width * MS_HOME_PHOTO_RATIO}];
 
     // load datasource
     [self _refreshPhotos];
@@ -55,19 +56,19 @@
 #pragma mark - ASTableDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return _feed.count;
+    return _photoFeed.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0 == _feed.count ? 0 : 1;
+    return 0 == _photoFeed.count ? 0 : 2;
 }
 
 - (ASCellNodeBlock)tableView:(ASTableView *)tableView nodeBlockForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MSPhoto *photo = [_feed photoAtIndex:indexPath.section];
+    MSPhoto *photo = [_photoFeed photoAtIndex:indexPath.section];
 
     return ^ASCellNode *() {
-        MSPhotoFeedCellNode *cellNode = [[MSPhotoFeedCellNode alloc] initWithPhoto:photo];
-        return cellNode;
+        return indexPath.row == 0 ? [[MSPhotoFeedCellNode alloc] initWithPhoto:photo]
+        : [[MSCommentFeedCellNode alloc] initWithPhoto:photo];
     };
 }
 
@@ -79,7 +80,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     CGRect frame = (CGRect){CGPointZero, tableView.frame.size.width, 52.f};
-    MSPhoto *photo = [_feed photoAtIndex:section];
+    MSPhoto *photo = [_photoFeed photoAtIndex:section];
     MSPhotoFeedHeaderNode *headerNode = [[MSPhotoFeedHeaderNode alloc] initWithFrame:frame photo:photo];
 
     return headerNode.view;
@@ -98,7 +99,7 @@
 
 - (void)_refreshPhotos {
     @weakify(self)
-    [_feed refreshPhotosOnCompletion:^(NSArray<MSPhoto *> * _Nonnull photos) {
+    [_photoFeed refreshPhotosOnCompletion:^(NSArray<MSPhoto *> * _Nonnull photos) {
         @strongify(self)
         [self _insertRows:photos];
     } pageSize:5];
@@ -106,7 +107,7 @@
 
 - (void)_loadPhotosWithContext:(ASBatchContext *)context {
     @weakify(self)
-    [_feed fetchPhotosOnCompletion:^(NSArray<MSPhoto *> * _Nonnull photos) {
+    [_photoFeed fetchPhotosOnCompletion:^(NSArray<MSPhoto *> * _Nonnull photos) {
         @strongify(self)
         [self _insertRows:photos];
 
@@ -118,7 +119,7 @@
 - (void)_insertRows:(NSArray<MSPhoto *> *)photos {
     [self.tableNode.view beginUpdates];
 
-    for (NSUInteger section = _feed.count - photos.count; section < _feed.count; section++) {
+    for (NSUInteger section = _photoFeed.count - photos.count; section < _photoFeed.count; section++) {
         [self.tableNode.view insertSections:[NSIndexSet indexSetWithIndex:section]
                            withRowAnimation:UITableViewRowAnimationNone];
     }
