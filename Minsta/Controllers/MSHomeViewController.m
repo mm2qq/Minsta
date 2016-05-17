@@ -7,9 +7,8 @@
 //
 
 #import "MSHomeViewController.h"
-#import "MSCommentFeedCellNode.h"
-#import "MSPhotoFeedCellNode.h"
 #import "MSPhotoFeedHeaderNode.h"
+#import "MSPhotoFeedCellNode.h"
 #import "MSPhotoFeed.h"
 #import "MinstaMacro.h"
 
@@ -60,15 +59,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0 == _photoFeed.count ? 0 : 2;
+    return 0 == _photoFeed.count ? 0 : 1;
 }
 
 - (ASCellNodeBlock)tableView:(ASTableView *)tableView nodeBlockForRowAtIndexPath:(NSIndexPath *)indexPath {
     MSPhoto *photo = [_photoFeed photoAtIndex:indexPath.section];
 
     return ^ASCellNode *() {
-        return indexPath.row == 0 ? [[MSPhotoFeedCellNode alloc] initWithPhoto:photo]
-        : [[MSCommentFeedCellNode alloc] initWithPhoto:photo];
+        return [[MSPhotoFeedCellNode alloc] initWithPhoto:photo];
     };
 }
 

@@ -9,13 +9,15 @@
 #import "MSPhotoFeedHeaderNode.h"
 #import "MSPhoto.h"
 #import "MSUser.h"
+#import "MinstaMacro.h"
 #import "NSString+MinstaAdd.h"
+#import "UIGestureRecognizer+MinstaAdd.h"
 
-static const CGFloat kAvatarLeadingMargin = 8.f;
+static const CGFloat kAvatarLeadingMargin = 12.f;
 static const CGFloat kAvatarSizeWidth = 36.f;
 #define kUserNameFont [UIFont boldSystemFontOfSize:13.f]
 
-@interface MSPhotoFeedHeaderNode ()
+@interface MSPhotoFeedHeaderNode () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) MSUser *user;
 @property (nonatomic, copy) NSString *photoUrlString;           ///< This property for function button use
@@ -38,10 +40,19 @@ static const CGFloat kAvatarSizeWidth = 36.f;
         _user = photo.user;
         _photoUrlString = photo.images[0].url ? photo.images[0].url : @"";
 
+        [self _addGesture];
         [self _setupSubnodes];
     }
 
     return self;
+}
+
+- (void)dealloc {
+    [self.view.gestureRecognizers makeObjectsPerformSelector:@selector(removeAllActionBlocks)];
+
+    [_moreNode removeTarget:self
+                     action:@selector(moreNodeDidTapped)
+           forControlEvents:ASControlNodeEventTouchUpInside];
 }
 
 - (void)layout {
@@ -56,7 +67,40 @@ static const CGFloat kAvatarSizeWidth = 36.f;
     [super layout];
 }
 
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    return !CGRectContainsPoint(_moreNode.frame, [gestureRecognizer locationInView:self.view]);
+}
+
+#pragma mark - Actions
+
+- (void)headerNodeDidTapped {
+    // TODO:this alert just for test
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:_user.userName preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)moreNodeDidTapped {
+    // TODO:this alert just for test
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:_photoUrlString preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+}
+
 #pragma mark - Private
+
+- (void)_addGesture {
+    @weakify(self)
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithActionBlock:^(id  _Nonnull sender) {
+        @strongify(self)
+        [self headerNodeDidTapped];
+    }];
+
+    tapGesture.delegate = self;
+    [self.view addGestureRecognizer:tapGesture];
+}
 
 - (void)_setupSubnodes {
     NSString *userPicUrlString = _user.userPicUrl;
@@ -95,6 +139,7 @@ static const CGFloat kAvatarSizeWidth = 36.f;
 
             return roundedImage;
         };
+        _avatarNode.layerBacked = YES;
 
         [self addSubnode:_avatarNode];
     }
@@ -106,7 +151,8 @@ static const CGFloat kAvatarSizeWidth = 36.f;
         _userNameNode.flexShrink = YES; //if name and username don't fit to cell width, allow username shrink
         _userNameNode.truncationMode = NSLineBreakByTruncatingTail;
         _userNameNode.maximumNumberOfLines = 1;
-        
+        _userNameNode.layerBacked = YES;
+
         [self addSubnode:_userNameNode];
     }
 
@@ -115,6 +161,10 @@ static const CGFloat kAvatarSizeWidth = 36.f;
         _moreNode.image = [UIImage imageNamed:@"more"];
         _moreNode.contentMode = UIViewContentModeCenter;
         _moreNode.backgroundColor = self.backgroundColor;
+
+        [_moreNode addTarget:self
+                      action:@selector(moreNodeDidTapped)
+            forControlEvents:ASControlNodeEventTouchUpInside];
 
         [self addSubnode:_moreNode];
     }
