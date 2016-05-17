@@ -30,6 +30,7 @@
         tableNode.dataSource = self;
         tableNode.delegate = self;
         tableNode.view.allowsSelection = NO;
+        tableNode.view.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
 
     return self;
