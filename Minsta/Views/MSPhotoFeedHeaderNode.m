@@ -12,12 +12,13 @@
 #import "MinstaMacro.h"
 #import "NSString+MinstaAdd.h"
 #import "UIGestureRecognizer+MinstaAdd.h"
+#import "ASControlNode+MinstaAdd.h"
 
 static const CGFloat kAvatarLeadingMargin = 12.f;
 static const CGFloat kAvatarSizeWidth = 36.f;
 #define kUserNameFont [UIFont boldSystemFontOfSize:13.f]
 
-@interface MSPhotoFeedHeaderNode () <UIGestureRecognizerDelegate>
+@interface MSPhotoFeedHeaderNode ()
 
 @property (nonatomic, strong) MSUser *user;
 @property (nonatomic, copy) NSString *photoUrlString;           ///< This property for function button use
@@ -40,19 +41,15 @@ static const CGFloat kAvatarSizeWidth = 36.f;
         _user = photo.user;
         _photoUrlString = photo.images[0].url ? photo.images[0].url : @"";
 
-        [self _addGesture];
         [self _setupSubnodes];
+        [self _addActions];
     }
 
     return self;
 }
 
 - (void)dealloc {
-    [self.view.gestureRecognizers makeObjectsPerformSelector:@selector(removeAllActionBlocks)];
-
-    [_moreNode removeTarget:self
-                     action:@selector(moreNodeDidTapped)
-           forControlEvents:ASControlNodeEventTouchUpInside];
+    [self _removeActions];
 }
 
 - (void)layout {
@@ -70,6 +67,7 @@ static const CGFloat kAvatarSizeWidth = 36.f;
 #pragma mark - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    // ASDisplayNode had become the delegate of UIGestureRecognizer, there's no need set delegate by self
     return !CGRectContainsPoint(_moreNode.frame, [gestureRecognizer locationInView:self.view]);
 }
 
@@ -90,17 +88,6 @@ static const CGFloat kAvatarSizeWidth = 36.f;
 }
 
 #pragma mark - Private
-
-- (void)_addGesture {
-    @weakify(self)
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithActionBlock:^(id  _Nonnull sender) {
-        @strongify(self)
-        [self headerNodeDidTapped];
-    }];
-
-    tapGesture.delegate = self;
-    [self.view addGestureRecognizer:tapGesture];
-}
 
 - (void)_setupSubnodes {
     NSString *userPicUrlString = _user.userPicUrl;
@@ -162,12 +149,26 @@ static const CGFloat kAvatarSizeWidth = 36.f;
         _moreNode.contentMode = UIViewContentModeCenter;
         _moreNode.backgroundColor = self.backgroundColor;
 
-        [_moreNode addTarget:self
-                      action:@selector(moreNodeDidTapped)
-            forControlEvents:ASControlNodeEventTouchUpInside];
-
         [self addSubnode:_moreNode];
     }
+}
+
+- (void)_addActions {
+    @weakify(self)
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithActionBlock:^(id  _Nonnull sender) {
+        @strongify(self)
+        [self headerNodeDidTapped];
+    }]];
+
+    [_moreNode setBlockForControlEvents:ASControlNodeEventTouchUpInside block:^(id  _Nonnull sender) {
+        @strongify(self)
+        [self moreNodeDidTapped];
+    }];
+}
+
+- (void)_removeActions {
+    [self.view.gestureRecognizers makeObjectsPerformSelector:@selector(removeAllActionBlocks)];
+    [_moreNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
 }
 
 @end

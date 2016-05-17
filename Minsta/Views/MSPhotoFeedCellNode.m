@@ -11,6 +11,7 @@
 #import "MSUser.h"
 #import "MinstaMacro.h"
 #import "NSString+MinstaAdd.h"
+#import "ASControlNode+MinstaAdd.h"
 
 static const CGFloat kFunctionNodeSizeWidth = 48.f;
 static const CGFloat kSeparatorNodeLeadingMargin = 15.f;
@@ -41,6 +42,7 @@ static const CGFloat kSymbolNodeSizeWidth = 12.f;
         _photo = photo;
 
         [self _setupSubnodes];
+        [self _addActions];
     }
 
     return self;
@@ -79,6 +81,47 @@ static const CGFloat kSymbolNodeSizeWidth = 12.f;
     return vStackLayout;
 }
 
+- (void)dealloc {
+    [self _removeActions];
+}
+
+#pragma mark - Actions
+
+- (void)photoNodeDidTapped {
+    // TODO:this alert just for test
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"photo" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)likeNodeDidTapped {
+    // TODO:this alert just for test
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"like" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)commentNodeDidTapped {
+    // TODO:this alert just for test
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"comment" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)sendNodeDidTapped {
+    // TODO:this alert just for test
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"send" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)votesNodeDidTapped {
+    // TODO:this alert just for test
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"votes" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+}
+
 #pragma mark - Private
 
 - (void)_setupSubnodes {
@@ -89,7 +132,6 @@ static const CGFloat kSymbolNodeSizeWidth = 12.f;
         _photoNode = [ASNetworkImageNode new];
         _photoNode.backgroundColor = ASDisplayNodeDefaultPlaceholderColor();
         _photoNode.URL = [NSURL URLWithString:photoUrlString];
-        _photoNode.layerBacked = YES;
 
         _likeNode = [ASImageNode new];
         _likeNode.image = [UIImage imageNamed:@"like"];
@@ -132,6 +174,41 @@ static const CGFloat kSymbolNodeSizeWidth = 12.f;
 
     [self addSubnode:_likeMeNode];
     [self addSubnode:_votesNode];
+}
+
+- (void)_addActions {
+    @weakify(self)
+    [_photoNode setBlockForControlEvents:ASControlNodeEventTouchUpInside block:^(id  _Nonnull sender) {
+        @strongify(self)
+        [self photoNodeDidTapped];
+    }];
+
+    [_likeNode setBlockForControlEvents:ASControlNodeEventTouchUpInside block:^(id  _Nonnull sender) {
+        @strongify(self)
+        [self likeNodeDidTapped];
+    }];
+
+    [_commentNode setBlockForControlEvents:ASControlNodeEventTouchUpInside block:^(id  _Nonnull sender) {
+        @strongify(self)
+        [self commentNodeDidTapped];
+    }];
+
+    [_sendNode setBlockForControlEvents:ASControlNodeEventTouchUpInside block:^(id  _Nonnull sender) {
+        @strongify(self)
+        [self sendNodeDidTapped];
+    }];
+
+    [_votesNode setBlockForControlEvents:ASControlNodeEventTouchUpInside block:^(id  _Nonnull sender) {
+        @strongify(self)
+        [self votesNodeDidTapped];
+    }];
+}
+
+- (void)_removeActions {
+    [_photoNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
+    [_likeNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
+    [_commentNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
+    [_votesNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
 }
 
 @end
