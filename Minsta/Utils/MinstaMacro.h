@@ -71,7 +71,7 @@ __typeof__(object) object = block##_##object;
 #endif
 #endif
 
-static NSDateFormatter *MSCurrentDateFormatter() {
+static inline NSDateFormatter *MSCurrentDateFormatter() {
     static NSDateFormatter *dateFormatter;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

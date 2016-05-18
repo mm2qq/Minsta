@@ -74,7 +74,7 @@ static const CGFloat kAvatarSizeWidth = 36.f;
 
 - (void)headerNodeDidTapped {
     // TODO:this alert just for test
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:_user.userName preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"show %@", _user.userName] preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
 }
@@ -154,15 +154,19 @@ static const CGFloat kAvatarSizeWidth = 36.f;
 
 - (void)_addActions {
     @weakify(self)
-    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithActionBlock:^(id  _Nonnull sender) {
-        @strongify(self)
-        [self headerNodeDidTapped];
-    }]];
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]
+                                     initWithActionBlock:^(id  _Nonnull sender)
+                                     {
+                                         @strongify(self)
+                                         [self headerNodeDidTapped];
+                                     }]];
 
-    [_moreNode setBlockForControlEvents:ASControlNodeEventTouchUpInside block:^(id  _Nonnull sender) {
-        @strongify(self)
-        [self moreNodeDidTapped];
-    }];
+    [_moreNode setBlockForControlEvents:ASControlNodeEventTouchUpInside
+                                  block:^(id  _Nonnull sender)
+     {
+         @strongify(self)
+         [self moreNodeDidTapped];
+     }];
 }
 
 - (void)_removeActions {

@@ -70,19 +70,19 @@
         elapsedTime = [dateFormatter stringFromDate:postDate];
     } else if (days > 7) {
         NSUInteger week = ceil(days / 7.0);
-        elapsedTime = [NSString stringWithFormat:NSLocalizedString(week > 1 ? @"%d WEEK AGO" : @"%d WEEKS AGO", nil), week];
+        elapsedTime = [NSString stringWithFormat:NSLocalizedString(week > 1 ? @"%d WEEKS AGO" : @"%d WEEK AGO", nil), week];
     } else if (days > 0) {
         NSUInteger day = days;
-        elapsedTime = [NSString stringWithFormat:NSLocalizedString(day > 1 ? @"%d DAY AGO" : @"%d DAYS AGO", nil), day];
+        elapsedTime = [NSString stringWithFormat:NSLocalizedString(day > 1 ? @"%d DAYS AGO" : @"%d DAY AGO", nil), day];
     } else if (hours > 0) {
         NSUInteger hour = hours;
-        elapsedTime = [NSString stringWithFormat:NSLocalizedString(hour > 1 ? @"%d HOUR AGO" : @"%d HOURS AGO", nil), hour];
+        elapsedTime = [NSString stringWithFormat:NSLocalizedString(hour > 1 ? @"%d HOURS AGO" : @"%d HOUR AGO", nil), hour];
     } else if (minutes > 0) {
         NSUInteger minute = minutes;
-        elapsedTime = [NSString stringWithFormat:NSLocalizedString(minute > 1 ? @"%d MINUTE AGO" : @"%d MINUTES AGO", nil), minute];
+        elapsedTime = [NSString stringWithFormat:NSLocalizedString(minute > 1 ? @"%d MINUTES AGO" : @"%d MINUTE AGO", nil), minute];
     } else if (seconds > 0) {
         NSUInteger second = seconds;
-        elapsedTime = [NSString stringWithFormat:NSLocalizedString(second > 1 ? @"%d SECOND AGO" : @"%d SECONDS AGO", nil), second];
+        elapsedTime = [NSString stringWithFormat:NSLocalizedString(second > 1 ? @"%d SECONDS AGO" : @"%d SECOND AGO", nil), second];
     } else if (seconds == 0) {
         elapsedTime = NSLocalizedString(@"JUST NOW", nil);
     } else {

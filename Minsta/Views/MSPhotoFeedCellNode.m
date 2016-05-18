@@ -16,7 +16,6 @@
 
 static const CGFloat kFunctionNodeSizeWidth = 48.f;
 static const CGFloat kSeparatorNodeLeadingMargin = 15.f;
-static const CGFloat kSymbolNodeSizeWidth = 12.f;
 static const NSUInteger kPhotoFeedCommentPageSize = 2;
 static const NSUInteger kPhotoFeedCommentMaxLines = 3;
 
@@ -34,16 +33,16 @@ static NSAttributedString * formatCommentString(NSString *string) {
 @property (nonatomic, strong) MSCommentFeed *commentFeed;
 
 @property (nonatomic, strong) ASNetworkImageNode *photoNode;
-@property (nonatomic, strong) ASImageNode *likeNode;
-@property (nonatomic, strong) ASImageNode *commentNode;
-@property (nonatomic, strong) ASImageNode *sendNode;
+@property (nonatomic, strong) ASImageNode *likeControlNode;
+@property (nonatomic, strong) ASImageNode *commentControlNode;
+@property (nonatomic, strong) ASImageNode *sendControlNode;
 @property (nonatomic, strong) ASDisplayNode *separatorNode;
 @property (nonatomic, strong) ASImageNode *likeMeNode;
-@property (nonatomic, strong) ASTextNode *votesNode;
+@property (nonatomic, strong) ASTextNode *votesTextNode;
 @property (nonatomic, strong) ASTextNode *descriptionNode;
 @property (nonatomic, strong) ASTextNode *commentHintNode;
 @property (nonatomic, copy) NSArray<ASTextNode *> *commentTextNodes;
-@property (nonatomic, strong) ASTextNode *timeNode;
+@property (nonatomic, strong) ASTextNode *timeTextNode;
 
 @end
 
@@ -68,28 +67,23 @@ static NSAttributedString * formatCommentString(NSString *string) {
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
-    CGFloat votesNodeWidth = [_votesNode.attributedText.string widthForFont:MS_FEED_BOLD_FONT];
-    CGFloat votesNodeHeight = [_votesNode.attributedText.string heightForFont:MS_FEED_BOLD_FONT width:votesNodeWidth];
-
     // set subnode preferred size
-    _likeNode.preferredFrameSize = (CGSize){kFunctionNodeSizeWidth, kFunctionNodeSizeWidth};
-    _commentNode.preferredFrameSize = _likeNode.preferredFrameSize;
-    _sendNode.preferredFrameSize = _likeNode.preferredFrameSize;
+    _likeControlNode.preferredFrameSize = (CGSize){kFunctionNodeSizeWidth, kFunctionNodeSizeWidth};
+    _commentControlNode.preferredFrameSize = _likeControlNode.preferredFrameSize;
+    _sendControlNode.preferredFrameSize = _likeControlNode.preferredFrameSize;
     _separatorNode.preferredFrameSize = (CGSize){constrainedSize.max.width, 1.f / [UIScreen mainScreen].scale};
-    _likeMeNode.preferredFrameSize = (CGSize){kSymbolNodeSizeWidth, kSymbolNodeSizeWidth};
-    _votesNode.preferredFrameSize = (CGSize){votesNodeWidth, votesNodeHeight};
 
     // photo ratio layout
     ASRatioLayoutSpec *ratioLayout = [ASRatioLayoutSpec ratioLayoutSpecWithRatio:MS_HOME_PHOTO_RATIO child:_photoNode];
 
     // function node horizontal stack layout
-    ASStackLayoutSpec *fhStackLayout = [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal spacing:1.f justifyContent:ASStackLayoutJustifyContentStart alignItems:ASStackLayoutAlignItemsStart children:@[_likeNode, _commentNode, _sendNode]];
+    ASStackLayoutSpec *fhStackLayout = [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal spacing:1.f justifyContent:ASStackLayoutJustifyContentStart alignItems:ASStackLayoutAlignItemsStart children:@[_likeControlNode, _commentControlNode, _sendControlNode]];
 
     // separator inset layout
     ASInsetLayoutSpec *sInsetLayout = [ASInsetLayoutSpec insetLayoutSpecWithInsets:(UIEdgeInsets){0.f, kSeparatorNodeLeadingMargin, 0.f, kSeparatorNodeLeadingMargin} child:_separatorNode];
 
     // votes node horizontal stack layout
-    ASStackLayoutSpec *vhStackLayout = [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal spacing:kSeparatorNodeLeadingMargin / 3.f justifyContent:ASStackLayoutJustifyContentStart alignItems:ASStackLayoutAlignItemsCenter children:@[_likeMeNode, _votesNode]];
+    ASStackLayoutSpec *vhStackLayout = [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal spacing:kSeparatorNodeLeadingMargin / 3.f justifyContent:ASStackLayoutJustifyContentStart alignItems:ASStackLayoutAlignItemsCenter children:@[_likeMeNode, _votesTextNode]];
 
     // complex nodes vertical stack layout
     NSMutableArray *commentNodes = @[vhStackLayout].mutableCopy;
@@ -102,7 +96,7 @@ static NSAttributedString * formatCommentString(NSString *string) {
         [commentNodes addObjectsFromArray:_commentTextNodes];
     }
 
-    if (_timeNode) [commentNodes addObject:_timeNode];
+    if (_timeTextNode) [commentNodes addObject:_timeTextNode];
 
     ASStackLayoutSpec *dvStackLayout = [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionVertical spacing:kSeparatorNodeLeadingMargin / 2.f justifyContent:ASStackLayoutJustifyContentStart alignItems:ASStackLayoutAlignItemsStart children:commentNodes];
 
@@ -135,35 +129,49 @@ static NSAttributedString * formatCommentString(NSString *string) {
 
 - (void)photoNodeDidTapped {
     // TODO:this alert just for test
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"photo" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"display photo" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void)likeNodeDidTapped {
+- (void)likeControlNodeDidTapped {
     // TODO:this alert just for test
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"like" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"like photo" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void)commentNodeDidTapped {
+- (void)commentControlNodeDidTapped {
     // TODO:this alert just for test
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"comment" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"comment photo" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void)sendNodeDidTapped {
+- (void)sendControlNodeDidTapped {
     // TODO:this alert just for test
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"send" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"send photo" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void)votesNodeDidTapped {
+- (void)votesTextNodeDidTapped {
     // TODO:this alert just for test
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"votes" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"show votes" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)commentHintNodeDidTapped {
+    // TODO:this alert just for test
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"show comments" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)commentTextNodeDidTapped:(id)sender {
+    // TODO:this alert just for test
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"reply %@", ((ASTextNode *)sender).attributedString.string] preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
 }
@@ -181,20 +189,20 @@ static NSAttributedString * formatCommentString(NSString *string) {
     _photoNode.backgroundColor = ASDisplayNodeDefaultPlaceholderColor();
     _photoNode.URL = [NSURL URLWithString:photoUrlString];
 
-    _likeNode = [ASImageNode new];
-    _likeNode.image = [UIImage imageNamed:@"like"];
-    _likeNode.contentMode = UIViewContentModeCenter;
-    _likeNode.backgroundColor = self.backgroundColor;
+    _likeControlNode = [ASImageNode new];
+    _likeControlNode.image = [UIImage imageNamed:@"like"];
+    _likeControlNode.contentMode = UIViewContentModeCenter;
+    _likeControlNode.backgroundColor = self.backgroundColor;
 
-    _commentNode = [ASImageNode new];
-    _commentNode.image = [UIImage imageNamed:@"comment"];
-    _commentNode.contentMode = UIViewContentModeCenter;
-    _commentNode.backgroundColor = self.backgroundColor;
+    _commentControlNode = [ASImageNode new];
+    _commentControlNode.image = [UIImage imageNamed:@"comment"];
+    _commentControlNode.contentMode = UIViewContentModeCenter;
+    _commentControlNode.backgroundColor = self.backgroundColor;
 
-    _sendNode = [ASImageNode new];
-    _sendNode.image = [UIImage imageNamed:@"send"];
-    _sendNode.contentMode = UIViewContentModeCenter;
-    _sendNode.backgroundColor = self.backgroundColor;
+    _sendControlNode = [ASImageNode new];
+    _sendControlNode.image = [UIImage imageNamed:@"send"];
+    _sendControlNode.contentMode = UIViewContentModeCenter;
+    _sendControlNode.backgroundColor = self.backgroundColor;
 
     _separatorNode = [ASDisplayNode new];
     _separatorNode.backgroundColor = MS_LIGHT_GRAY_TEXT_COLOR;
@@ -202,35 +210,23 @@ static NSAttributedString * formatCommentString(NSString *string) {
 
     _likeMeNode = [ASImageNode new];
     _likeMeNode.image = [UIImage imageNamed:@"likemetaheart"];
-    _likeMeNode.contentMode = UIViewContentModeCenter;
     _likeMeNode.backgroundColor = self.backgroundColor;
     _likeMeNode.layerBacked = YES;
 
-    _votesNode = [ASTextNode new];
-    _votesNode.backgroundColor = self.backgroundColor;
-    _votesNode.attributedString = [[ASMutableAttributedStringBuilder alloc] initWithString:votesString attributes:@{NSFontAttributeName : MS_FEED_BOLD_FONT}];
-    _votesNode.flexShrink = YES;
-    _votesNode.truncationMode = NSLineBreakByTruncatingTail;
-    _votesNode.maximumNumberOfLines = 1;
+    _votesTextNode = [ASTextNode new];
+    _votesTextNode.backgroundColor = self.backgroundColor;
+    _votesTextNode.attributedString = [[ASMutableAttributedStringBuilder alloc] initWithString:votesString attributes:@{NSFontAttributeName : MS_FEED_BOLD_FONT}];
+    _votesTextNode.flexShrink = YES;
+    _votesTextNode.truncationMode = NSLineBreakByTruncatingTail;
+    _votesTextNode.maximumNumberOfLines = 1;
 
     [self addSubnode:_photoNode];
-    [self addSubnode:_likeNode];
-    [self addSubnode:_commentNode];
-    [self addSubnode:_sendNode];
+    [self addSubnode:_likeControlNode];
+    [self addSubnode:_commentControlNode];
+    [self addSubnode:_sendControlNode];
     [self addSubnode:_separatorNode];
     [self addSubnode:_likeMeNode];
-    [self addSubnode:_votesNode];
-
-    if (timeString) {
-        _timeNode = [ASTextNode new];
-        _timeNode.backgroundColor = self.backgroundColor;
-        _timeNode.attributedString = [[ASMutableAttributedStringBuilder alloc] initWithString:timeString attributes:@{NSFontAttributeName : MS_FEED_SMALL_FONT, NSForegroundColorAttributeName : MS_LIGHT_GRAY_TEXT_COLOR}];
-        _timeNode.flexShrink = YES;
-        _timeNode.layerBacked = YES;
-        _timeNode.truncationMode = NSLineBreakByTruncatingTail;
-        _timeNode.maximumNumberOfLines = 1;
-        [self addSubnode:_timeNode];
-    }
+    [self addSubnode:_votesTextNode];
 
     if (descriptionString) {
         _descriptionNode = [ASTextNode new];
@@ -251,6 +247,17 @@ static NSAttributedString * formatCommentString(NSString *string) {
         _commentHintNode.maximumNumberOfLines = 1;
         [self addSubnode:_commentHintNode];
     }
+
+    if (timeString) {
+        _timeTextNode = [ASTextNode new];
+        _timeTextNode.backgroundColor = self.backgroundColor;
+        _timeTextNode.attributedString = [[ASMutableAttributedStringBuilder alloc] initWithString:timeString attributes:@{NSFontAttributeName : MS_FEED_SMALL_FONT, NSForegroundColorAttributeName : MS_LIGHT_GRAY_TEXT_COLOR}];
+        _timeTextNode.flexShrink = YES;
+        _timeTextNode.layerBacked = YES;
+        _timeTextNode.truncationMode = NSLineBreakByTruncatingTail;
+        _timeTextNode.maximumNumberOfLines = 1;
+        [self addSubnode:_timeTextNode];
+    }
 }
 
 - (void)_addCommentNodes:(NSArray<MSComment *> *)comments {
@@ -269,6 +276,13 @@ static NSAttributedString * formatCommentString(NSString *string) {
         commentTextNode.flexShrink = YES;
         commentTextNode.truncationMode = NSLineBreakByTruncatingTail;
         commentTextNode.maximumNumberOfLines = kPhotoFeedCommentMaxLines;
+        @weakify(self)
+        [commentTextNode setBlockForControlEvents:ASControlNodeEventTouchUpInside
+                                            block:^(id  _Nonnull sender)
+         {
+             @strongify(self)
+             [self commentTextNodeDidTapped:sender];
+         }];
 
         [newCommentTextNodes addObject:commentTextNode];
         [self addSubnode:commentTextNode];
@@ -283,6 +297,7 @@ static NSAttributedString * formatCommentString(NSString *string) {
 - (void)_removeCommentNodes {
     if (_commentTextNodes && _commentTextNodes.count > 0) {
         for (ASTextNode *commentTextNode in _commentTextNodes) {
+            [commentTextNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
             [commentTextNode removeFromSupernode];
         }
     }
@@ -292,38 +307,64 @@ static NSAttributedString * formatCommentString(NSString *string) {
 
 - (void)_addActions {
     @weakify(self)
-    [_photoNode setBlockForControlEvents:ASControlNodeEventTouchUpInside block:^(id  _Nonnull sender) {
-        @strongify(self)
-        [self photoNodeDidTapped];
-    }];
+    [_photoNode setBlockForControlEvents:ASControlNodeEventTouchUpInside
+                                   block:^(id  _Nonnull sender)
+     {
+         @strongify(self)
+         [self photoNodeDidTapped];
+     }];
 
-    [_likeNode setBlockForControlEvents:ASControlNodeEventTouchUpInside block:^(id  _Nonnull sender) {
-        @strongify(self)
-        [self likeNodeDidTapped];
-    }];
+    [_likeControlNode setBlockForControlEvents:ASControlNodeEventTouchUpInside
+                                         block:^(id  _Nonnull sender)
+     {
+         @strongify(self)
+         [self likeControlNodeDidTapped];
+     }];
 
-    [_commentNode setBlockForControlEvents:ASControlNodeEventTouchUpInside block:^(id  _Nonnull sender) {
-        @strongify(self)
-        [self commentNodeDidTapped];
-    }];
+    [_commentControlNode setBlockForControlEvents:ASControlNodeEventTouchUpInside
+                                            block:^(id  _Nonnull sender)
+     {
+         @strongify(self)
+         [self commentControlNodeDidTapped];
+     }];
 
-    [_sendNode setBlockForControlEvents:ASControlNodeEventTouchUpInside block:^(id  _Nonnull sender) {
-        @strongify(self)
-        [self sendNodeDidTapped];
-    }];
+    [_sendControlNode setBlockForControlEvents:ASControlNodeEventTouchUpInside
+                                         block:^(id  _Nonnull sender)
+     {
+         @strongify(self)
+         [self sendControlNodeDidTapped];
+     }];
 
-    [_votesNode setBlockForControlEvents:ASControlNodeEventTouchUpInside block:^(id  _Nonnull sender) {
-        @strongify(self)
-        [self votesNodeDidTapped];
-    }];
+    [_votesTextNode setBlockForControlEvents:ASControlNodeEventTouchUpInside
+                                       block:^(id  _Nonnull sender)
+     {
+         @strongify(self)
+         [self votesTextNodeDidTapped];
+     }];
+
+    [_descriptionNode setBlockForControlEvents:ASControlNodeEventTouchUpInside
+                                         block:^(id  _Nonnull sender)
+     {
+         @strongify(self)
+         [self commentTextNodeDidTapped:sender];
+     }];
+
+    [_commentHintNode setBlockForControlEvents:ASControlNodeEventTouchUpInside
+                                         block:^(id  _Nonnull sender)
+     {
+         @strongify(self)
+         [self commentHintNodeDidTapped];
+     }];
 }
 
 - (void)_removeActions {
     [_photoNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
-    [_likeNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
-    [_commentNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
-    [_sendNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
-    [_votesNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
+    [_likeControlNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
+    [_commentControlNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
+    [_sendControlNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
+    [_votesTextNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
+    [_descriptionNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
+    [_commentHintNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
 }
 
 @end
