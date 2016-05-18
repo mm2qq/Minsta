@@ -14,14 +14,14 @@
 
 #pragma mark - 500px
 
-#define FHPX_BASE_URL_STRING         @"https://api.500px.com/v1/"
-#define FHPX_CONSUMER_KEY            @"V0AITekRLDJsvMWIAvrBYoILAOrOQyCPTLdiXeLG"
+#define FHPX_BASE_URL_STRING          @"https://api.500px.com/v1/"
+#define FHPX_CONSUMER_KEY             @"V0AITekRLDJsvMWIAvrBYoILAOrOQyCPTLdiXeLG"
 // FIXME: this id is just for testing
-#define FHPX_TEST_USER_ID            17507891
+#define FHPX_TEST_USER_ID             17507891
 
 #pragma mark - Theme
 
-#define MS_HOME_PHOTO_RATIO           9.f / 16.f
+#define MS_HOME_PHOTO_RATIO           1.f//9.f / 16.f
 #define MS_WIHTE_BACKGROUND_COLOR     [UIColor whiteColor]
 #define MS_LIGHT_GRAY_TEXT_COLOR      [UIColor lightGrayColor]
 #define MS_BAR_TINT_COLOR             [UIColor colorWithRed:.976 green:.976 blue:.976 alpha:1.f]

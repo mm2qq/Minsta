@@ -129,6 +129,7 @@ static NSAttributedString * formatCommentString(NSString *string) {
 
     if (timeString) {
         self.timeTextNode.attributedText = [[ASMutableAttributedStringBuilder alloc] initWithString:timeString attributes:@{NSFontAttributeName : MS_FEED_SMALL_FONT, NSForegroundColorAttributeName : MS_LIGHT_GRAY_TEXT_COLOR}];
+        [self setNeedsLayout];
     }
 }
 
