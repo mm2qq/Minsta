@@ -24,11 +24,11 @@
 
 #pragma mark - Public
 
-- (void)retrievePhotosWithUserId:(NSUInteger)userId
-                       imageSize:(CGSize)imageSize
-                          atPage:(NSUInteger)page
-                        pageSize:(NSUInteger)pageSize
-                      completion:(MSCompletionCallback)callback {
+- (NSUInteger)retrievePhotosWithUserId:(NSUInteger)userId
+                             imageSize:(CGSize)imageSize
+                                atPage:(NSUInteger)page
+                              pageSize:(NSUInteger)pageSize
+                            completion:(MSCompletionCallback)callback {
     NSUInteger sizeId = MSImageSizeIdForStandardSize(imageSize);
     NSUInteger realPage = page == 0 ? 1 : page;
     NSUInteger realPageSize = pageSize > 100 ? 100 : pageSize;
@@ -47,21 +47,25 @@
     if (realPage > 0) [params addEntriesFromDictionary:@{@"page" : @(realPage)}];
     if (realPageSize > 0) [params addEntriesFromDictionary:@{@"rpp" : @(realPageSize)}];
 
-    [_manager GET:URLString
-       parameters:params
-         progress:NULL
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              !callback ? : callback(responseObject, nil);
-          }
-          failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              !callback ? : callback(nil, error);
-          }];
+    NSURLSessionDataTask *task = [_manager GET:URLString
+                                    parameters:params
+                                      progress:NULL
+                                       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+                                  {
+                                      !callback ? : callback(responseObject, nil);
+                                  }
+                                       failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+                                  {
+                                      !callback ? : callback(nil, error);
+                                  }];
+
+    return task.taskIdentifier;
 }
 
-- (void)retrieveCommentsWithPhotoId:(NSUInteger)photoId
-                             atPage:(NSUInteger)page
-                           pageSize:(NSUInteger)pageSize
-                         completion:(MSCompletionCallback)callback {
+- (NSUInteger)retrieveCommentsWithPhotoId:(NSUInteger)photoId
+                                   atPage:(NSUInteger)page
+                                 pageSize:(NSUInteger)pageSize
+                               completion:(MSCompletionCallback)callback {
     NSString *pathString = [NSString stringWithFormat:@"photos/%d/comments?nested", (int)photoId];
     NSUInteger realPage = page == 0 ? 1 : page;
     NSUInteger realPageSize = pageSize > 100 ? 100 : pageSize;
@@ -73,15 +77,30 @@
     if (realPage > 0) [params addEntriesFromDictionary:@{@"page" : @(realPage)}];
     if (realPageSize > 0) [params addEntriesFromDictionary:@{@"rpp" : @(realPageSize)}];
 
-    [_manager GET:URLString
-       parameters:params
-         progress:NULL
-          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              !callback ? : callback(responseObject, nil);
-          }
-          failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              !callback ? : callback(nil, error);
-          }];
+    NSURLSessionDataTask *task = [_manager GET:URLString
+                                    parameters:params
+                                      progress:NULL
+                                       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+                                  {
+                                      !callback ? : callback(responseObject, nil);
+                                  }
+                                       failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+                                  {
+                                      !callback ? : callback(nil, error);
+                                  }];
+
+    return task.taskIdentifier;
+}
+
+#pragma mark - MSOperationProtocol
+
+- (void)cancelTaskWithIdentifier:(NSUInteger)identifier {
+    for (NSURLSessionDataTask *task in _manager.dataTasks) {
+        if (identifier == task.taskIdentifier && NSURLSessionTaskStateCanceling > task.state) {
+            [task cancel];
+            return;
+        }
+    }
 }
 
 @end

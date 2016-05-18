@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MSPhotosOperation : MSBaseOperation
+@interface MSPhotosOperation : MSBaseOperation <MSOperationProtocol>
 
 + (instancetype)sharedInstance;
 
@@ -23,12 +23,14 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param page      Page numbering is 1-based
  *  @param pageSize  Page size, can not be over 100, default 20
  *  @param callback  Callback handler
+ *
+ *  @return Current task identifier
  */
-- (void)retrievePhotosWithUserId:(NSUInteger)userId
-                       imageSize:(CGSize)imageSize
-                          atPage:(NSUInteger)page
-                        pageSize:(NSUInteger)pageSize
-                      completion:(nullable MSCompletionCallback)callback;
+- (NSUInteger)retrievePhotosWithUserId:(NSUInteger)userId
+                             imageSize:(CGSize)imageSize
+                                atPage:(NSUInteger)page
+                              pageSize:(NSUInteger)pageSize
+                            completion:(nullable MSCompletionCallback)callback;
 
 /**
  *  Retrieve photo's latest comments
@@ -37,11 +39,13 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param page     Page numbering is 1-based
  *  @param pageSize Page size, can not be over 100, default 20
  *  @param callback Callback handler
+ *
+ *  @return Current task identifier
  */
-- (void)retrieveCommentsWithPhotoId:(NSUInteger)photoId
-                             atPage:(NSUInteger)page
-                           pageSize:(NSUInteger)pageSize
-                         completion:(nullable MSCompletionCallback)callback;
+- (NSUInteger)retrieveCommentsWithPhotoId:(NSUInteger)photoId
+                                   atPage:(NSUInteger)page
+                                 pageSize:(NSUInteger)pageSize
+                               completion:(nullable MSCompletionCallback)callback;
 
 @end
 

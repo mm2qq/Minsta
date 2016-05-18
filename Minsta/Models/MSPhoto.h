@@ -6,14 +6,14 @@
 //  Copyright © 2016年 jjj2mdd. All rights reserved.
 //
 
-#import "MSModel.h"
+#import "MSBaseModel.h"
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class MSUser;
 
-@interface MSImage : MSModel <MSModelProtocol>
+@interface MSImage : MSBaseModel <MSModelProtocol>
 
 @property (nonatomic, assign, readonly) NSUInteger sizeId;
 @property (nonatomic, copy, readonly) NSString *format;
@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface MSPhoto : MSModel <MSModelProtocol>
+@interface MSPhoto : MSBaseModel <MSModelProtocol>
 
 @property (nonatomic, assign, readonly) NSUInteger photoId;
 @property (nonatomic, copy, readonly) NSString *photoName;

@@ -1,5 +1,5 @@
 //
-//  MSModel.h
+//  MSBaseModel.h
 //  Minsta
 //
 //  Created by maocl023 on 16/5/12.
@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface MSModel : NSObject
+@interface MSBaseModel : NSObject
 
 - (nullable id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict;
 

@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable MSPhoto *)photoAtIndex:(NSUInteger)index;
 - (void)resetAllPhotos;
+- (void)cancelFetch;
 - (void)fetchPhotosOnCompletion:(nullable void (^)(NSArray<MSPhoto *> *))callback pageSize:(NSUInteger)size;
 - (void)refreshPhotosOnCompletion:(nullable void (^)(NSArray<MSPhoto *> *))callback pageSize:(NSUInteger)size;
 

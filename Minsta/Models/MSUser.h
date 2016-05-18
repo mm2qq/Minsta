@@ -6,7 +6,7 @@
 //  Copyright © 2016年 jjj2mdd. All rights reserved.
 //
 
-#import "MSModel.h"
+#import "MSBaseModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,7 +16,7 @@ typedef NS_ENUM(NSUInteger, MSUserGender) {
     MSUserGenderFemale,
 };
 
-@interface MSUser : MSModel <MSModelProtocol>
+@interface MSUser : MSBaseModel <MSModelProtocol>
 
 @property (nonatomic, assign, readonly) NSUInteger userId;
 @property (nonatomic, copy, readonly) NSString *userName;

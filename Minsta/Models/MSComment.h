@@ -6,13 +6,13 @@
 //  Copyright © 2016年 jjj2mdd. All rights reserved.
 //
 
-#import "MSModel.h"
+#import "MSBaseModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class MSUser;
 
-@interface MSComment : MSModel <MSModelProtocol>
+@interface MSComment : MSBaseModel <MSModelProtocol>
 
 @property (nonatomic, assign, readonly) NSUInteger commentId;
 @property (nonatomic, assign, readonly) NSUInteger userId;

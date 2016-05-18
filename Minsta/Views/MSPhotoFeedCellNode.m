@@ -133,6 +133,11 @@ static NSAttributedString * formatCommentString(NSString *string) {
     }
 }
 
+- (void)clearFetchedData {
+    [super clearFetchedData];
+    [_commentFeed cancelFetch];
+}
+
 #pragma mark - Properties
 
 - (ASTextNode *)commentHintNode {

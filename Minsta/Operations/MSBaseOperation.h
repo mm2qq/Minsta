@@ -12,6 +12,12 @@
 
 typedef void (^MSCompletionCallback)(id _Nullable data, NSError * _Nullable error);
 
+@protocol MSOperationProtocol <NSObject>
+
+- (void)cancelTaskWithIdentifier:(NSUInteger)identifier;
+
+@end
+
 @interface MSBaseOperation : NSObject
 {
 @protected

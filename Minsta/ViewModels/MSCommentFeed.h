@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable MSComment *)commentAtIndex:(NSUInteger)index;
 - (void)resetAllComments;
+- (void)cancelFetch;
 - (void)fetchCommentsOnCompletion:(nullable void (^)(NSArray<MSComment *> *))callback pageSize:(NSUInteger)size;
 - (void)refreshCommentsOnCompletion:(nullable void (^)(NSArray<MSComment *> *))callback pageSize:(NSUInteger)size;
 
