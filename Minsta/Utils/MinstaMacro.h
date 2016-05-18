@@ -100,15 +100,15 @@ static inline NSUInteger MSImageSizeIdForStandardSize(CGSize size) {
     if (isCropped) {
         if (70.f >= size.width) {
             return 1;
-        } else if (100.f >= size.width) {
+        } else if (100.f >= size.width && 70.f < size.width) {
             return 100;
-        } else if (140.f >= size.width) {
+        } else if (140.f >= size.width && 100.f < size.width) {
             return 2;
-        } else if (200.f >= size.width) {
+        } else if (200.f >= size.width && 140.f < size.width) {
             return 200;
-        } else if (280.f >= size.width) {
+        } else if (280.f >= size.width && 200.f < size.width) {
             return 3;
-        } else if (440.f >= size.width) {
+        } else if (440.f >= size.width && 280.f < size.width) {
             return 440;
         } else {
             return 600;
@@ -117,9 +117,9 @@ static inline NSUInteger MSImageSizeIdForStandardSize(CGSize size) {
         if (size.height < size.width) {
             if (300.f >= size.height) {
                 return 20;
-            } else if (450.f >= size.height) {
+            } else if (450.f >= size.height && 300.f < size.width) {
                 return 31;
-            } else if (600.f >= size.height) {
+            } else if (600.f >= size.height && 450.f < size.width) {
                 return 21;
             } else {
                 return 6;
@@ -127,13 +127,13 @@ static inline NSUInteger MSImageSizeIdForStandardSize(CGSize size) {
         } else {
             if (256.f >= size.width) {
                 return 30;
-            } else if (900.f >= size.width) {
+            } else if (900.f >= size.width && 256.f < size.width) {
                 return 4;
-            } else if (1080.f >= size.width) {
+            } else if (1080.f >= size.width && 900.f < size.width) {
                 return 1080;
-            } else if (1170.f >= size.width) {
+            } else if (1170.f >= size.width && 1080.f < size.width) {
                 return 5;
-            } else if (1600.f >= size.width) {
+            } else if (1600.f >= size.width && 1170.f < size.width) {
                 return 1600;
             } else {
                 return 2048;
