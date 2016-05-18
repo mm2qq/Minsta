@@ -123,6 +123,40 @@ static NSAttributedString * formatCommentString(NSString *string) {
             [self _addCommentNodes:comments];
         } pageSize:kPhotoFeedCommentPageSize];
     }
+
+    // refresh time text node by the way
+    NSString *timeString = [NSString elapsedTimeStringSinceDate:_photo.createdAt];
+
+    if (timeString) {
+        self.timeTextNode.attributedText = [[ASMutableAttributedStringBuilder alloc] initWithString:timeString attributes:@{NSFontAttributeName : MS_FEED_SMALL_FONT, NSForegroundColorAttributeName : MS_LIGHT_GRAY_TEXT_COLOR}];
+    }
+}
+
+#pragma mark - Properties
+
+- (ASTextNode *)commentHintNode {
+    if (!_commentHintNode) {
+        _commentHintNode = [ASTextNode new];
+        _commentHintNode.backgroundColor = self.backgroundColor;
+        _commentHintNode.flexShrink = YES;
+        _commentHintNode.truncationMode = NSLineBreakByTruncatingTail;
+        _commentHintNode.maximumNumberOfLines = 1;
+    }
+
+    return _commentHintNode;
+}
+
+- (ASTextNode *)timeTextNode {
+    if (!_timeTextNode) {
+        _timeTextNode = [ASTextNode new];
+        _timeTextNode.backgroundColor = self.backgroundColor;
+        _timeTextNode.flexShrink = YES;
+        _timeTextNode.layerBacked = YES;
+        _timeTextNode.truncationMode = NSLineBreakByTruncatingTail;
+        _timeTextNode.maximumNumberOfLines = 1;
+    }
+
+    return _timeTextNode;
 }
 
 #pragma mark - Actions
@@ -171,7 +205,7 @@ static NSAttributedString * formatCommentString(NSString *string) {
 
 - (void)commentTextNodeDidTapped:(id)sender {
     // TODO:this alert just for test
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"reply %@", ((ASTextNode *)sender).attributedString.string] preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"reply %@", ((ASTextNode *)sender).attributedText.string] preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
 }
@@ -215,7 +249,7 @@ static NSAttributedString * formatCommentString(NSString *string) {
 
     _votesTextNode = [ASTextNode new];
     _votesTextNode.backgroundColor = self.backgroundColor;
-    _votesTextNode.attributedString = [[ASMutableAttributedStringBuilder alloc] initWithString:votesString attributes:@{NSFontAttributeName : MS_FEED_BOLD_FONT}];
+    _votesTextNode.attributedText = [[ASMutableAttributedStringBuilder alloc] initWithString:votesString attributes:@{NSFontAttributeName : MS_FEED_BOLD_FONT}];
     _votesTextNode.flexShrink = YES;
     _votesTextNode.truncationMode = NSLineBreakByTruncatingTail;
     _votesTextNode.maximumNumberOfLines = 1;
@@ -231,7 +265,7 @@ static NSAttributedString * formatCommentString(NSString *string) {
     if (descriptionString) {
         _descriptionNode = [ASTextNode new];
         _descriptionNode.backgroundColor = self.backgroundColor;
-        _descriptionNode.attributedString = formatCommentString(descriptionString);
+        _descriptionNode.attributedText = formatCommentString(descriptionString);
         _descriptionNode.flexShrink = YES;
         _descriptionNode.truncationMode = NSLineBreakByTruncatingTail;
         _descriptionNode.maximumNumberOfLines = kPhotoFeedCommentMaxLines;
@@ -239,23 +273,12 @@ static NSAttributedString * formatCommentString(NSString *string) {
     }
 
     if (commentHintString) {
-        _commentHintNode = [ASTextNode new];
-        _commentHintNode.backgroundColor = self.backgroundColor;
-        _commentHintNode.attributedString = [[ASMutableAttributedStringBuilder alloc] initWithString:commentHintString attributes:@{NSFontAttributeName : MS_FEED_REGULAR_FONT, NSForegroundColorAttributeName : MS_LIGHT_GRAY_TEXT_COLOR}];
-        _commentHintNode.flexShrink = YES;
-        _commentHintNode.truncationMode = NSLineBreakByTruncatingTail;
-        _commentHintNode.maximumNumberOfLines = 1;
+        self.commentHintNode.attributedText = [[ASMutableAttributedStringBuilder alloc] initWithString:commentHintString attributes:@{NSFontAttributeName : MS_FEED_REGULAR_FONT, NSForegroundColorAttributeName : MS_LIGHT_GRAY_TEXT_COLOR}];
         [self addSubnode:_commentHintNode];
     }
 
     if (timeString) {
-        _timeTextNode = [ASTextNode new];
-        _timeTextNode.backgroundColor = self.backgroundColor;
-        _timeTextNode.attributedString = [[ASMutableAttributedStringBuilder alloc] initWithString:timeString attributes:@{NSFontAttributeName : MS_FEED_SMALL_FONT, NSForegroundColorAttributeName : MS_LIGHT_GRAY_TEXT_COLOR}];
-        _timeTextNode.flexShrink = YES;
-        _timeTextNode.layerBacked = YES;
-        _timeTextNode.truncationMode = NSLineBreakByTruncatingTail;
-        _timeTextNode.maximumNumberOfLines = 1;
+        self.timeTextNode.attributedText = [[ASMutableAttributedStringBuilder alloc] initWithString:timeString attributes:@{NSFontAttributeName : MS_FEED_SMALL_FONT, NSForegroundColorAttributeName : MS_LIGHT_GRAY_TEXT_COLOR}];
         [self addSubnode:_timeTextNode];
     }
 }
@@ -268,27 +291,38 @@ static NSAttributedString * formatCommentString(NSString *string) {
 
     NSMutableArray *newCommentTextNodes = [NSMutableArray arrayWithCapacity:comments.count];
 
-    for (MSComment *comment in comments) {
-        NSString *commentString = [NSString stringWithFormat:@"%@ %@", comment.user.userName, comment.body];
-        ASTextNode *commentTextNode = [ASTextNode new];
-        commentTextNode.backgroundColor = self.backgroundColor;
-        commentTextNode.attributedString = formatCommentString(commentString);
-        commentTextNode.flexShrink = YES;
-        commentTextNode.truncationMode = NSLineBreakByTruncatingTail;
-        commentTextNode.maximumNumberOfLines = kPhotoFeedCommentMaxLines;
-        @weakify(self)
-        [commentTextNode setBlockForControlEvents:ASControlNodeEventTouchUpInside
-                                            block:^(id  _Nonnull sender)
-         {
-             @strongify(self)
-             [self commentTextNodeDidTapped:sender];
-         }];
+    [comments enumerateObjectsWithOptions:NSEnumerationReverse// always set latest comment to bottom
+                               usingBlock:^(MSComment * _Nonnull comment, NSUInteger idx, BOOL * _Nonnull stop)
+     {
+         NSString *commentString = [NSString stringWithFormat:@"%@ %@",
+                                    comment.user.userName,
+                                    comment.body];
+         ASTextNode *commentTextNode = [ASTextNode new];
+         commentTextNode.backgroundColor = self.backgroundColor;
+         commentTextNode.attributedText = formatCommentString(commentString);
+         commentTextNode.flexShrink = YES;
+         commentTextNode.truncationMode = NSLineBreakByTruncatingTail;
+         commentTextNode.maximumNumberOfLines = kPhotoFeedCommentMaxLines;
+         @weakify(self)
+         [commentTextNode setBlockForControlEvents:ASControlNodeEventTouchUpInside
+                                             block:^(id  _Nonnull sender)
+          {
+              @strongify(self)
+              [self commentTextNodeDidTapped:sender];
+          }];
 
-        [newCommentTextNodes addObject:commentTextNode];
-        [self addSubnode:commentTextNode];
-    }
+         [newCommentTextNodes addObject:commentTextNode];
+         [self addSubnode:commentTextNode];
+     }];
 
     _commentTextNodes = newCommentTextNodes;
+
+    // refresh comment hint node by the way
+    NSString *commentHintString = _commentFeed.totalCount > 2 ? [NSString stringWithFormat:NSLocalizedString(@"View all %d comments", nil), _commentFeed.totalCount] : nil;
+
+    if (commentHintString) {
+        self.commentHintNode.attributedText = [[ASMutableAttributedStringBuilder alloc] initWithString:commentHintString attributes:@{NSFontAttributeName : MS_FEED_REGULAR_FONT, NSForegroundColorAttributeName : MS_LIGHT_GRAY_TEXT_COLOR}];
+    }
 
     // reload comment needs layout
     [self setNeedsLayout];

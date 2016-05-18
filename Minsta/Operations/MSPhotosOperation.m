@@ -35,6 +35,7 @@
 
     NSString *URLString = [NSURL URLWithString:@"photos" relativeToURL:_manager.baseURL].absoluteString;
     NSMutableDictionary *params = @{@"feature" : @"fresh_today",
+                                    @"sort" : @"created_at",
                                     @"consumer_key" : FHPX_CONSUMER_KEY}.mutableCopy;
 
     if (userId > 0) {
@@ -61,12 +62,12 @@
                              atPage:(NSUInteger)page
                            pageSize:(NSUInteger)pageSize
                          completion:(MSCompletionCallback)callback {
-    NSString *pathString = [NSString stringWithFormat:@"photos/%d/comments", (int)photoId];
+    NSString *pathString = [NSString stringWithFormat:@"photos/%d/comments?nested", (int)photoId];
     NSUInteger realPage = page == 0 ? 1 : page;
     NSUInteger realPageSize = pageSize > 100 ? 100 : pageSize;
 
     NSString *URLString = [NSURL URLWithString:pathString relativeToURL:_manager.baseURL].absoluteString;
-    NSMutableDictionary *params = @{@"nested" : @"",
+    NSMutableDictionary *params = @{@"sort" : @"created_at",
                                     @"consumer_key" : FHPX_CONSUMER_KEY}.mutableCopy;
 
     if (realPage > 0) [params addEntriesFromDictionary:@{@"page" : @(realPage)}];

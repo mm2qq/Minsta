@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MSCommentFeed : NSObject
 
+@property (nonatomic, assign, readonly) NSUInteger totalCount;  ///< Total count of comments
 @property (nonatomic, assign, readonly) NSUInteger count;       ///< The count of comments in current page
 
 - (instancetype)init NS_UNAVAILABLE;

@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)sharedInstance;
 
 /**
- *  Retrieve user friends' photo feeds
+ *  Retrieve user friends' latest photo feeds
  *
  *  @param userId    User identifier
  *  @param imageSize Image size
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
                       completion:(nullable MSCompletionCallback)callback;
 
 /**
- *  Retrieve photo's comments
+ *  Retrieve photo's latest comments
  *
  *  @param photoId  Photo identifier
  *  @param page     Page numbering is 1-based
