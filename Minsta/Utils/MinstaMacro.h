@@ -27,6 +27,7 @@
 #define MS_BAR_TINT_COLOR             [UIColor colorWithRed:.976 green:.976 blue:.976 alpha:1.f]
 #define MS_FEED_BOLD_FONT             [UIFont boldSystemFontOfSize:13.f]
 #define MS_FEED_REGULAR_FONT          [UIFont systemFontOfSize:13.f]
+#define MS_FEED_SMALL_FONT            [UIFont systemFontOfSize:11.f]
 
 #pragma mark - Utilities
 
@@ -70,16 +71,14 @@ __typeof__(object) object = block##_##object;
 #endif
 #endif
 
-static inline void dispatch_async_on_main_queue(void (^block)()) {
-    if (pthread_main_np()) {
-        block();
-    } else {
-        dispatch_async(dispatch_get_main_queue(), block);
-    }
-}
+static NSDateFormatter *MSCurrentDateFormatter() {
+    static NSDateFormatter *dateFormatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dateFormatter = [NSDateFormatter new];
+    });
 
-static inline void dispatch_async_on_global_queue(void (^block)()) {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);
+    return dateFormatter;
 }
 
 static inline CGSize MSStandardSizeForFrameSize(CGSize size) {
@@ -143,6 +142,18 @@ static inline NSUInteger MSImageSizeIdForStandardSize(CGSize size) {
     }
 
     return 0;
+}
+
+static inline void dispatch_async_on_main_queue(void (^block)()) {
+    if (pthread_main_np()) {
+        block();
+    } else {
+        dispatch_async(dispatch_get_main_queue(), block);
+    }
+}
+
+static inline void dispatch_async_on_global_queue(void (^block)()) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);
 }
 
 #endif /* MinstaMacro_h */

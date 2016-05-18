@@ -1,2 +1,13 @@
 "%d likes" = "%1$i次赞";
 "View all %d comments" = "所有%1$i条评论";
+"%d WEEK AGO" = "%1$d周前";
+"%d WEEKS AGO" = "%1$d周前";
+"%d DAY AGO" = "%1$d天前";
+"%d DAYS AGO" = "%1$d天前";
+"%d HOUR AGO" = "%1$d小时前";
+"%d HOURS AGO" = "%1$d小时前";
+"%d MINUTE AGO" = "%1$d分钟前";
+"%d MINUTES AGO" = "%1$d分钟前";
+"%d SECOND AGO" = "%1$d秒前";
+"%d SECONDS AGO" = "%1$d秒前";
+"JUST NOW" = "刚刚";

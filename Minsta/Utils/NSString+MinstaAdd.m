@@ -7,6 +7,7 @@
 //
 
 #import "NSString+MinstaAdd.h"
+#import "MinstaMacro.h"
 
 @implementation NSString (MinstaAdd)
 
@@ -42,6 +43,69 @@
 - (CGFloat)heightForFont:(UIFont *)font width:(CGFloat)width {
     CGSize size = [self sizeForFont:font size:CGSizeMake(width, HUGE) mode:NSLineBreakByWordWrapping];
     return size.height;
+}
+
++ (NSString *)elapsedTimeStringSinceDate:(NSString *)dateString {
+    if (!dateString) return nil;
+
+    NSDate *postDate = [self dateTimeForRFC3339DateTimeString:dateString];
+
+    if (!postDate) return nil;
+
+    NSDate *currentDate  = [NSDate date];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+
+    NSUInteger seconds = [calendar components:NSCalendarUnitSecond fromDate:postDate toDate:currentDate options:0].second;
+    NSUInteger minutes = [calendar components:NSCalendarUnitMinute fromDate:postDate toDate:currentDate options:0].minute;
+    NSUInteger hours   = [calendar components:NSCalendarUnitHour fromDate:postDate toDate:currentDate options:0].hour;
+    NSUInteger days    = [calendar components:NSCalendarUnitDay fromDate:postDate toDate:currentDate options:0].day;
+
+    NSString *elapsedTime;
+
+    if (days > 28) {// if date earlier than 4 weeks ago, return locale date formatted string directly
+        NSDateFormatter *dateFormatter = MSCurrentDateFormatter();
+        dateFormatter.locale = [NSLocale currentLocale];
+        dateFormatter.timeStyle = NSDateFormatterNoStyle;
+        dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+        elapsedTime = [dateFormatter stringFromDate:postDate];
+    } else if (days > 7) {
+        NSUInteger week = ceil(days / 7.0);
+        elapsedTime = [NSString stringWithFormat:NSLocalizedString(week > 1 ? @"%d WEEK AGO" : @"%d WEEKS AGO", nil), week];
+    } else if (days > 0) {
+        NSUInteger day = days;
+        elapsedTime = [NSString stringWithFormat:NSLocalizedString(day > 1 ? @"%d DAY AGO" : @"%d DAYS AGO", nil), day];
+    } else if (hours > 0) {
+        NSUInteger hour = hours;
+        elapsedTime = [NSString stringWithFormat:NSLocalizedString(hour > 1 ? @"%d HOUR AGO" : @"%d HOURS AGO", nil), hour];
+    } else if (minutes > 0) {
+        NSUInteger minute = minutes;
+        elapsedTime = [NSString stringWithFormat:NSLocalizedString(minute > 1 ? @"%d MINUTE AGO" : @"%d MINUTES AGO", nil), minute];
+    } else if (seconds > 0) {
+        NSUInteger second = seconds;
+        elapsedTime = [NSString stringWithFormat:NSLocalizedString(second > 1 ? @"%d SECOND AGO" : @"%d SECONDS AGO", nil), second];
+    } else if (seconds == 0) {
+        elapsedTime = NSLocalizedString(@"JUST NOW", nil);
+    } else {
+        elapsedTime = nil;
+    }
+
+    return elapsedTime;
+}
+
+#pragma mark - Private
+
+// Returns a user-visible date time string that corresponds to the
+// specified RFC 3339 date time string. Note that this does not handle
+// all possible RFC 3339 date time strings, just one of the most common
+// styles.
++ (NSDate *)dateTimeForRFC3339DateTimeString:(NSString *)dateString {
+    NSDateFormatter *dateFormatter = MSCurrentDateFormatter();
+    dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ssZ'";
+    // FIXME:there should exsit timezone problem
+    dateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+
+    return [dateFormatter dateFromString:dateString];
 }
 
 @end

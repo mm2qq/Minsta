@@ -52,6 +52,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (CGFloat)heightForFont:(UIFont *)font width:(CGFloat)width;
 
+/**
+ *  Returns a user friendly elapsed time such as '50s', '6m' or '3w'
+ *
+ *  @param dateString Source date string
+ *
+ *  @return Formatted date string
+ */
++ (nullable NSString *)elapsedTimeStringSinceDate:(NSString *)dateString;
+
 @end
 
 NS_ASSUME_NONNULL_END

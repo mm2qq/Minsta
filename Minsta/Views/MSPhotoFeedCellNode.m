@@ -43,6 +43,7 @@ static NSAttributedString * formatCommentString(NSString *string) {
 @property (nonatomic, strong) ASTextNode *descriptionNode;
 @property (nonatomic, strong) ASTextNode *commentHintNode;
 @property (nonatomic, copy) NSArray<ASTextNode *> *commentTextNodes;
+@property (nonatomic, strong) ASTextNode *timeNode;
 
 @end
 
@@ -100,6 +101,8 @@ static NSAttributedString * formatCommentString(NSString *string) {
     if (_commentTextNodes && _commentTextNodes.count > 0) {
         [commentNodes addObjectsFromArray:_commentTextNodes];
     }
+
+    if (_timeNode) [commentNodes addObject:_timeNode];
 
     ASStackLayoutSpec *dvStackLayout = [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionVertical spacing:kSeparatorNodeLeadingMargin / 2.f justifyContent:ASStackLayoutJustifyContentStart alignItems:ASStackLayoutAlignItemsStart children:commentNodes];
 
@@ -170,8 +173,9 @@ static NSAttributedString * formatCommentString(NSString *string) {
 - (void)_setupSubnodes {
     NSString *photoUrlString = _photo.images[0].url;
     NSString *votesString = [NSString stringWithFormat:NSLocalizedString(@"%d likes", nil), _photo.votesCount];
-    NSString *descriptionString = _photo.photoDescription && ![@"" isEqualToString:_photo.photoDescription] ? [NSString stringWithFormat:@"%@ %@", _photo.user.userName, _photo.photoDescription] : nil;
+    NSString *descriptionString = _photo.photoName && ![@"" isEqualToString:_photo.photoName] ? [NSString stringWithFormat:@"%@ %@", _photo.user.userName, _photo.photoDescription && ![@"" isEqualToString:_photo.photoDescription] ? _photo.photoDescription : _photo.photoName] : nil;
     NSString *commentHintString = _photo.commentsCount > 2 ? [NSString stringWithFormat:NSLocalizedString(@"View all %d comments", nil), _photo.commentsCount] : nil;
+    NSString *timeString = [NSString elapsedTimeStringSinceDate:_photo.createdAt];
 
     _photoNode = [ASNetworkImageNode new];
     _photoNode.backgroundColor = ASDisplayNodeDefaultPlaceholderColor();
@@ -216,6 +220,17 @@ static NSAttributedString * formatCommentString(NSString *string) {
     [self addSubnode:_separatorNode];
     [self addSubnode:_likeMeNode];
     [self addSubnode:_votesNode];
+
+    if (timeString) {
+        _timeNode = [ASTextNode new];
+        _timeNode.backgroundColor = self.backgroundColor;
+        _timeNode.attributedString = [[ASMutableAttributedStringBuilder alloc] initWithString:timeString attributes:@{NSFontAttributeName : MS_FEED_SMALL_FONT, NSForegroundColorAttributeName : MS_LIGHT_GRAY_TEXT_COLOR}];
+        _timeNode.flexShrink = YES;
+        _timeNode.layerBacked = YES;
+        _timeNode.truncationMode = NSLineBreakByTruncatingTail;
+        _timeNode.maximumNumberOfLines = 1;
+        [self addSubnode:_timeNode];
+    }
 
     if (descriptionString) {
         _descriptionNode = [ASTextNode new];
