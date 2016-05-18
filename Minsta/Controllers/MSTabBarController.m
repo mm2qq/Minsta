@@ -7,6 +7,7 @@
 //
 
 #import "MSTabBarController.h"
+#import "MinstaMacro.h"
 
 @implementation MSTabBarController
 
@@ -31,14 +32,14 @@
         navigationController.tabBarItem                 = barItem;
         navigationController.hidesBarsOnSwipe           = YES;
         navigationController.navigationBar.translucent  = NO;
-        navigationController.navigationBar.barTintColor = [UIColor colorWithRed:.976 green:.976 blue:.976 alpha:1.f];
+        navigationController.navigationBar.barTintColor = MS_BAR_TINT_COLOR;
 
         [viewControllers addObject:navigationController];
     }
 
     self.viewControllers     = viewControllers;
     self.tabBar.translucent  = NO;
-    self.tabBar.barTintColor = [UIColor colorWithRed:.976 green:.976 blue:.976 alpha:1.f];
+    self.tabBar.barTintColor = MS_BAR_TINT_COLOR;
 }
 
 @end

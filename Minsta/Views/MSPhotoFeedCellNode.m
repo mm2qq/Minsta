@@ -17,6 +17,16 @@
 static const CGFloat kFunctionNodeSizeWidth = 48.f;
 static const CGFloat kSeparatorNodeLeadingMargin = 15.f;
 static const CGFloat kSymbolNodeSizeWidth = 12.f;
+static const NSUInteger kPhotoFeedCommentPageSize = 2;
+static const NSUInteger kPhotoFeedCommentMaxLines = 3;
+
+static NSAttributedString * formatCommentString(NSString *string) {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string attributes:@{NSFontAttributeName : MS_FEED_REGULAR_FONT}];
+    NSRange range = NSMakeRange(0, [string rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet]].location);
+    // set user name to bold
+    [attributedString setAttributes:@{NSFontAttributeName : MS_FEED_BOLD_FONT} range:range];
+    return attributedString;
+}
 
 @interface MSPhotoFeedCellNode ()
 
@@ -31,6 +41,8 @@ static const CGFloat kSymbolNodeSizeWidth = 12.f;
 @property (nonatomic, strong) ASImageNode *likeMeNode;
 @property (nonatomic, strong) ASTextNode *votesNode;
 @property (nonatomic, strong) ASTextNode *descriptionNode;
+@property (nonatomic, strong) ASTextNode *commentHintNode;
+@property (nonatomic, copy) NSArray<ASTextNode *> *commentTextNodes;
 
 @end
 
@@ -40,7 +52,7 @@ static const CGFloat kSymbolNodeSizeWidth = 12.f;
 
 - (instancetype)initWithPhoto:(MSPhoto *)photo {
     if (self = [super init]) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = MS_WIHTE_BACKGROUND_COLOR;
 
         _photo = photo;
         if (_photo.commentsCount > 0) {
@@ -55,8 +67,8 @@ static const CGFloat kSymbolNodeSizeWidth = 12.f;
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
-    CGFloat votesNodeWidth = [_votesNode.attributedText.string widthForFont:kFeedBoldFont];
-    CGFloat votesNodeHeight = [_votesNode.attributedText.string heightForFont:kFeedBoldFont width:votesNodeWidth];
+    CGFloat votesNodeWidth = [_votesNode.attributedText.string widthForFont:MS_FEED_BOLD_FONT];
+    CGFloat votesNodeHeight = [_votesNode.attributedText.string heightForFont:MS_FEED_BOLD_FONT width:votesNodeWidth];
 
     // set subnode preferred size
     _likeNode.preferredFrameSize = (CGSize){kFunctionNodeSizeWidth, kFunctionNodeSizeWidth};
@@ -78,13 +90,23 @@ static const CGFloat kSymbolNodeSizeWidth = 12.f;
     // votes node horizontal stack layout
     ASStackLayoutSpec *vhStackLayout = [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal spacing:kSeparatorNodeLeadingMargin / 3.f justifyContent:ASStackLayoutJustifyContentStart alignItems:ASStackLayoutAlignItemsCenter children:@[_likeMeNode, _votesNode]];
 
-    // description node vertical stack layout
-    ASStackLayoutSpec *dvStackLayout = [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionVertical spacing:kSeparatorNodeLeadingMargin / 2.f justifyContent:ASStackLayoutJustifyContentStart alignItems:ASStackLayoutAlignItemsStart children:@[vhStackLayout, _descriptionNode]];
+    // complex nodes vertical stack layout
+    NSMutableArray *commentNodes = @[vhStackLayout].mutableCopy;
 
-    // votes node inset layout
+    if (_descriptionNode) [commentNodes addObject:_descriptionNode];
+
+    if (_commentHintNode) [commentNodes addObject:_commentHintNode];
+
+    if (_commentTextNodes && _commentTextNodes.count > 0) {
+        [commentNodes addObjectsFromArray:_commentTextNodes];
+    }
+
+    ASStackLayoutSpec *dvStackLayout = [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionVertical spacing:kSeparatorNodeLeadingMargin / 2.f justifyContent:ASStackLayoutJustifyContentStart alignItems:ASStackLayoutAlignItemsStart children:commentNodes];
+
+    // complex nodes inset layout
     ASInsetLayoutSpec *vInsetLayout = [ASInsetLayoutSpec insetLayoutSpecWithInsets:(UIEdgeInsets){kSeparatorNodeLeadingMargin / 2.f, kSeparatorNodeLeadingMargin, kSeparatorNodeLeadingMargin / 2.f, kSeparatorNodeLeadingMargin} child:dvStackLayout];
 
-    // vertical stack layout
+    // main vertical stack layout
     ASStackLayoutSpec *vStackLayout = [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionVertical spacing:1.f justifyContent:ASStackLayoutJustifyContentStart alignItems:ASStackLayoutAlignItemsStart children:@[ratioLayout, fhStackLayout, sInsetLayout, vInsetLayout]];
 
     return vStackLayout;
@@ -102,7 +124,7 @@ static const CGFloat kSymbolNodeSizeWidth = 12.f;
         [_commentFeed refreshCommentsOnCompletion:^(NSArray<MSComment *> * _Nonnull comments) {
             @strongify(self)
             [self _addCommentNodes:comments];
-        } pageSize:2];
+        } pageSize:kPhotoFeedCommentPageSize];
     }
 }
 
@@ -148,7 +170,8 @@ static const CGFloat kSymbolNodeSizeWidth = 12.f;
 - (void)_setupSubnodes {
     NSString *photoUrlString = _photo.images[0].url;
     NSString *votesString = [NSString stringWithFormat:NSLocalizedString(@"%d likes", nil), _photo.votesCount];
-    NSString *descriptionString = [NSString stringWithFormat:@"%@ %@", _photo.user.userName, _photo.photoDescription];
+    NSString *descriptionString = _photo.photoDescription && ![@"" isEqualToString:_photo.photoDescription] ? [NSString stringWithFormat:@"%@ %@", _photo.user.userName, _photo.photoDescription] : nil;
+    NSString *commentHintString = _photo.commentsCount > 2 ? [NSString stringWithFormat:NSLocalizedString(@"View all %d comments", nil), _photo.commentsCount] : nil;
 
     _photoNode = [ASNetworkImageNode new];
     _photoNode.backgroundColor = ASDisplayNodeDefaultPlaceholderColor();
@@ -170,7 +193,7 @@ static const CGFloat kSymbolNodeSizeWidth = 12.f;
     _sendNode.backgroundColor = self.backgroundColor;
 
     _separatorNode = [ASDisplayNode new];
-    _separatorNode.backgroundColor = [UIColor lightGrayColor];
+    _separatorNode.backgroundColor = MS_LIGHT_GRAY_TEXT_COLOR;
     _separatorNode.layerBacked = YES;
 
     _likeMeNode = [ASImageNode new];
@@ -181,23 +204,10 @@ static const CGFloat kSymbolNodeSizeWidth = 12.f;
 
     _votesNode = [ASTextNode new];
     _votesNode.backgroundColor = self.backgroundColor;
-    _votesNode.attributedString = [[ASMutableAttributedStringBuilder alloc] initWithString:votesString attributes:@{NSFontAttributeName : kFeedBoldFont}];
+    _votesNode.attributedString = [[ASMutableAttributedStringBuilder alloc] initWithString:votesString attributes:@{NSFontAttributeName : MS_FEED_BOLD_FONT}];
     _votesNode.flexShrink = YES;
     _votesNode.truncationMode = NSLineBreakByTruncatingTail;
     _votesNode.maximumNumberOfLines = 1;
-
-    _descriptionNode = [ASTextNode new];
-    _descriptionNode.backgroundColor = self.backgroundColor;
-    _descriptionNode.attributedString = ({
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:descriptionString attributes:@{NSFontAttributeName : kFeedRegularFont}];
-        NSRange range = NSMakeRange(0, [descriptionString rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet]].location);
-        // set user name to bold
-        [attributedString setAttributes:@{NSFontAttributeName : kFeedBoldFont} range:range];
-        attributedString;
-    });
-    _descriptionNode.flexShrink = YES;
-    _descriptionNode.truncationMode = NSLineBreakByTruncatingTail;
-    _descriptionNode.maximumNumberOfLines = 3;
 
     [self addSubnode:_photoNode];
     [self addSubnode:_likeNode];
@@ -206,18 +216,63 @@ static const CGFloat kSymbolNodeSizeWidth = 12.f;
     [self addSubnode:_separatorNode];
     [self addSubnode:_likeMeNode];
     [self addSubnode:_votesNode];
-    [self addSubnode:_descriptionNode];
+
+    if (descriptionString) {
+        _descriptionNode = [ASTextNode new];
+        _descriptionNode.backgroundColor = self.backgroundColor;
+        _descriptionNode.attributedString = formatCommentString(descriptionString);
+        _descriptionNode.flexShrink = YES;
+        _descriptionNode.truncationMode = NSLineBreakByTruncatingTail;
+        _descriptionNode.maximumNumberOfLines = kPhotoFeedCommentMaxLines;
+        [self addSubnode:_descriptionNode];
+    }
+
+    if (commentHintString) {
+        _commentHintNode = [ASTextNode new];
+        _commentHintNode.backgroundColor = self.backgroundColor;
+        _commentHintNode.attributedString = [[ASMutableAttributedStringBuilder alloc] initWithString:commentHintString attributes:@{NSFontAttributeName : MS_FEED_REGULAR_FONT, NSForegroundColorAttributeName : MS_LIGHT_GRAY_TEXT_COLOR}];
+        _commentHintNode.flexShrink = YES;
+        _commentHintNode.truncationMode = NSLineBreakByTruncatingTail;
+        _commentHintNode.maximumNumberOfLines = 1;
+        [self addSubnode:_commentHintNode];
+    }
 }
 
 - (void)_addCommentNodes:(NSArray<MSComment *> *)comments {
-    //    if (!comments || 0 == comments.count) return;
-    //
-    //    for (MSComment *comment in comments) {
-    //        ASTextNode *commentNode = [ASTextNode new];
-    //        commentNode.maximumNumberOfLines = 3;
-    //
-    //        [self addSubnode:commentNode];
-    //    }
+    if (!comments || 0 == comments.count) return;
+
+    // remove previous nodes
+    [self _removeCommentNodes];
+
+    NSMutableArray *newCommentTextNodes = [NSMutableArray arrayWithCapacity:comments.count];
+
+    for (MSComment *comment in comments) {
+        NSString *commentString = [NSString stringWithFormat:@"%@ %@", comment.user.userName, comment.body];
+        ASTextNode *commentTextNode = [ASTextNode new];
+        commentTextNode.backgroundColor = self.backgroundColor;
+        commentTextNode.attributedString = formatCommentString(commentString);
+        commentTextNode.flexShrink = YES;
+        commentTextNode.truncationMode = NSLineBreakByTruncatingTail;
+        commentTextNode.maximumNumberOfLines = kPhotoFeedCommentMaxLines;
+
+        [newCommentTextNodes addObject:commentTextNode];
+        [self addSubnode:commentTextNode];
+    }
+
+    _commentTextNodes = newCommentTextNodes;
+
+    // reload comment needs layout
+    [self setNeedsLayout];
+}
+
+- (void)_removeCommentNodes {
+    if (_commentTextNodes && _commentTextNodes.count > 0) {
+        for (ASTextNode *commentTextNode in _commentTextNodes) {
+            [commentTextNode removeFromSupernode];
+        }
+    }
+
+    _commentTextNodes = @[];
 }
 
 - (void)_addActions {
@@ -252,6 +307,7 @@ static const CGFloat kSymbolNodeSizeWidth = 12.f;
     [_photoNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
     [_likeNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
     [_commentNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
+    [_sendNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
     [_votesNode removeAllBlocksForControlEvents:ASControlNodeEventTouchUpInside];
 }
 

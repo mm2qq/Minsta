@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "MSWindow.h"
 #import "MSTabBarController.h"
+#import "MinstaMacro.h"
 
 @interface AppDelegate () <UIApplicationDelegate>
 {
@@ -38,7 +39,7 @@
     MSTabBarController *tabBarController = [MSTabBarController new];
 
     _window = [[MSWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    _window.backgroundColor = [UIColor whiteColor];
+    _window.backgroundColor = MS_WIHTE_BACKGROUND_COLOR;
     _window.rootViewController = tabBarController;
 
     [_window makeKeyAndVisible];

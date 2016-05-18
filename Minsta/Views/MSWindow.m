@@ -7,6 +7,7 @@
 //
 
 #import "MSWindow.h"
+#import "MinstaMacro.h"
 
 @implementation MSWindow
 {
@@ -17,7 +18,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         _statusBar                 = [UIView new];
-        _statusBar.backgroundColor = [UIColor colorWithRed:.976 green:.976 blue:.976 alpha:1.f];
+        _statusBar.backgroundColor = MS_BAR_TINT_COLOR;
         [self addSubview:_statusBar];
     }
 

@@ -35,7 +35,7 @@ static const CGFloat kAvatarSizeWidth = 36.f;
 - (instancetype)initWithFrame:(CGRect)frame photo:(MSPhoto *)photo {
     if (self = [super init]) {
         self.frame = frame;
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = MS_WIHTE_BACKGROUND_COLOR;
 
         _user = photo.user;
         _photoUrlString = photo.images[0].url ? photo.images[0].url : @"";
@@ -54,8 +54,8 @@ static const CGFloat kAvatarSizeWidth = 36.f;
 - (void)layout {
     _avatarNode.frame = (CGRect){kAvatarLeadingMargin, (CGRectGetHeight(self.frame) - kAvatarSizeWidth) / 2.f, kAvatarSizeWidth, kAvatarSizeWidth};
 
-    CGFloat userNameNodeWidth = [_user.userName widthForFont:kFeedBoldFont];
-    CGFloat userNameNodeHeight = [_user.userName heightForFont:kFeedBoldFont width:userNameNodeWidth];
+    CGFloat userNameNodeWidth = [_user.userName widthForFont:MS_FEED_BOLD_FONT];
+    CGFloat userNameNodeHeight = [_user.userName heightForFont:MS_FEED_BOLD_FONT width:userNameNodeWidth];
     _userNameNode.frame = (CGRect){kAvatarLeadingMargin + CGRectGetMaxX(_avatarNode.frame), (CGRectGetHeight(self.frame) - userNameNodeHeight) / 2.f, userNameNodeWidth, userNameNodeHeight};
 
     _moreNode.frame = (CGRect){CGRectGetWidth(self.frame) - CGRectGetHeight(self.frame), (CGRectGetHeight(self.frame) - CGRectGetHeight(self.frame)) / 2.f, CGRectGetHeight(self.frame), CGRectGetHeight(self.frame)};
@@ -114,7 +114,7 @@ static const CGFloat kAvatarSizeWidth = 36.f;
 
             // create a border (for white background pictures)
             circle.lineWidth = 1;
-            [[UIColor darkGrayColor] set];
+            [MS_LIGHT_GRAY_TEXT_COLOR set];
             [circle stroke];
 
             // get an image from the image context
@@ -133,7 +133,7 @@ static const CGFloat kAvatarSizeWidth = 36.f;
     if (userName && ![@"" isEqualToString:userName]) {
         _userNameNode = [ASTextNode new];
         _userNameNode.backgroundColor = self.backgroundColor;
-        _userNameNode.attributedString = [[ASMutableAttributedStringBuilder alloc] initWithString:userName attributes:@{NSFontAttributeName : kFeedBoldFont}];
+        _userNameNode.attributedString = [[ASMutableAttributedStringBuilder alloc] initWithString:userName attributes:@{NSFontAttributeName : MS_FEED_BOLD_FONT}];
         _userNameNode.flexShrink = YES; //if name and username don't fit to cell width, allow username shrink
         _userNameNode.truncationMode = NSLineBreakByTruncatingTail;
         _userNameNode.maximumNumberOfLines = 1;
