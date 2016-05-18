@@ -19,9 +19,11 @@
 // FIXME: this id is just for testing
 #define FHPX_TEST_USER_ID        17507891
 
-#pragma mark - Constants
+#pragma mark - Theme
 
 #define MS_HOME_PHOTO_RATIO      9.f / 16.f
+#define kFeedBoldFont            [UIFont boldSystemFontOfSize:13.f]
+#define kFeedRegularFont         [UIFont systemFontOfSize:13.f]
 
 #pragma mark - Utilities
 

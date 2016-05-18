@@ -17,8 +17,6 @@
 static const CGFloat kFunctionNodeSizeWidth = 48.f;
 static const CGFloat kSeparatorNodeLeadingMargin = 15.f;
 static const CGFloat kSymbolNodeSizeWidth = 12.f;
-#define kVotesFont [UIFont boldSystemFontOfSize:13.f]
-#define kCommentsFont [UIFont systemFontOfSize:13.f]
 
 @interface MSPhotoFeedCellNode ()
 
@@ -57,8 +55,8 @@ static const CGFloat kSymbolNodeSizeWidth = 12.f;
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
-    CGFloat votesNodeWidth = [_votesNode.attributedText.string widthForFont:kVotesFont];
-    CGFloat votesNodeHeight = [_votesNode.attributedText.string heightForFont:kVotesFont width:votesNodeWidth];
+    CGFloat votesNodeWidth = [_votesNode.attributedText.string widthForFont:kFeedBoldFont];
+    CGFloat votesNodeHeight = [_votesNode.attributedText.string heightForFont:kFeedBoldFont width:votesNodeWidth];
 
     // set subnode preferred size
     _likeNode.preferredFrameSize = (CGSize){kFunctionNodeSizeWidth, kFunctionNodeSizeWidth};
@@ -183,7 +181,7 @@ static const CGFloat kSymbolNodeSizeWidth = 12.f;
 
     _votesNode = [ASTextNode new];
     _votesNode.backgroundColor = self.backgroundColor;
-    _votesNode.attributedString = [[ASMutableAttributedStringBuilder alloc] initWithString:votesString attributes:@{NSFontAttributeName : kVotesFont}];
+    _votesNode.attributedString = [[ASMutableAttributedStringBuilder alloc] initWithString:votesString attributes:@{NSFontAttributeName : kFeedBoldFont}];
     _votesNode.flexShrink = YES;
     _votesNode.truncationMode = NSLineBreakByTruncatingTail;
     _votesNode.maximumNumberOfLines = 1;
@@ -191,10 +189,10 @@ static const CGFloat kSymbolNodeSizeWidth = 12.f;
     _descriptionNode = [ASTextNode new];
     _descriptionNode.backgroundColor = self.backgroundColor;
     _descriptionNode.attributedString = ({
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:descriptionString attributes:@{NSFontAttributeName : kCommentsFont}];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:descriptionString attributes:@{NSFontAttributeName : kFeedRegularFont}];
         NSRange range = NSMakeRange(0, [descriptionString rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet]].location);
         // set user name to bold
-        [attributedString setAttributes:@{NSFontAttributeName : kVotesFont} range:range];
+        [attributedString setAttributes:@{NSFontAttributeName : kFeedBoldFont} range:range];
         attributedString;
     });
     _descriptionNode.flexShrink = YES;

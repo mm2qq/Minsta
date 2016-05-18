@@ -16,7 +16,6 @@
 
 static const CGFloat kAvatarLeadingMargin = 12.f;
 static const CGFloat kAvatarSizeWidth = 36.f;
-#define kUserNameFont [UIFont boldSystemFontOfSize:13.f]
 
 @interface MSPhotoFeedHeaderNode ()
 
@@ -55,8 +54,8 @@ static const CGFloat kAvatarSizeWidth = 36.f;
 - (void)layout {
     _avatarNode.frame = (CGRect){kAvatarLeadingMargin, (CGRectGetHeight(self.frame) - kAvatarSizeWidth) / 2.f, kAvatarSizeWidth, kAvatarSizeWidth};
 
-    CGFloat userNameNodeWidth = [_user.userName widthForFont:kUserNameFont];
-    CGFloat userNameNodeHeight = [_user.userName heightForFont:kUserNameFont width:userNameNodeWidth];
+    CGFloat userNameNodeWidth = [_user.userName widthForFont:kFeedBoldFont];
+    CGFloat userNameNodeHeight = [_user.userName heightForFont:kFeedBoldFont width:userNameNodeWidth];
     _userNameNode.frame = (CGRect){kAvatarLeadingMargin + CGRectGetMaxX(_avatarNode.frame), (CGRectGetHeight(self.frame) - userNameNodeHeight) / 2.f, userNameNodeWidth, userNameNodeHeight};
 
     _moreNode.frame = (CGRect){CGRectGetWidth(self.frame) - CGRectGetHeight(self.frame), (CGRectGetHeight(self.frame) - CGRectGetHeight(self.frame)) / 2.f, CGRectGetHeight(self.frame), CGRectGetHeight(self.frame)};
@@ -134,7 +133,7 @@ static const CGFloat kAvatarSizeWidth = 36.f;
     if (userName && ![@"" isEqualToString:userName]) {
         _userNameNode = [ASTextNode new];
         _userNameNode.backgroundColor = self.backgroundColor;
-        _userNameNode.attributedString = [[ASMutableAttributedStringBuilder alloc] initWithString:userName attributes:@{NSFontAttributeName : kUserNameFont}];
+        _userNameNode.attributedString = [[ASMutableAttributedStringBuilder alloc] initWithString:userName attributes:@{NSFontAttributeName : kFeedBoldFont}];
         _userNameNode.flexShrink = YES; //if name and username don't fit to cell width, allow username shrink
         _userNameNode.truncationMode = NSLineBreakByTruncatingTail;
         _userNameNode.maximumNumberOfLines = 1;
