@@ -16,21 +16,36 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)sharedInstance;
 
 /**
- *  Retrieve user friends' latest photo feeds
+ *  Retrieve fresh photos in today
  *
- *  @param userId    User identifier
- *  @param imageSize Image size
+ *  @param imageSize Image size array
  *  @param page      Page numbering is 1-based
  *  @param pageSize  Page size, can not be over 100, default 20
  *  @param callback  Callback handler
  *
  *  @return Current task identifier
  */
-- (NSUInteger)retrievePhotosWithUserId:(NSUInteger)userId
-                             imageSize:(CGSize)imageSize
-                                atPage:(NSUInteger)page
-                              pageSize:(NSUInteger)pageSize
-                            completion:(nullable MSCompletionCallback)callback;
+- (NSUInteger)retrieveFreshPhotosWithImageSizes:(NSArray *)imageSizes
+                                         atPage:(NSUInteger)page
+                                       pageSize:(NSUInteger)pageSize
+                                     completion:(nullable MSOperationCompletionCallback)callback;
+
+/**
+ *  Retrieve user friends' latest photos
+ *
+ *  @param userId    User identifier
+ *  @param imageSize Image size array
+ *  @param page      Page numbering is 1-based
+ *  @param pageSize  Page size, can not be over 100, default 20
+ *  @param callback  Callback handler
+ *
+ *  @return Current task identifier
+ */
+- (NSUInteger)retrieveFriendsPhotosWithUserId:(NSUInteger)userId
+                                   imageSizes:(NSArray *)imageSizes
+                                       atPage:(NSUInteger)page
+                                     pageSize:(NSUInteger)pageSize
+                                   completion:(nullable MSOperationCompletionCallback)callback;
 
 /**
  *  Retrieve photo's latest comments
@@ -45,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSUInteger)retrieveCommentsWithPhotoId:(NSUInteger)photoId
                                    atPage:(NSUInteger)page
                                  pageSize:(NSUInteger)pageSize
-                               completion:(nullable MSCompletionCallback)callback;
+                               completion:(nullable MSOperationCompletionCallback)callback;
 
 @end
 

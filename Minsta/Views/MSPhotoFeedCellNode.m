@@ -66,6 +66,12 @@ static NSAttributedString * formatCommentString(NSString *string) {
     return self;
 }
 
+- (void)dealloc {
+    [self _removeActions];
+}
+
+#pragma mark - Override
+
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
     // set subnode preferred size
     _likeControlNode.preferredFrameSize = (CGSize){kFunctionNodeSizeWidth, kFunctionNodeSizeWidth};
@@ -74,7 +80,7 @@ static NSAttributedString * formatCommentString(NSString *string) {
     _separatorNode.preferredFrameSize = (CGSize){constrainedSize.max.width, 1.f / [UIScreen mainScreen].scale};
 
     // photo ratio layout
-    ASRatioLayoutSpec *ratioLayout = [ASRatioLayoutSpec ratioLayoutSpecWithRatio:MS_HOME_PHOTO_RATIO child:_photoNode];
+    ASRatioLayoutSpec *ratioLayout = [ASRatioLayoutSpec ratioLayoutSpecWithRatio:1.f child:_photoNode];
 
     // function node horizontal stack layout
     ASStackLayoutSpec *fhStackLayout = [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal spacing:1.f justifyContent:ASStackLayoutJustifyContentStart alignItems:ASStackLayoutAlignItemsStart children:@[_likeControlNode, _commentControlNode, _sendControlNode]];
@@ -107,10 +113,6 @@ static NSAttributedString * formatCommentString(NSString *string) {
     ASStackLayoutSpec *vStackLayout = [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionVertical spacing:1.f justifyContent:ASStackLayoutJustifyContentStart alignItems:ASStackLayoutAlignItemsStart children:@[ratioLayout, fhStackLayout, sInsetLayout, vInsetLayout]];
 
     return vStackLayout;
-}
-
-- (void)dealloc {
-    [self _removeActions];
 }
 
 - (void)fetchData {

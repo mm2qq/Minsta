@@ -39,8 +39,8 @@
 - (void)loadView {
     [super loadView];
 
-    CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    _photoFeed = [[MSPhotoFeed alloc] initWithFrameSize:(CGSize){screenSize.width, screenSize.width * MS_HOME_PHOTO_RATIO}];
+    NSArray *imageSizes = @[@(MSImageSizeIdForStandardSize([UIScreen mainScreen].bounds.size))];
+    _photoFeed = [[MSPhotoFeed alloc] initWithImageSizes:imageSizes];
 
     // load datasource
     [self _refreshPhotos];
@@ -97,7 +97,7 @@
 
 - (void)_refreshPhotos {
     @weakify(self)
-    [_photoFeed refreshPhotosOnCompletion:^(NSArray<MSPhoto *> * _Nonnull photos) {
+    [_photoFeed refreshFriendsPhotosOnCompletion:^(NSArray<MSPhoto *> * _Nonnull photos) {
         @strongify(self)
         [self _insertRows:photos];
     } pageSize:5];
@@ -105,7 +105,7 @@
 
 - (void)_loadPhotosWithContext:(ASBatchContext *)context {
     @weakify(self)
-    [_photoFeed fetchPhotosOnCompletion:^(NSArray<MSPhoto *> * _Nonnull photos) {
+    [_photoFeed fetchFriendsPhotosOnCompletion:^(NSArray<MSPhoto *> * _Nonnull photos) {
         @strongify(self)
         [self _insertRows:photos];
 
@@ -115,6 +115,8 @@
 }
 
 - (void)_insertRows:(NSArray<MSPhoto *> *)photos {
+    if (photos.count == 0) return;
+
     [self.tableNode.view beginUpdates];
 
     for (NSUInteger section = _photoFeed.count - photos.count; section < _photoFeed.count; section++) {

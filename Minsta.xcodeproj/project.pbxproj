@@ -29,6 +29,7 @@
 		67900DC51CE88F3100C71A4C /* MSCommentFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 67900DC41CE88F3100C71A4C /* MSCommentFeed.m */; };
 		67BB42B31CE84EA500D47036 /* MSPhotoFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 67BB42B21CE84EA500D47036 /* MSPhotoFeed.m */; };
 		67CC68FE1CEDA00C00933E90 /* UIImage+MinstaAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 67CC68FD1CEDA00C00933E90 /* UIImage+MinstaAdd.m */; };
+		67CC69041CEDC7FC00933E90 /* MSPhotoFreshCellNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 67CC69031CEDC7FC00933E90 /* MSPhotoFreshCellNode.m */; };
 		67DC1C001CE74EFA006B0676 /* MSBaseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DC1BFF1CE74EFA006B0676 /* MSBaseOperation.m */; };
 		67DC1C031CE767A8006B0676 /* MSPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DC1C021CE767A8006B0676 /* MSPhoto.m */; };
 		67EF2C9C1CEB29B00026FE24 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 67EF2C971CEB29B00026FE24 /* Localizable.strings */; };
@@ -83,6 +84,8 @@
 		67BB42B21CE84EA500D47036 /* MSPhotoFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPhotoFeed.m; sourceTree = "<group>"; };
 		67CC68FC1CEDA00C00933E90 /* UIImage+MinstaAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+MinstaAdd.h"; sourceTree = "<group>"; };
 		67CC68FD1CEDA00C00933E90 /* UIImage+MinstaAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MinstaAdd.m"; sourceTree = "<group>"; };
+		67CC69021CEDC7FC00933E90 /* MSPhotoFreshCellNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPhotoFreshCellNode.h; sourceTree = "<group>"; };
+		67CC69031CEDC7FC00933E90 /* MSPhotoFreshCellNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPhotoFreshCellNode.m; sourceTree = "<group>"; };
 		67DC1BFE1CE74EFA006B0676 /* MSBaseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSBaseOperation.h; sourceTree = "<group>"; };
 		67DC1BFF1CE74EFA006B0676 /* MSBaseOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSBaseOperation.m; sourceTree = "<group>"; };
 		67DC1C011CE767A8006B0676 /* MSPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPhoto.h; sourceTree = "<group>"; };
@@ -221,6 +224,8 @@
 				673124B71CE7461E006C25F1 /* MSPhotoFeedCellNode.m */,
 				673124B81CE7461E006C25F1 /* MSPhotoFeedHeaderNode.h */,
 				673124B91CE7461E006C25F1 /* MSPhotoFeedHeaderNode.m */,
+				67CC69021CEDC7FC00933E90 /* MSPhotoFreshCellNode.h */,
+				67CC69031CEDC7FC00933E90 /* MSPhotoFreshCellNode.m */,
 			);
 			name = Views;
 			path = Minsta/Views;
@@ -396,6 +401,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				673124BE1CE7461E006C25F1 /* MSProfileViewController.m in Sources */,
+				67CC69041CEDC7FC00933E90 /* MSPhotoFreshCellNode.m in Sources */,
 				673124BA1CE7461E006C25F1 /* AppDelegate.m in Sources */,
 				67DC1C031CE767A8006B0676 /* MSPhoto.m in Sources */,
 				673124C11CE7461E006C25F1 /* MSUser.m in Sources */,

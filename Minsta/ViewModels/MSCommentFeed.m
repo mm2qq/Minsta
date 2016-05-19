@@ -64,7 +64,7 @@
     [[MSPhotosOperation sharedInstance] cancelTaskWithIdentifier:_taskIdentifier];
 }
 
-- (void)fetchCommentsOnCompletion:(void (^)(NSArray<MSComment *> * _Nonnull))callback pageSize:(NSUInteger)size {
+- (void)fetchCommentsOnCompletion:(MSCommentFeedCompletionCallback)callback pageSize:(NSUInteger)size {
     // return while fetching
     if (_fetchCommentsInProgress) return;
 
@@ -72,7 +72,7 @@
     [self _retrieveCommentsOnCompletion:callback pageSize:size replaceData:NO];
 }
 
-- (void)refreshCommentsOnCompletion:(void (^)(NSArray<MSComment *> * _Nonnull))callback pageSize:(NSUInteger)size {
+- (void)refreshCommentsOnCompletion:(MSCommentFeedCompletionCallback)callback pageSize:(NSUInteger)size {
     // return while refreshing
     if (_refreshCommentsInProgress) return;
 
@@ -83,7 +83,7 @@
 
 #pragma mark - Private
 
-- (void)_retrieveCommentsOnCompletion:(void (^)(NSArray<MSComment *> *))callback pageSize:(NSUInteger)size replaceData:(BOOL)replace {
+- (void)_retrieveCommentsOnCompletion:(MSCommentFeedCompletionCallback)callback pageSize:(NSUInteger)size replaceData:(BOOL)replace {
     // return while data reach the bottom
     if (_totalPages > 0 && _currentPage == _totalPages) return;
 
@@ -120,7 +120,7 @@
                                    }
                                }
                            }
-                           
+
                            dispatch_async_on_main_queue(^{
                                if (replace) {
                                    _comments = newComments;
@@ -129,10 +129,10 @@
                                    [_comments addObjectsFromArray:newComments];
                                    [_commentIds addObjectsFromArray:newCommentsIds];
                                }
-                               
+
                                // invoke callback
                                !callback ? : callback(newComments);
-                               
+
                                // reset status value
                                _fetchCommentsInProgress = NO;
                                _refreshCommentsInProgress = NO;

@@ -10,7 +10,7 @@
 
 @class AFHTTPSessionManager;
 
-typedef void (^MSCompletionCallback)(id _Nullable data, NSError * _Nullable error);
+typedef void (^MSOperationCompletionCallback)(id _Nullable data, NSError * _Nullable error);
 
 @protocol MSOperationProtocol <NSObject>
 

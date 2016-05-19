@@ -11,18 +11,50 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void (^MSPhotoFeedCompletionCallback)(NSArray<MSPhoto *> *photos);
+
 @interface MSPhotoFeed : NSObject
 
 @property (nonatomic, assign, readonly) NSUInteger count;       ///< The count of photos in current page
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithFrameSize:(CGSize)size NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithImageSizes:(NSArray *)sizes NS_DESIGNATED_INITIALIZER;
 
 - (nullable MSPhoto *)photoAtIndex:(NSUInteger)index;
 - (void)resetAllPhotos;
 - (void)cancelFetch;
-- (void)fetchPhotosOnCompletion:(nullable void (^)(NSArray<MSPhoto *> *))callback pageSize:(NSUInteger)size;
-- (void)refreshPhotosOnCompletion:(nullable void (^)(NSArray<MSPhoto *> *))callback pageSize:(NSUInteger)size;
+
+/**
+ *  Fetch user's friends' photos
+ *
+ *  @param callback Callback handler
+ *  @param size     Page size
+ */
+- (void)fetchFriendsPhotosOnCompletion:(nullable MSPhotoFeedCompletionCallback)callback pageSize:(NSUInteger)size;
+
+/**
+ *  Refresh user's friends' photos
+ *
+ *  @param callback Callback handler
+ *  @param size     Page size
+ */
+- (void)refreshFriendsPhotosOnCompletion:(nullable MSPhotoFeedCompletionCallback)callback pageSize:(NSUInteger)size;
+
+/**
+ *  Fetch today's fresh photos
+ *
+ *  @param callback Callback handler
+ *  @param size     Page size
+ */
+- (void)fetchFreshPhotosOnCompletion:(nullable MSPhotoFeedCompletionCallback)callback pageSize:(NSUInteger)size;
+
+/**
+ *  Refresh today's fresh photos
+ *
+ *  @param callback Callback handler
+ *  @param size     Page size
+ */
+- (void)refreshFreshPhotosOnCompletion:(nullable MSPhotoFeedCompletionCallback)callback pageSize:(NSUInteger)size;
 
 @end
 

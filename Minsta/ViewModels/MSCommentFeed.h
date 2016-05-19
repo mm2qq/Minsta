@@ -11,6 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void (^MSCommentFeedCompletionCallback)(NSArray<MSComment *> *comments);
+
 @interface MSCommentFeed : NSObject
 
 @property (nonatomic, assign, readonly) NSUInteger totalCount;  ///< Total count of comments
@@ -22,8 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable MSComment *)commentAtIndex:(NSUInteger)index;
 - (void)resetAllComments;
 - (void)cancelFetch;
-- (void)fetchCommentsOnCompletion:(nullable void (^)(NSArray<MSComment *> *))callback pageSize:(NSUInteger)size;
-- (void)refreshCommentsOnCompletion:(nullable void (^)(NSArray<MSComment *> *))callback pageSize:(NSUInteger)size;
+
+- (void)fetchCommentsOnCompletion:(nullable MSCommentFeedCompletionCallback)callback pageSize:(NSUInteger)size;
+- (void)refreshCommentsOnCompletion:(nullable MSCommentFeedCompletionCallback)callback pageSize:(NSUInteger)size;
 
 @end
 

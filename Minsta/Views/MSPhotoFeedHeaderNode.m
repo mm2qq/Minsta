@@ -52,6 +52,8 @@ static const CGFloat kAvatarSizeWidth = 36.f;
     [self _removeActions];
 }
 
+#pragma mark - Override
+
 - (void)layout {
     _avatarNode.frame = (CGRect){kAvatarLeadingMargin, (CGRectGetHeight(self.frame) - kAvatarSizeWidth) / 2.f, kAvatarSizeWidth, kAvatarSizeWidth};
 

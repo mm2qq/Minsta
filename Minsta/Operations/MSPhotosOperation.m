@@ -24,12 +24,24 @@
 
 #pragma mark - Public
 
-- (NSUInteger)retrievePhotosWithUserId:(NSUInteger)userId
-                             imageSize:(CGSize)imageSize
-                                atPage:(NSUInteger)page
-                              pageSize:(NSUInteger)pageSize
-                            completion:(MSCompletionCallback)callback {
-    NSUInteger sizeId = MSImageSizeIdForStandardSize(imageSize);
+- (NSUInteger)retrieveFreshPhotosWithImageSizes:(NSArray *)imageSizes
+                                         atPage:(NSUInteger)page
+                                       pageSize:(NSUInteger)pageSize
+                                     completion:(MSOperationCompletionCallback)callback {
+    return [self retrieveFriendsPhotosWithUserId:0
+                                      imageSizes:imageSizes
+                                          atPage:page
+                                        pageSize:pageSize
+                                      completion:callback];
+}
+
+- (NSUInteger)retrieveFriendsPhotosWithUserId:(NSUInteger)userId
+                                   imageSizes:(NSArray *)imageSizes
+                                       atPage:(NSUInteger)page
+                                     pageSize:(NSUInteger)pageSize
+                                   completion:(MSOperationCompletionCallback)callback {
+    NSParameterAssert(imageSizes);
+
     NSUInteger realPage = page == 0 ? 1 : page;
     NSUInteger realPageSize = pageSize > 100 ? 100 : pageSize;
 
@@ -43,7 +55,7 @@
         [params addEntriesFromDictionary:@{@"user_id" : @(userId)}];
     }
 
-    if (sizeId > 0) [params addEntriesFromDictionary:@{@"image_size" : @(sizeId)}];
+    if (imageSizes.count > 0) [params addEntriesFromDictionary:@{@"image_size" : [imageSizes componentsJoinedByString:@","]}];
     if (realPage > 0) [params addEntriesFromDictionary:@{@"page" : @(realPage)}];
     if (realPageSize > 0) [params addEntriesFromDictionary:@{@"rpp" : @(realPageSize)}];
 
@@ -65,7 +77,7 @@
 - (NSUInteger)retrieveCommentsWithPhotoId:(NSUInteger)photoId
                                    atPage:(NSUInteger)page
                                  pageSize:(NSUInteger)pageSize
-                               completion:(MSCompletionCallback)callback {
+                               completion:(MSOperationCompletionCallback)callback {
     NSString *pathString = [NSString stringWithFormat:@"photos/%d/comments?nested", (int)photoId];
     NSUInteger realPage = page == 0 ? 1 : page;
     NSUInteger realPageSize = pageSize > 100 ? 100 : pageSize;
