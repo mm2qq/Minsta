@@ -13,6 +13,7 @@
 #import "NSString+MinstaAdd.h"
 #import "UIGestureRecognizer+MinstaAdd.h"
 #import "ASControlNode+MinstaAdd.h"
+#import "UIImage+MinstaAdd.h"
 
 static const CGFloat kAvatarLeadingMargin = 12.f;
 static const CGFloat kAvatarSizeWidth = 36.f;
@@ -95,6 +96,8 @@ static const CGFloat kAvatarSizeWidth = 36.f;
     if (userPicUrlString && ![@"" isEqualToString:userPicUrlString]) {
         _avatarNode = [ASNetworkImageNode new];
         _avatarNode.backgroundColor = self.backgroundColor;
+        // set default image to avoid user's avatar can not access
+        _avatarNode.defaultImage = [UIImage imageWithColor:self.backgroundColor size:(CGSize){kAvatarSizeWidth, kAvatarSizeWidth}];
         _avatarNode.URL = [NSURL URLWithString:userPicUrlString];
         _avatarNode.imageModificationBlock = ^UIImage *(UIImage *image) {
             // make a CGRect with the image's size

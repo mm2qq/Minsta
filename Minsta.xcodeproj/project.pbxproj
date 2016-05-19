@@ -28,6 +28,7 @@
 		67900DC21CE88A4000C71A4C /* MSComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 67900DC11CE88A4000C71A4C /* MSComment.m */; };
 		67900DC51CE88F3100C71A4C /* MSCommentFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 67900DC41CE88F3100C71A4C /* MSCommentFeed.m */; };
 		67BB42B31CE84EA500D47036 /* MSPhotoFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 67BB42B21CE84EA500D47036 /* MSPhotoFeed.m */; };
+		67CC68FE1CEDA00C00933E90 /* UIImage+MinstaAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 67CC68FD1CEDA00C00933E90 /* UIImage+MinstaAdd.m */; };
 		67DC1C001CE74EFA006B0676 /* MSBaseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DC1BFF1CE74EFA006B0676 /* MSBaseOperation.m */; };
 		67DC1C031CE767A8006B0676 /* MSPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DC1C021CE767A8006B0676 /* MSPhoto.m */; };
 		67EF2C9C1CEB29B00026FE24 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 67EF2C971CEB29B00026FE24 /* Localizable.strings */; };
@@ -80,6 +81,8 @@
 		67900DC41CE88F3100C71A4C /* MSCommentFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSCommentFeed.m; sourceTree = "<group>"; };
 		67BB42B11CE84EA500D47036 /* MSPhotoFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPhotoFeed.h; sourceTree = "<group>"; };
 		67BB42B21CE84EA500D47036 /* MSPhotoFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPhotoFeed.m; sourceTree = "<group>"; };
+		67CC68FC1CEDA00C00933E90 /* UIImage+MinstaAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+MinstaAdd.h"; sourceTree = "<group>"; };
+		67CC68FD1CEDA00C00933E90 /* UIImage+MinstaAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MinstaAdd.m"; sourceTree = "<group>"; };
 		67DC1BFE1CE74EFA006B0676 /* MSBaseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSBaseOperation.h; sourceTree = "<group>"; };
 		67DC1BFF1CE74EFA006B0676 /* MSBaseOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSBaseOperation.m; sourceTree = "<group>"; };
 		67DC1C011CE767A8006B0676 /* MSPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPhoto.h; sourceTree = "<group>"; };
@@ -195,13 +198,15 @@
 		673124B01CE7461E006C25F1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				67EF2CA11CEB551A0026FE24 /* ASControlNode+MinstaAdd.h */,
-				67EF2CA21CEB551A0026FE24 /* ASControlNode+MinstaAdd.m */,
 				673124B11CE7461E006C25F1 /* MinstaMacro.h */,
 				675FD39F1CEA054A00F282F0 /* NSString+MinstaAdd.h */,
 				675FD3A01CEA054A00F282F0 /* NSString+MinstaAdd.m */,
+				67EF2CA11CEB551A0026FE24 /* ASControlNode+MinstaAdd.h */,
+				67EF2CA21CEB551A0026FE24 /* ASControlNode+MinstaAdd.m */,
 				67EF2C9E1CEB43C70026FE24 /* UIGestureRecognizer+MinstaAdd.h */,
 				67EF2C9F1CEB43C70026FE24 /* UIGestureRecognizer+MinstaAdd.m */,
+				67CC68FC1CEDA00C00933E90 /* UIImage+MinstaAdd.h */,
+				67CC68FD1CEDA00C00933E90 /* UIImage+MinstaAdd.m */,
 			);
 			name = Utils;
 			path = Minsta/Utils;
@@ -400,6 +405,7 @@
 				675FD3A11CEA054A00F282F0 /* NSString+MinstaAdd.m in Sources */,
 				673124BF1CE7461E006C25F1 /* MSSearchViewController.m in Sources */,
 				673124C01CE7461E006C25F1 /* MSTabBarController.m in Sources */,
+				67CC68FE1CEDA00C00933E90 /* UIImage+MinstaAdd.m in Sources */,
 				675FD39E1CE9C8C400F282F0 /* MSBaseModel.m in Sources */,
 				67DC1C001CE74EFA006B0676 /* MSBaseOperation.m in Sources */,
 				673124BD1CE7461E006C25F1 /* MSHomeViewController.m in Sources */,
