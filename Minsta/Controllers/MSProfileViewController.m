@@ -7,6 +7,7 @@
 //
 
 #import "MSProfileViewController.h"
+#import "MSWindow.h"
 
 @interface MSProfileViewController ()
 
@@ -31,7 +32,10 @@
 #pragma mark - Override
 
 - (BOOL)prefersStatusBarHidden {
-    return NO;
+    BOOL shouldHide = NO;
+    [(MSWindow *)([UIApplication sharedApplication].keyWindow) hideStatusBarOverlay:shouldHide];
+
+    return shouldHide;
 }
 
 @end

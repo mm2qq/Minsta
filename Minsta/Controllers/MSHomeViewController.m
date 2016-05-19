@@ -10,6 +10,7 @@
 #import "MSPhotoFeedHeaderNode.h"
 #import "MSPhotoFeedCellNode.h"
 #import "MSPhotoFeed.h"
+#import "MSWindow.h"
 #import "MinstaMacro.h"
 
 @interface MSHomeViewController () <ASTableDataSource, ASTableDelegate>
@@ -130,7 +131,10 @@
 #pragma mark - Override
 
 - (BOOL)prefersStatusBarHidden {
-    return NO;
+    BOOL shouldHide = NO;
+    [(MSWindow *)([UIApplication sharedApplication].keyWindow) hideStatusBarOverlay:shouldHide];
+
+    return shouldHide;
 }
 
 @end

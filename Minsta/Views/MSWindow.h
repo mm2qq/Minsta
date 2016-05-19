@@ -10,4 +10,6 @@
 
 @interface MSWindow : UIWindow
 
+- (void)hideStatusBarOverlay:(BOOL)shouldHide;
+
 @end

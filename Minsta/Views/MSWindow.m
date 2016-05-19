@@ -17,8 +17,9 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        _statusBar                 = [UIView new];
+        _statusBar = [UIView new];
         _statusBar.backgroundColor = MS_BAR_TINT_COLOR;
+
         [self addSubview:_statusBar];
     }
 
@@ -30,6 +31,11 @@
 
     [self bringSubviewToFront:_statusBar];
     [super layoutSubviews];
+}
+
+- (void)hideStatusBarOverlay:(BOOL)shouldHide {
+    _statusBar.hidden = shouldHide;
+    if (!shouldHide) [self bringSubviewToFront:_statusBar];
 }
 
 @end

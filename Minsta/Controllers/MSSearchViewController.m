@@ -9,6 +9,7 @@
 #import "MSSearchViewController.h"
 #import "MSPhotoFreshCellNode.h"
 #import "MSPhotoFeed.h"
+#import "MSWindow.h"
 #import "MinstaMacro.h"
 
 static const CGFloat kItemMargin = 2.5f;
@@ -29,7 +30,9 @@ static const CGFloat kItemSizeWidth = 105.f;
     UICollectionViewFlowLayout *flowLayout = [UICollectionViewFlowLayout new];
     flowLayout.minimumLineSpacing = kItemMargin;
     flowLayout.minimumInteritemSpacing = kItemMargin;
+
     ASCollectionNode *collectionNode = [[ASCollectionNode alloc] initWithCollectionViewLayout:flowLayout];
+    collectionNode.view.allowsSelection = NO;
 
     if (self = [super initWithNode:collectionNode]) {
         collectionNode.dataSource = self;
@@ -124,7 +127,10 @@ static const CGFloat kItemSizeWidth = 105.f;
 #pragma mark - Override
 
 - (BOOL)prefersStatusBarHidden {
-    return NO;
+    BOOL shouldHide = self.navigationController.isNavigationBarHidden;
+    [(MSWindow *)([UIApplication sharedApplication].keyWindow) hideStatusBarOverlay:shouldHide];
+
+    return shouldHide;
 }
 
 @end
