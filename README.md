@@ -10,9 +10,15 @@ An Instagram demo whose source come from [500px.com](https://500px.com)
 
 ### Smaples
 
-![](https://github.com/maocl023/Minsta/blob/master/Samples/Simplify_Chinese_iPhone_4S.png)
+![](https://github.com/maocl023/Minsta/blob/master/Samples/Simplified_Chinese_iPhone_5S_Home.png)
 
-![](https://github.com/maocl023/Minsta/blob/master/Samples/English_iPhone_6S.png)
+![](https://github.com/maocl023/Minsta/blob/master/Samples/Simplified_Chinese_iPhone_5S_Search.png)
+
+![](https://github.com/maocl023/Minsta/blob/master/Samples/English_iPhone_6S_Home_Portrait.png)
+
+![](https://github.com/maocl023/Minsta/blob/master/Samples/English_iPhone_6S_Home_Landscape.png)
+
+![](https://github.com/maocl023/Minsta/blob/master/Samples/English_iPhone_6S_Search_Landscape.png)
 
 ### Usage
 

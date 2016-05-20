@@ -12,8 +12,8 @@
 #import "MSWindow.h"
 #import "MinstaMacro.h"
 
-static const CGFloat kItemMargin = 2.5f;
-static const CGFloat kItemSizeWidth = 105.f;
+static const CGFloat kItemMargin = 1.f;
+static const CGFloat kItemSizeWidth = 106.f;
 
 @interface MSSearchViewController () <ASCollectionDataSource, ASCollectionDelegate>
 
