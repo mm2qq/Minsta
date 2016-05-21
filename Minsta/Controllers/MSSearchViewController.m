@@ -76,7 +76,9 @@ static const CGFloat kItemSizeWidth = 106.f;
 
 - (ASSizeRange)collectionView:(ASCollectionView *)collectionView constrainedSizeForNodeAtIndexPath:(NSIndexPath *)indexPath {
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    CGSize itemSize = indexPath.item == 0 ? (CGSize){screenSize.width, screenSize.width * MS_UNCROPPED_PHOTO_RATIO} : (CGSize){kItemSizeWidth, kItemSizeWidth};
+    CGSize itemSize = indexPath.item == 0
+    ? (CGSize){screenSize.width, screenSize.width * MS_UNCROPPED_PHOTO_RATIO}
+    : (CGSize){kItemSizeWidth, kItemSizeWidth};
     return ASSizeRangeMake(itemSize, itemSize);
 }
 

@@ -170,10 +170,7 @@ static NSAttributedString * formatCommentString(NSString *string) {
 #pragma mark - Actions
 
 - (void)photoNodeDidTapped {
-    // TODO:this alert just for test
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"display photo" preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+    
 }
 
 - (void)likeControlNodeDidTapped {
@@ -223,8 +220,12 @@ static NSAttributedString * formatCommentString(NSString *string) {
 - (void)_setupSubnodes {
     NSString *photoUrlString = _photo.images[0].url;
     NSString *votesString = [NSString stringWithFormat:NSLocalizedString(@"%d likes", nil), _photo.votesCount];
-    NSString *descriptionString = _photo.photoName && ![@"" isEqualToString:_photo.photoName] ? [NSString stringWithFormat:@"%@ %@", _photo.user.userName, _photo.photoDescription && ![@"" isEqualToString:_photo.photoDescription] ? _photo.photoDescription : _photo.photoName] : nil;
-    NSString *commentHintString = _photo.commentsCount > 2 ? [NSString stringWithFormat:NSLocalizedString(@"View all %d comments", nil), _photo.commentsCount] : nil;
+    NSString *descriptionString = _photo.photoName && ![@"" isEqualToString:_photo.photoName]
+    ? [NSString stringWithFormat:@"%@ %@", _photo.user.userName, _photo.photoDescription
+       && ![@"" isEqualToString:_photo.photoDescription]
+       ? _photo.photoDescription : _photo.photoName] : nil;
+    NSString *commentHintString = _photo.commentsCount > 2
+    ? [NSString stringWithFormat:NSLocalizedString(@"View all %d comments", nil), _photo.commentsCount] : nil;
     NSString *timeString = [NSString elapsedTimeStringSinceDate:_photo.createdAt];
 
     _photoNode = [ASNetworkImageNode new];
@@ -326,7 +327,8 @@ static NSAttributedString * formatCommentString(NSString *string) {
     _commentTextNodes = newCommentTextNodes;
 
     // refresh comment hint node by the way
-    NSString *commentHintString = _commentFeed.totalCount > 2 ? [NSString stringWithFormat:NSLocalizedString(@"View all %d comments", nil), _commentFeed.totalCount] : nil;
+    NSString *commentHintString = _commentFeed.totalCount > 2
+    ? [NSString stringWithFormat:NSLocalizedString(@"View all %d comments", nil), _commentFeed.totalCount] : nil;
 
     if (commentHintString) {
         self.commentHintNode.attributedText = [[ASMutableAttributedStringBuilder alloc] initWithString:commentHintString attributes:@{NSFontAttributeName : MS_FEED_REGULAR_FONT, NSForegroundColorAttributeName : MS_LIGHT_GRAY_TEXT_COLOR}];
