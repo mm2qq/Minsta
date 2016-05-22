@@ -7,10 +7,18 @@
 //
 
 #import "MSPhotoDisplayNode.h"
+#import "UIGestureRecognizer+MinstaAdd.h"
+#import "MinstaMacro.h"
+
+#pragma mark - MSPhotoDisplayItem
+
+@implementation MSPhotoDisplayItem
+
+@end
 
 #pragma mark - MSPhotoDisplayNodeCell
 
-@interface MSPhotoDisplayNodeCell : ASCellNode
+@interface MSPhotoDisplayCellNode : ASCellNode
 
 @property (nonatomic, strong) MSPhotoDisplayItem *displayItem;
 
@@ -21,7 +29,7 @@
 
 @end
 
-@implementation MSPhotoDisplayNodeCell
+@implementation MSPhotoDisplayCellNode
 
 #pragma mark - Lifecycle
 
@@ -36,6 +44,10 @@
     return self;
 }
 
+- (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
+    return [ASRatioLayoutSpec ratioLayoutSpecWithRatio:1.f child:_photoNode];
+}
+
 #pragma mark - Private
 
 - (void)_setupSubnodes {
@@ -48,7 +60,7 @@
 }
 
 - (void)_addActions {
-
+    // TODO:add action for node
 }
 
 @end
@@ -58,6 +70,7 @@
 @interface MSPhotoDisplayNode () <ASPagerDataSource>
 
 @property (nonatomic, copy) NSArray<MSPhotoDisplayItem *> *displayItems;
+@property (nonatomic, strong) UIView *fromView;
 @property (nonatomic, strong) ASPagerNode *pagerNode;
 
 @end
@@ -68,24 +81,18 @@
 
 - (instancetype)initWithDisplayItems:(NSArray<MSPhotoDisplayItem *> *)items {
     if (self = [super init]) {
+        self.backgroundColor = [UIColor blackColor];
         _displayItems = items;
 
         [self _setupSubnodes];
+        [self _addActions];
     }
 
     return self;
 }
 
-#pragma mark - Public
-
-- (void)displayNode:(ASDisplayNode *)fromNode
-             toNode:(ASDisplayNode *)toNode
-         completion:(MSPhotoDisplayCompletionCallback)callback {
-
-}
-
-- (void)dismissOnCompletion:(MSPhotoDisplayCompletionCallback)callback {
-    
+- (void)dealloc {
+    [self _removeActions];
 }
 
 #pragma mark - ASPagerDataSource
@@ -98,8 +105,20 @@
     MSPhotoDisplayItem *item = _displayItems[index];
 
     return ^ASCellNode *() {
-        return [[MSPhotoDisplayNodeCell alloc] initWithDisplayItem:item];
+        return [[MSPhotoDisplayCellNode alloc] initWithDisplayItem:item];
     };
+}
+
+#pragma mark - Actions
+
+- (void)pagerDidTapped {
+
+}
+
+#pragma mark - Public
+
+- (void)presentOnView:(UIView *)parentView fromView:(UIView *)fromView {
+
 }
 
 #pragma mark - Private
@@ -107,7 +126,22 @@
 - (void)_setupSubnodes {
     _pagerNode = [ASPagerNode new];
     _pagerNode.dataSource = self;
+
     [self addSubnode:_pagerNode];
+}
+
+- (void)_addActions {
+    @weakify(self)
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]
+                                     initWithActionBlock:^(id  _Nonnull sender)
+                                     {
+                                         @strongify(self)
+                                         [self pagerDidTapped];
+                                     }]];
+}
+
+- (void)_removeActions {
+    [self.view.gestureRecognizers makeObjectsPerformSelector:@selector(removeAllActionBlocks)];
 }
 
 @end

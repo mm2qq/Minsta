@@ -51,11 +51,10 @@
 
 #pragma mark - Actions
 
-- (void)photoNodeDidTapped {
-    // TODO:this alert just for test
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"enter photo feed" preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+- (void)photoNodeDidTapped:(id)sender {
+    if ([_delegate respondsToSelector:@selector(cellNode:didTappedPhotoNode:)]) {
+        [_delegate cellNode:self didTappedPhotoNode:sender];
+    }
 }
 
 #pragma mark - Private
@@ -85,7 +84,7 @@
                                    block:^(id  _Nonnull sender)
      {
          @strongify(self)
-         [self photoNodeDidTapped];
+         [self photoNodeDidTapped:sender];
      }];
 }
 

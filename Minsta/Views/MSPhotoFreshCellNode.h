@@ -11,11 +11,22 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class MSPhoto;
+@protocol MSPhotoFreshCellDelegate;
 
 @interface MSPhotoFreshCellNode : ASCellNode
 
+@property (nonatomic, weak) id<MSPhotoFreshCellDelegate> delegate;
+
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithPhoto:(MSPhoto *)photo shouldCropped:(BOOL)cropped NS_DESIGNATED_INITIALIZER;
+
+@end
+
+@protocol MSPhotoFreshCellDelegate <NSObject>
+
+@optional
+
+- (void)cellNode:(MSPhotoFreshCellNode *)cellNode didTappedPhotoNode:(ASNetworkImageNode *)photoNode;
 
 @end
 

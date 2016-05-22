@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^MSPhotoDisplayCompletionCallback)();
 
 @interface MSPhotoDisplayItem : NSObject
-@property (nonatomic, strong) UIImage *defaultImage;
+@property (nullable, nonatomic, strong) UIImage *defaultImage;
 @property (nonatomic, strong) NSURL *imageUrl;
 @end
 
@@ -22,11 +22,9 @@ typedef void (^MSPhotoDisplayCompletionCallback)();
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDisplayItems:(NSArray<MSPhotoDisplayItem *> *)items NS_DESIGNATED_INITIALIZER;
 
-- (void)displayNode:(ASDisplayNode *)fromNode
-             toNode:(ASDisplayNode *)toNode
-         completion:(nullable MSPhotoDisplayCompletionCallback)callback;
-
-- (void)dismissOnCompletion:(nullable MSPhotoDisplayCompletionCallback)callback;
+- (void)presentOnView:(UIView *)parentView
+             fromView:(UIView *)fromView
+           completion:(nullable MSPhotoDisplayCompletionCallback)callback;
 
 @end
 

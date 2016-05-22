@@ -15,6 +15,7 @@ typedef void (^MSPhotoFeedCompletionCallback)(NSArray<MSPhoto *> *photos);
 
 @interface MSPhotoFeed : NSObject
 
+@property (nonatomic, copy, readonly) NSMutableArray<MSPhoto *> *photos;
 @property (nonatomic, assign, readonly) NSUInteger count;       ///< The count of photos in current page
 
 - (instancetype)init NS_UNAVAILABLE;

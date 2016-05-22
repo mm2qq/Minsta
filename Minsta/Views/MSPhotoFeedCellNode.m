@@ -169,8 +169,10 @@ static NSAttributedString * formatCommentString(NSString *string) {
 
 #pragma mark - Actions
 
-- (void)photoNodeDidTapped {
-    
+- (void)photoNodeDidTapped:(id)sender {
+    if ([_delegate respondsToSelector:@selector(cellNode:didTappedPhotoNode:)]) {
+        [_delegate cellNode:self didTappedPhotoNode:sender];
+    }
 }
 
 - (void)likeControlNodeDidTapped {
@@ -355,7 +357,7 @@ static NSAttributedString * formatCommentString(NSString *string) {
                                    block:^(id  _Nonnull sender)
      {
          @strongify(self)
-         [self photoNodeDidTapped];
+         [self photoNodeDidTapped:sender];
      }];
 
     [_likeControlNode setBlockForControlEvents:ASControlNodeEventTouchUpInside

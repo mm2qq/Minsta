@@ -15,7 +15,7 @@
 static const CGFloat kItemMargin = 1.f;
 static const CGFloat kItemSizeWidth = 106.f;
 
-@interface MSSearchViewController () <ASCollectionDataSource, ASCollectionDelegate>
+@interface MSSearchViewController () <ASCollectionDataSource, ASCollectionDelegate, MSPhotoFreshCellDelegate>
 
 @property (nonatomic, strong) ASCollectionNode *collectionNode;
 @property (nonatomic, strong) MSPhotoFeed *photoFeed;
@@ -70,7 +70,9 @@ static const CGFloat kItemSizeWidth = 106.f;
     BOOL shouldCropped = indexPath.item != 0;// first item do not crop
 
     return ^ASCellNode *() {
-        return [[MSPhotoFreshCellNode alloc] initWithPhoto:photo shouldCropped:shouldCropped];
+        MSPhotoFreshCellNode *cell = [[MSPhotoFreshCellNode alloc] initWithPhoto:photo shouldCropped:shouldCropped];
+        cell.delegate = self;
+        return cell;
     };
 }
 
@@ -91,6 +93,12 @@ static const CGFloat kItemSizeWidth = 106.f;
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
     self.navigationController.navigationBarHidden = NO;
+}
+
+#pragma mark - MSPhotoFreshCellDelegate
+
+- (void)cellNode:(MSPhotoFreshCellNode *)cellNode didTappedPhotoNode:(ASNetworkImageNode *)photoNode {
+
 }
 
 #pragma mark - Private
@@ -131,7 +139,7 @@ static const CGFloat kItemSizeWidth = 106.f;
 - (BOOL)prefersStatusBarHidden {
     BOOL shouldHide = self.navigationController.isNavigationBarHidden;
     [(MSWindow *)([UIApplication sharedApplication].keyWindow) hideStatusBarOverlay:shouldHide];
-
+    
     return shouldHide;
 }
 

@@ -25,6 +25,7 @@
 		673124CB1CE7466B006C25F1 /* MSPhotosOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 673124CA1CE7466B006C25F1 /* MSPhotosOperation.m */; };
 		675FD39E1CE9C8C400F282F0 /* MSBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 675FD39D1CE9C8C400F282F0 /* MSBaseModel.m */; };
 		675FD3A11CEA054A00F282F0 /* NSString+MinstaAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 675FD3A01CEA054A00F282F0 /* NSString+MinstaAdd.m */; };
+		6789607F1CF22D40002FC056 /* MSPhotoDisplayNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6789607E1CF22D40002FC056 /* MSPhotoDisplayNode.m */; };
 		67900DC21CE88A4000C71A4C /* MSComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 67900DC11CE88A4000C71A4C /* MSComment.m */; };
 		67900DC51CE88F3100C71A4C /* MSCommentFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 67900DC41CE88F3100C71A4C /* MSCommentFeed.m */; };
 		67BB42B31CE84EA500D47036 /* MSPhotoFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 67BB42B21CE84EA500D47036 /* MSPhotoFeed.m */; };
@@ -32,7 +33,6 @@
 		67CC69041CEDC7FC00933E90 /* MSPhotoFreshCellNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 67CC69031CEDC7FC00933E90 /* MSPhotoFreshCellNode.m */; };
 		67DC1C001CE74EFA006B0676 /* MSBaseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DC1BFF1CE74EFA006B0676 /* MSBaseOperation.m */; };
 		67DC1C031CE767A8006B0676 /* MSPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DC1C021CE767A8006B0676 /* MSPhoto.m */; };
-		67E4F87F1CEF356B0034974E /* MSPhotoDisplayNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E4F87E1CEF356B0034974E /* MSPhotoDisplayNode.m */; };
 		67EF2C9C1CEB29B00026FE24 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 67EF2C971CEB29B00026FE24 /* Localizable.strings */; };
 		67EF2C9D1CEB29B00026FE24 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 67EF2C9A1CEB29B00026FE24 /* Localizable.strings */; };
 		67EF2CA01CEB43C70026FE24 /* UIGestureRecognizer+MinstaAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 67EF2C9F1CEB43C70026FE24 /* UIGestureRecognizer+MinstaAdd.m */; };
@@ -77,6 +77,8 @@
 		675FD39D1CE9C8C400F282F0 /* MSBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSBaseModel.m; sourceTree = "<group>"; };
 		675FD39F1CEA054A00F282F0 /* NSString+MinstaAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MinstaAdd.h"; sourceTree = "<group>"; };
 		675FD3A01CEA054A00F282F0 /* NSString+MinstaAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MinstaAdd.m"; sourceTree = "<group>"; };
+		6789607D1CF22D40002FC056 /* MSPhotoDisplayNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPhotoDisplayNode.h; sourceTree = "<group>"; };
+		6789607E1CF22D40002FC056 /* MSPhotoDisplayNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPhotoDisplayNode.m; sourceTree = "<group>"; };
 		67900DC01CE88A4000C71A4C /* MSComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSComment.h; sourceTree = "<group>"; };
 		67900DC11CE88A4000C71A4C /* MSComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSComment.m; sourceTree = "<group>"; };
 		67900DC31CE88F3100C71A4C /* MSCommentFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSCommentFeed.h; sourceTree = "<group>"; };
@@ -91,8 +93,6 @@
 		67DC1BFF1CE74EFA006B0676 /* MSBaseOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSBaseOperation.m; sourceTree = "<group>"; };
 		67DC1C011CE767A8006B0676 /* MSPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPhoto.h; sourceTree = "<group>"; };
 		67DC1C021CE767A8006B0676 /* MSPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPhoto.m; sourceTree = "<group>"; };
-		67E4F87D1CEF356B0034974E /* MSPhotoDisplayNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPhotoDisplayNode.h; sourceTree = "<group>"; };
-		67E4F87E1CEF356B0034974E /* MSPhotoDisplayNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPhotoDisplayNode.m; sourceTree = "<group>"; };
 		67EF2C981CEB29B00026FE24 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
 		67EF2C9B1CEB29B00026FE24 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = Localizable.strings; sourceTree = "<group>"; };
 		67EF2C9E1CEB43C70026FE24 /* UIGestureRecognizer+MinstaAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+MinstaAdd.h"; sourceTree = "<group>"; };
@@ -223,8 +223,8 @@
 			children = (
 				671B9C511CEA10AD006FAE41 /* MSWindow.h */,
 				671B9C521CEA10AD006FAE41 /* MSWindow.m */,
-				67E4F87D1CEF356B0034974E /* MSPhotoDisplayNode.h */,
-				67E4F87E1CEF356B0034974E /* MSPhotoDisplayNode.m */,
+				6789607D1CF22D40002FC056 /* MSPhotoDisplayNode.h */,
+				6789607E1CF22D40002FC056 /* MSPhotoDisplayNode.m */,
 				673124B61CE7461E006C25F1 /* MSPhotoFeedCellNode.h */,
 				673124B71CE7461E006C25F1 /* MSPhotoFeedCellNode.m */,
 				673124B81CE7461E006C25F1 /* MSPhotoFeedHeaderNode.h */,
@@ -407,6 +407,7 @@
 			files = (
 				673124BE1CE7461E006C25F1 /* MSProfileViewController.m in Sources */,
 				67CC69041CEDC7FC00933E90 /* MSPhotoFreshCellNode.m in Sources */,
+				6789607F1CF22D40002FC056 /* MSPhotoDisplayNode.m in Sources */,
 				673124BA1CE7461E006C25F1 /* AppDelegate.m in Sources */,
 				67DC1C031CE767A8006B0676 /* MSPhoto.m in Sources */,
 				673124C11CE7461E006C25F1 /* MSUser.m in Sources */,
@@ -424,7 +425,6 @@
 				67900DC21CE88A4000C71A4C /* MSComment.m in Sources */,
 				673124BC1CE7461E006C25F1 /* MSCameraViewController.m in Sources */,
 				67EF2CA31CEB551A0026FE24 /* ASControlNode+MinstaAdd.m in Sources */,
-				67E4F87F1CEF356B0034974E /* MSPhotoDisplayNode.m in Sources */,
 				673124C81CE7461E006C25F1 /* MSPhotoFeedHeaderNode.m in Sources */,
 				673124C71CE7461E006C25F1 /* MSPhotoFeedCellNode.m in Sources */,
 				67BB42B31CE84EA500D47036 /* MSPhotoFeed.m in Sources */,
@@ -544,12 +544,13 @@
 			baseConfigurationReference = 253163E9B25F9A4C9152FEEB /* Pods-Minsta.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Minsta/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = maocl023.YYKitDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maocl023.Minsta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -559,12 +560,13 @@
 			baseConfigurationReference = 4417997E28E78C283D43683A /* Pods-Minsta.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Minsta/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = maocl023.YYKitDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maocl023.Minsta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

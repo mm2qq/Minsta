@@ -13,7 +13,7 @@
 #import "MSWindow.h"
 #import "MinstaMacro.h"
 
-@interface MSHomeViewController () <ASTableDataSource, ASTableDelegate>
+@interface MSHomeViewController () <ASTableDataSource, ASTableDelegate, MSPhotoFeedCellDelegate>
 
 @property (nonatomic, strong) ASTableNode *tableNode;
 @property (nonatomic, strong) MSPhotoFeed *photoFeed;
@@ -67,7 +67,9 @@
     MSPhoto *photo = [_photoFeed photoAtIndex:indexPath.section];
 
     return ^ASCellNode *() {
-        return [[MSPhotoFeedCellNode alloc] initWithPhoto:photo];
+        MSPhotoFeedCellNode *cell = [[MSPhotoFeedCellNode alloc] initWithPhoto:photo];
+        cell.delegate = self;
+        return cell;
     };
 }
 
@@ -92,6 +94,12 @@
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
     self.navigationController.navigationBarHidden = NO;
+}
+
+#pragma mark - MSPhotoFeedCellDelegate
+
+- (void)cellNode:(MSPhotoFeedCellNode *)cellNode didTappedPhotoNode:(ASNetworkImageNode *)photoNode {
+
 }
 
 #pragma mark - Private
@@ -133,7 +141,7 @@
 - (BOOL)prefersStatusBarHidden {
     BOOL shouldHide = NO;
     [(MSWindow *)([UIApplication sharedApplication].keyWindow) hideStatusBarOverlay:shouldHide];
-
+    
     return shouldHide;
 }
 
