@@ -8,6 +8,7 @@
 
 #import "MSSearchViewController.h"
 #import "MSPhotoFreshCellNode.h"
+#import "MSPhotoDisplayNode.h"
 #import "MSPhotoFeed.h"
 #import "MSWindow.h"
 #import "MinstaMacro.h"
@@ -72,6 +73,8 @@ static const CGFloat kItemSizeWidth = 106.f;
     return ^ASCellNode *() {
         MSPhotoFreshCellNode *cell = [[MSPhotoFreshCellNode alloc] initWithPhoto:photo shouldCropped:shouldCropped];
         cell.delegate = self;
+        cell.indexPath = indexPath;
+
         return cell;
     };
 }
@@ -98,7 +101,19 @@ static const CGFloat kItemSizeWidth = 106.f;
 #pragma mark - MSPhotoFreshCellDelegate
 
 - (void)cellNode:(MSPhotoFreshCellNode *)cellNode didTappedPhotoNode:(ASNetworkImageNode *)photoNode {
+    NSMutableArray *items = [NSMutableArray arrayWithCapacity:_photoFeed.count];
 
+    for (MSPhoto *photo in _photoFeed.photos) {
+        MSPhotoDisplayItem *item = [MSPhotoDisplayItem new];
+        item.imageUrl = [NSURL URLWithString:photo.images[0].url];
+        [items addObject:item];
+    }
+
+    MSPhotoDisplayNode *displayNode = [[MSPhotoDisplayNode alloc] initWithDisplayItems:items];
+
+    [displayNode presentView:photoNode.view
+                     atIndex:cellNode.indexPath.item
+                  completion:nil];
 }
 
 #pragma mark - Private

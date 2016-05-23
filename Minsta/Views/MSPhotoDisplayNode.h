@@ -22,9 +22,9 @@ typedef void (^MSPhotoDisplayCompletionCallback)();
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDisplayItems:(NSArray<MSPhotoDisplayItem *> *)items NS_DESIGNATED_INITIALIZER;
 
-- (void)presentOnView:(UIView *)parentView
-             fromView:(UIView *)fromView
-           completion:(nullable MSPhotoDisplayCompletionCallback)callback;
+- (void)presentView:(UIView *)fromView
+            atIndex:(NSUInteger)index
+         completion:(nullable MSPhotoDisplayCompletionCallback)callback;
 
 @end
 

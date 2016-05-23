@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MSPhotoFeedCellNode : ASCellNode
 
 @property (nonatomic, weak) id<MSPhotoFeedCellDelegate> delegate;
+@property (nonatomic, strong) NSIndexPath *indexPath;
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithPhoto:(MSPhoto *)photo NS_DESIGNATED_INITIALIZER;

@@ -9,6 +9,7 @@
 #import "MSHomeViewController.h"
 #import "MSPhotoFeedHeaderNode.h"
 #import "MSPhotoFeedCellNode.h"
+#import "MSPhotoDisplayNode.h"
 #import "MSPhotoFeed.h"
 #import "MSWindow.h"
 #import "MinstaMacro.h"
@@ -69,6 +70,8 @@
     return ^ASCellNode *() {
         MSPhotoFeedCellNode *cell = [[MSPhotoFeedCellNode alloc] initWithPhoto:photo];
         cell.delegate = self;
+        cell.indexPath = indexPath;
+
         return cell;
     };
 }
@@ -99,7 +102,19 @@
 #pragma mark - MSPhotoFeedCellDelegate
 
 - (void)cellNode:(MSPhotoFeedCellNode *)cellNode didTappedPhotoNode:(ASNetworkImageNode *)photoNode {
+    NSMutableArray *items = [NSMutableArray arrayWithCapacity:_photoFeed.count];
 
+    for (MSPhoto *photo in _photoFeed.photos) {
+        MSPhotoDisplayItem *item = [MSPhotoDisplayItem new];
+        item.imageUrl = [NSURL URLWithString:photo.images[0].url];
+        [items addObject:item];
+    }
+
+    MSPhotoDisplayNode *displayNode = [[MSPhotoDisplayNode alloc] initWithDisplayItems:items];
+
+    [displayNode presentView:photoNode.view
+                     atIndex:cellNode.indexPath.section
+                  completion:nil];
 }
 
 #pragma mark - Private

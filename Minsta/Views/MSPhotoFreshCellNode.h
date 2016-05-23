@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MSPhotoFreshCellNode : ASCellNode
 
 @property (nonatomic, weak) id<MSPhotoFreshCellDelegate> delegate;
+@property (nonatomic, strong) NSIndexPath *indexPath;
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithPhoto:(MSPhoto *)photo shouldCropped:(BOOL)cropped NS_DESIGNATED_INITIALIZER;
