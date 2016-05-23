@@ -30,6 +30,8 @@
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDisplayItem:(MSPhotoDisplayItem *)item NS_DESIGNATED_INITIALIZER;
 
+- (void)doZoom:(UITapGestureRecognizer *)tapGesture;
+
 @end
 
 @implementation MSPhotoDisplayCellNode
@@ -39,9 +41,7 @@
 - (instancetype)initWithDisplayItem:(MSPhotoDisplayItem *)item {
     if (self = [super init]) {
         _displayItem = item;
-
         [self _setupSubnodes];
-        [self _addActions];
     }
 
     return self;
@@ -50,6 +50,27 @@
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
     _scrollNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(constrainedSize.max);
     return [ASStaticLayoutSpec staticLayoutSpecWithChildren:@[_scrollNode]];
+}
+
+- (void)layoutDidFinish {
+    _scrollNode.view.maximumZoomScale = 3.f;
+    [super layoutDidFinish];
+}
+
+- (void)doZoom:(UITapGestureRecognizer *)tapGesture {
+    UIScrollView *scrollView = _scrollNode.view;
+
+    if (scrollView) {
+        if (scrollView.zoomScale > 1.f) {
+            [scrollView setZoomScale:1.f animated:YES];
+        } else {
+            CGPoint touchPoint = [tapGesture locationInView:_photoNode.view];
+            CGFloat newZoomScale = scrollView.maximumZoomScale;
+            CGFloat xsize = CGRectGetWidth(self.frame) / newZoomScale;
+            CGFloat ysize = CGRectGetHeight(self.frame) / newZoomScale;
+            [scrollView zoomToRect:CGRectMake(touchPoint.x - xsize / 2, touchPoint.y - ysize / 2, xsize, ysize) animated:YES];
+        }
+    }
 }
 
 #pragma mark - Private
@@ -71,19 +92,17 @@
     [self addSubnode:_scrollNode];
 }
 
-- (void)_addActions {
-    // TODO:add action for node
-}
-
 @end
 
 #pragma mark - MSPhotoDisplayNode
 
-@interface MSPhotoDisplayNode () <ASPagerDataSource>
+@interface MSPhotoDisplayNode () <ASPagerDataSource, ASPagerDelegate>
 
 @property (nonatomic, copy) NSArray<MSPhotoDisplayItem *> *displayItems;
 
 @property (nonatomic, strong) ASPagerNode *pagerNode;
+
+@property (nonatomic, assign) NSUInteger currentIndex;
 
 @end
 
@@ -94,7 +113,6 @@
 - (instancetype)initWithDisplayItems:(NSArray<MSPhotoDisplayItem *> *)items {
     if (self = [super init]) {
         _displayItems = items;
-
         [self _setupSubnodes];
         [self _addActions];
     }
@@ -127,11 +145,11 @@
     };
 }
 
-#pragma mark - Actions
+#pragma mark - ASPagerDelegate
 
-- (void)pagerDidTapped {
-    [(MSWindow *)([UIApplication sharedApplication].keyWindow) hideStatusBarOverlay:NO];
-    [self.view removeFromSuperview];
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    CGFloat xOffset = scrollView.contentOffset.x;
+    _currentIndex = xOffset / CGRectGetWidth(self.frame);
 }
 
 #pragma mark - Public
@@ -141,6 +159,7 @@
          completion:(MSPhotoDisplayCompletionCallback)callback {
     UIView *parentView = [UIApplication sharedApplication].keyWindow;
     self.frame = parentView.frame;
+    _currentIndex = index;
     [parentView addSubnode:self];
 
     [UIView animateWithDuration:.25f
@@ -161,25 +180,66 @@
                      }];
 }
 
+#pragma mark - Actions
+
+- (void)pagerDidTapped {
+    [UIView animateWithDuration:.25f
+                          delay:0.f
+                        options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         _pagerNode.alpha = 0.f;
+                         [(MSWindow *)([UIApplication sharedApplication].keyWindow) hideStatusBarOverlay:NO];
+                     }
+                     completion:^(BOOL finished) {
+                         if (finished) [self.view removeFromSuperview];
+                     }];
+}
+
+- (void)pagerDoubleTapped:(UITapGestureRecognizer *)tapGesture {
+    MSPhotoDisplayCellNode *cell = (MSPhotoDisplayCellNode *)[_pagerNode.view nodeForItemAtIndexPath:[NSIndexPath indexPathForItem:_currentIndex inSection:0]];
+    [cell doZoom:tapGesture];
+}
+
+- (void)pagerDidPan {
+
+}
+
 #pragma mark - Private
 
 - (void)_setupSubnodes {
     _pagerNode = [ASPagerNode new];
     _pagerNode.alpha = 0.f;
     _pagerNode.dataSource = self;
+    _pagerNode.delegate = self;
     _pagerNode.backgroundColor = [UIColor blackColor];
+    _pagerNode.view.allowsSelection = NO;
 
     [self addSubnode:_pagerNode];
 }
 
 - (void)_addActions {
     @weakify(self)
-    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]
-                                     initWithActionBlock:^(id  _Nonnull sender)
-                                     {
-                                         @strongify(self)
-                                         [self pagerDidTapped];
-                                     }]];
+
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithActionBlock:^(id  _Nonnull sender) {
+        @strongify(self)
+        [self pagerDidTapped];
+    }];
+
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithActionBlock:^(id  _Nonnull sender) {
+        @strongify(self)
+        [self pagerDoubleTapped:sender];
+    }];
+    doubleTap.numberOfTapsRequired = 2;
+    [tap requireGestureRecognizerToFail:doubleTap];
+
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithActionBlock:^(id  _Nonnull sender) {
+        @strongify(self)
+        [self pagerDidPan];
+    }];
+
+    [self.view addGestureRecognizer:tap];
+    [self.view addGestureRecognizer:doubleTap];
+    [self.view addGestureRecognizer:pan];
 }
 
 - (void)_removeActions {
