@@ -8,11 +8,13 @@
 
 #import "MSWindow.h"
 #import "MinstaMacro.h"
+#import "ZBJBPerformanceLabel.h"
 
 @implementation MSWindow
 {
 @private
     UIView *_statusBar;
+    ZBJBPerformanceLabel *_performanceLabel;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -21,6 +23,15 @@
         _statusBar.backgroundColor = MS_BAR_TINT_COLOR;
 
         [self addSubview:_statusBar];
+
+        // 页面加入FPS Label以实时查看FPS
+        // FIXME:仅供测试, 请及时注释掉该段代码
+        // Modified by 毛朝龙
+        // Date:2016/06/16
+        _performanceLabel = [ZBJBPerformanceLabel new];
+        _performanceLabel.center = self.center;// CGPointMake(CGRectGetMaxX(self.bounds), CGRectGetMaxY(self.bounds));
+        [_performanceLabel sizeToFit];
+        [self addSubview:_performanceLabel];
     }
 
     return self;
@@ -30,6 +41,7 @@
     _statusBar.frame = (CGRect){CGPointZero, CGRectGetWidth(self.frame), CGRectGetHeight([UIApplication sharedApplication].statusBarFrame)};
 
     [self bringSubviewToFront:_statusBar];
+    [self bringSubviewToFront:_performanceLabel];
     [super layoutSubviews];
 }
 

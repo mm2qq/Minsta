@@ -14,12 +14,12 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - AsyncDisplayKit (1.9.73):
-    - AsyncDisplayKit/PINRemoteImage (= 1.9.73)
-  - AsyncDisplayKit/ASDealloc2MainObject (1.9.73)
-  - AsyncDisplayKit/Core (1.9.73):
+  - AsyncDisplayKit (1.9.80):
+    - AsyncDisplayKit/PINRemoteImage (= 1.9.80)
+  - AsyncDisplayKit/ASDealloc2MainObject (1.9.80)
+  - AsyncDisplayKit/Core (1.9.80):
     - AsyncDisplayKit/ASDealloc2MainObject
-  - AsyncDisplayKit/PINRemoteImage (1.9.73):
+  - AsyncDisplayKit/PINRemoteImage (1.9.80):
     - AsyncDisplayKit/Core
     - PINRemoteImage/iOS (>= 3.0.0-beta.2)
   - PINCache (2.2.2)
@@ -40,10 +40,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  AsyncDisplayKit: cc906c5ddff9d34c8f5ea2f18ba092033c5516a3
+  AsyncDisplayKit: ab57b10cd058797015c77be10407f3dc13027c85
   PINCache: 078426d356ab95ef875e9e62e5c35a2ea3333c28
   PINRemoteImage: 197554c5ba57a6ae90f5db441651180039fc9062
 
 PODFILE CHECKSUM: 9a99b6dd0161a2a42b8d108a3978ebd2affdaac5
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.0.1

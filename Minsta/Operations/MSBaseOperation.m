@@ -19,6 +19,9 @@
         _manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:FHPX_BASE_URL_STRING]];
         _manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+
+        // Set GZip compress header
+        [_manager.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
     }
 
     return self;
