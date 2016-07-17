@@ -28,8 +28,11 @@
         // FIXME:仅供测试, 请及时注释掉该段代码
         // Modified by 毛朝龙
         // Date:2016/06/16
+        CGAffineTransform transform = CGAffineTransformMakeTranslation(0.f, CGRectGetHeight([UIApplication sharedApplication].statusBarFrame));
+        CGPoint originPoint = CGPointApplyAffineTransform(self.bounds.origin, transform);
+        CGSize frameSize = _performanceLabel.frame.size;
         _performanceLabel = [ZBJBPerformanceLabel new];
-        _performanceLabel.center = self.center;// CGPointMake(CGRectGetMaxX(self.bounds), CGRectGetMaxY(self.bounds));
+        _performanceLabel.frame = (CGRect){originPoint, frameSize};
         [_performanceLabel sizeToFit];
         [self addSubview:_performanceLabel];
     }
