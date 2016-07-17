@@ -1,6 +1,6 @@
 {
   "name": "AsyncDisplayKit",
-  "version": "1.9.80",
+  "version": "1.9.81",
   "license": {
     "type": "BSD"
   },
@@ -12,7 +12,7 @@
   "summary": "Smooth asynchronous user interfaces for iOS apps.",
   "source": {
     "git": "https://github.com/facebook/AsyncDisplayKit.git",
-    "tag": "1.9.80"
+    "tag": "1.9.81"
   },
   "documentation_url": "http://asyncdisplaykit.org/appledoc/",
   "frameworks": "AssetsLibrary",
