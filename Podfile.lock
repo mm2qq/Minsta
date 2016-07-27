@@ -22,7 +22,7 @@ PODS:
   - AsyncDisplayKit/PINRemoteImage (1.9.81):
     - AsyncDisplayKit/Core
     - PINRemoteImage/iOS (>= 3.0.0-beta.2)
-  - PINCache (2.2.2)
+  - PINCache (2.3)
   - PINRemoteImage/Core (3.0.0-beta.2):
     - PINCache (>= 2.1)
   - PINRemoteImage/iOS (3.0.0-beta.2):
@@ -41,7 +41,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AsyncDisplayKit: 011ea22a76a79a5bbfc14501fede6e0196a3c2f0
-  PINCache: 078426d356ab95ef875e9e62e5c35a2ea3333c28
+  PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
   PINRemoteImage: 197554c5ba57a6ae90f5db441651180039fc9062
 
 PODFILE CHECKSUM: 9a99b6dd0161a2a42b8d108a3978ebd2affdaac5
