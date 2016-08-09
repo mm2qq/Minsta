@@ -1,6 +1,6 @@
 {
   "name": "AsyncDisplayKit",
-  "version": "1.9.81",
+  "version": "2.0-beta.1",
   "license": {
     "type": "BSD"
   },
@@ -12,7 +12,7 @@
   "summary": "Smooth asynchronous user interfaces for iOS apps.",
   "source": {
     "git": "https://github.com/facebook/AsyncDisplayKit.git",
-    "tag": "1.9.81"
+    "tag": "1.9.90"
   },
   "documentation_url": "http://asyncdisplaykit.org/appledoc/",
   "frameworks": "AssetsLibrary",
@@ -74,7 +74,7 @@
       },
       "dependencies": {
         "PINRemoteImage/iOS": [
-          ">= 3.0.0-beta.2"
+          ">= 3.0.0-beta.3"
         ],
         "AsyncDisplayKit/Core": [
 

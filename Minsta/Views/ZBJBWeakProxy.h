@@ -16,17 +16,17 @@ NS_ASSUME_NONNULL_BEGIN
 
    sample code:
 
-     @implementation MyView {
-         NSTimer *_timer;
-     }
+   @implementation MyView {
+   NSTimer *_timer;
+   }
 
-     - (void)initTimer {
-         YYWeakProxy *proxy = [YYWeakProxy proxyWithTarget:self];
-         _timer = [NSTimer timerWithTimeInterval:0.1 target:proxy selector:@selector(tick:) userInfo:nil repeats:YES];
-     }
+   - (void)initTimer {
+   YYWeakProxy *proxy = [YYWeakProxy proxyWithTarget:self];
+   _timer = [NSTimer timerWithTimeInterval:0.1 target:proxy selector:@selector(tick:) userInfo:nil repeats:YES];
+   }
 
-     - (void)tick:(NSTimer *)timer {...}
-     @end
+   - (void)tick:(NSTimer *)timer {...}
+   @end
  */
 @interface ZBJBWeakProxy : NSProxy
 

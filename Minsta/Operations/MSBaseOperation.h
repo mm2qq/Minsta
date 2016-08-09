@@ -20,7 +20,7 @@ typedef void (^MSOperationCompletionCallback)(id _Nullable data, NSError * _Null
 
 @interface MSBaseOperation : NSObject
 {
-@protected
-    AFHTTPSessionManager *_manager;
+	@protected
+	AFHTTPSessionManager *_manager;
 }
 @end

@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-/**
- *  Show Screen FPS, CPU usage & resident memory usage
+/*!
+ *  @author jjj2mdd
+ *
+ *  @brief Show Screen FPS, CPU usage & resident memory usage
  */
 @interface ZBJBPerformanceLabel : UILabel
 

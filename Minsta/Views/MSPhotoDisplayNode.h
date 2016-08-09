@@ -23,8 +23,8 @@ typedef void (^MSPhotoDisplayCompletionCallback)();
 - (instancetype)initWithDisplayItems:(NSArray<MSPhotoDisplayItem *> *)items NS_DESIGNATED_INITIALIZER;
 
 - (void)presentView:(UIView *)fromView
-            atIndex:(NSUInteger)index
-         completion:(nullable MSPhotoDisplayCompletionCallback)callback;
+        atIndex:(NSUInteger)index
+        completion:(nullable MSPhotoDisplayCompletionCallback)callback;
 
 @end
 

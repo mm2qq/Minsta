@@ -26,9 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return Current task identifier
  */
 - (NSUInteger)retrieveFreshPhotosWithImageSizes:(NSArray *)imageSizes
-                                         atPage:(NSUInteger)page
-                                       pageSize:(NSUInteger)pageSize
-                                     completion:(nullable MSOperationCompletionCallback)callback;
+        atPage:(NSUInteger)page
+        pageSize:(NSUInteger)pageSize
+        completion:(nullable MSOperationCompletionCallback)callback;
 
 /**
  *  Retrieve user friends' latest photos
@@ -42,10 +42,10 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return Current task identifier
  */
 - (NSUInteger)retrieveFriendsPhotosWithUserId:(NSUInteger)userId
-                                   imageSizes:(NSArray *)imageSizes
-                                       atPage:(NSUInteger)page
-                                     pageSize:(NSUInteger)pageSize
-                                   completion:(nullable MSOperationCompletionCallback)callback;
+        imageSizes:(NSArray *)imageSizes
+        atPage:(NSUInteger)page
+        pageSize:(NSUInteger)pageSize
+        completion:(nullable MSOperationCompletionCallback)callback;
 
 /**
  *  Retrieve photo's latest comments
@@ -58,9 +58,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return Current task identifier
  */
 - (NSUInteger)retrieveCommentsWithPhotoId:(NSUInteger)photoId
-                                   atPage:(NSUInteger)page
-                                 pageSize:(NSUInteger)pageSize
-                               completion:(nullable MSOperationCompletionCallback)callback;
+        atPage:(NSUInteger)page
+        pageSize:(NSUInteger)pageSize
+        completion:(nullable MSOperationCompletionCallback)callback;
 
 @end
 

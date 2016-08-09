@@ -14,18 +14,18 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - AsyncDisplayKit (1.9.81):
-    - AsyncDisplayKit/PINRemoteImage (= 1.9.81)
-  - AsyncDisplayKit/ASDealloc2MainObject (1.9.81)
-  - AsyncDisplayKit/Core (1.9.81):
+  - AsyncDisplayKit (2.0-beta.1):
+    - AsyncDisplayKit/PINRemoteImage (= 2.0-beta.1)
+  - AsyncDisplayKit/ASDealloc2MainObject (2.0-beta.1)
+  - AsyncDisplayKit/Core (2.0-beta.1):
     - AsyncDisplayKit/ASDealloc2MainObject
-  - AsyncDisplayKit/PINRemoteImage (1.9.81):
+  - AsyncDisplayKit/PINRemoteImage (2.0-beta.1):
     - AsyncDisplayKit/Core
-    - PINRemoteImage/iOS (>= 3.0.0-beta.2)
-  - PINCache (2.3)
-  - PINRemoteImage/Core (3.0.0-beta.2):
-    - PINCache (>= 2.1)
-  - PINRemoteImage/iOS (3.0.0-beta.2):
+    - PINRemoteImage/iOS (>= 3.0.0-beta.3)
+  - PINCache (3.0.0-beta)
+  - PINRemoteImage/Core (3.0.0-beta.3):
+    - PINCache (>= 3.0.0-beta)
+  - PINRemoteImage/iOS (3.0.0-beta.3):
     - PINRemoteImage/Core
 
 DEPENDENCIES:
@@ -40,9 +40,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  AsyncDisplayKit: 011ea22a76a79a5bbfc14501fede6e0196a3c2f0
-  PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
-  PINRemoteImage: 197554c5ba57a6ae90f5db441651180039fc9062
+  AsyncDisplayKit: 0bc09eccc8627e05983b89b9b01daf749c552eeb
+  PINCache: 9b66261ade3d4feb272df4b4dd2e035469909448
+  PINRemoteImage: 308731aa6534500e58fc211b9cc2bb7252df25ba
 
 PODFILE CHECKSUM: 9a99b6dd0161a2a42b8d108a3978ebd2affdaac5
 

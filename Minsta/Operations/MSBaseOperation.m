@@ -15,16 +15,16 @@
 #pragma mark - Lifecycle
 
 - (instancetype)init {
-    if (self = [super init]) {
-        _manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:FHPX_BASE_URL_STRING]];
-        _manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-        _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+	if (self = [super init]) {
+		_manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:FHPX_BASE_URL_STRING]];
+		_manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+		_manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
-        // Set GZip compress header
-        [_manager.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
-    }
+		// Set GZip compress header
+		[_manager.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
+	}
 
-    return self;
+	return self;
 }
 
 @end

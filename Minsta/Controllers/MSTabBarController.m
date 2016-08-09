@@ -14,32 +14,32 @@
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 
-    NSArray *identifiers            = @[@"home", @"search", @"camera", @"activity", @"profile"];
-    NSMutableArray *viewControllers = [NSMutableArray arrayWithCapacity:identifiers.count];
+	NSArray *identifiers            = @[@"home", @"search", @"camera", @"activity", @"profile"];
+	NSMutableArray *viewControllers = [NSMutableArray arrayWithCapacity:identifiers.count];
 
-    for (NSString *identifier in identifiers) {
-        UIImage *image         = [UIImage imageNamed:[NSString stringWithFormat:@"tabbar-%@-icon", identifier]];
-        UIImage *selectedImage = [UIImage imageNamed:[NSString stringWithFormat:@"tabbar-%@-icon-h", identifier]];
-        Class class            = NSClassFromString([NSString stringWithFormat:@"MS%@ViewController", identifier.capitalizedString]);
+	for (NSString *identifier in identifiers) {
+		UIImage *image         = [UIImage imageNamed:[NSString stringWithFormat:@"tabbar-%@-icon", identifier]];
+		UIImage *selectedImage = [UIImage imageNamed:[NSString stringWithFormat:@"tabbar-%@-icon-h", identifier]];
+		Class class            = NSClassFromString([NSString stringWithFormat:@"MS%@ViewController", identifier.capitalizedString]);
 
-        UITabBarItem *barItem = [[UITabBarItem alloc] initWithTitle:nil image:image selectedImage:selectedImage];
-        barItem.imageInsets   = (UIEdgeInsets){6.f, 0.f, -6.f, 0.f};
+		UITabBarItem *barItem = [[UITabBarItem alloc] initWithTitle:nil image:image selectedImage:selectedImage];
+		barItem.imageInsets   = (UIEdgeInsets){6.f, 0.f, -6.f, 0.f};
 
-        ASViewController *viewController                = [class new];
-        ASNavigationController *navigationController    = [[ASNavigationController alloc] initWithRootViewController:viewController];
-        navigationController.tabBarItem                 = barItem;
-        navigationController.hidesBarsOnSwipe           = YES;
-        navigationController.navigationBar.translucent  = NO;
-        navigationController.navigationBar.barTintColor = MS_BAR_TINT_COLOR;
+		ASViewController *viewController                = [class new];
+		ASNavigationController *navigationController    = [[ASNavigationController alloc] initWithRootViewController:viewController];
+		navigationController.tabBarItem                 = barItem;
+		navigationController.hidesBarsOnSwipe           = YES;
+		navigationController.navigationBar.translucent  = NO;
+		navigationController.navigationBar.barTintColor = MS_BAR_TINT_COLOR;
 
-        [viewControllers addObject:navigationController];
-    }
+		[viewControllers addObject:navigationController];
+	}
 
-    self.viewControllers     = viewControllers;
-    self.tabBar.translucent  = NO;
-    self.tabBar.barTintColor = MS_BAR_TINT_COLOR;
+	self.viewControllers     = viewControllers;
+	self.tabBar.translucent  = NO;
+	self.tabBar.barTintColor = MS_BAR_TINT_COLOR;
 }
 
 @end

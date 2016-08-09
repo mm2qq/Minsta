@@ -18,24 +18,24 @@
 #pragma mark - Lifecycle
 
 - (instancetype)init {
-    if (self = [super initWithNode:[ASDisplayNode new]]) {
+	if (self = [super initWithNode:[ASDisplayNode new]]) {
 
-    }
+	}
 
-    return self;
+	return self;
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 }
 
 #pragma mark - Override
 
 - (BOOL)prefersStatusBarHidden {
-    BOOL shouldHide = NO;
-    [(MSWindow *)([UIApplication sharedApplication].keyWindow) hideStatusBarOverlay:shouldHide];
+	BOOL shouldHide = NO;
+	[(MSWindow *)([UIApplication sharedApplication].keyWindow) hideStatusBarOverlay:shouldHide];
 
-    return shouldHide;
+	return shouldHide;
 }
 
 @end

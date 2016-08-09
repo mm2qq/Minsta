@@ -89,8 +89,8 @@ static NSDictionary *memoryUsage() {
 	vm_size_t mem_free = vm_stat.free_count * pagesize >> 10 >> 10;
 
 	return @{ @"usedMemory" : @(mem_used),
-			  @"freeMemory" : @(mem_free),
-			  @"totalMemory" : @(mem_used + mem_free) };
+		  @"freeMemory" : @(mem_free),
+		  @"totalMemory" : @(mem_used + mem_free) };
 }
 
 @implementation ZBJBPerformanceLabel {
@@ -110,7 +110,7 @@ static NSDictionary *memoryUsage() {
 	self.layer.cornerRadius = 5;
 	self.clipsToBounds = YES;
 	self.textAlignment = NSTextAlignmentCenter;
-    self.numberOfLines = 3;
+	self.numberOfLines = 3;
 	self.userInteractionEnabled = NO;
 	self.backgroundColor = [UIColor colorWithWhite:0.000 alpha:0.700];
 
@@ -132,22 +132,22 @@ static NSDictionary *memoryUsage() {
 }
 
 - (void)tick:(CADisplayLink *)link {
-    // calculate fps
-    if (_lastTime == 0) {
-        _lastTime = link.timestamp;
-        return;
-    }
+	// calculate fps
+	if (_lastTime == 0) {
+		_lastTime = link.timestamp;
+		return;
+	}
 
-    _count++;
-    NSTimeInterval delta = link.timestamp - _lastTime;
+	_count++;
+	NSTimeInterval delta = link.timestamp - _lastTime;
 
-    if (delta < 1) return;
+	if (delta < 1) return;
 
-    _lastTime = link.timestamp;
-    float fps = _count / delta;
-    _count = 0;
+	_lastTime = link.timestamp;
+	float fps = _count / delta;
+	_count = 0;
 
-    // populate text
+	// populate text
 	float cpu = cpuUsage();
 	NSDictionary *memDic = memoryUsage();
 	NSString *text = [NSString stringWithFormat:@"FPS: %d\nCPU: %.1f%%\nMEM: %@MB", (int)round(fps), cpu, memDic[@"usedMemory"]];
@@ -156,28 +156,28 @@ static NSDictionary *memoryUsage() {
 	NSArray *subStrings = [text componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
 	[subStrings enumerateObjectsUsingBlock: ^(NSString *_Nonnull subString, NSUInteger idx, BOOL *_Nonnull stop) {
-	    if (idx % 2 != 0) {
-	        CGFloat progress;
+	         if (idx % 2 != 0) {
+	                 CGFloat progress;
 
-	        switch (idx) {
-				case 1:
-					progress = fps / 60.0;
-					break;
-				case 3:
-					progress = 1 - cpu / 100.0;
-					break;
-				case 5:
-					progress = [memDic[@"freeMemory"] unsignedIntValue] / (1.0 * [memDic[@"totalMemory"] unsignedIntValue]);
-					break;
-				default:
-					break;
-			}
+	                 switch (idx) {
+			 case 1:
+				 progress = fps / 60.0;
+				 break;
+			 case 3:
+				 progress = 1 - cpu / 100.0;
+				 break;
+			 case 5:
+				 progress = [memDic[@"freeMemory"] unsignedIntValue] / (1.0 * [memDic[@"totalMemory"] unsignedIntValue]);
+				 break;
+			 default:
+				 break;
+			 }
 
-	        UIColor *color = [UIColor colorWithHue:0.27 * (progress - 0.2) saturation:1 brightness:0.9 alpha:1];
-	        NSRange range = [text rangeOfString:subString];
-	        [attrText addAttributes:@{ NSForegroundColorAttributeName : color } range:range];
-		}
-	}];
+	                 UIColor *color = [UIColor colorWithHue:0.27 * (progress - 0.2) saturation:1 brightness:0.9 alpha:1];
+	                 NSRange range = [text rangeOfString:subString];
+	                 [attrText addAttributes:@{ NSForegroundColorAttributeName : color } range:range];
+		 }
+	 }];
 
 	self.attributedText = attrText;
 }

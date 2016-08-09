@@ -12,33 +12,33 @@
 @implementation MSComment
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict {
-    return [[self alloc] initWithDictionary:dict];
+	return [[self alloc] initWithDictionary:dict];
 }
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
-    self = [super init];
+	self = [super init];
 
-    if (self && [dict isKindOfClass:[NSDictionary class]]) {
-        _commentId = [[self objectOrNilForKey:@"id" fromDictionary:dict] unsignedIntegerValue];
-        _userId = [[self objectOrNilForKey:@"user_id" fromDictionary:dict] unsignedIntegerValue];
-        _toWhomUserId = [[self objectOrNilForKey:@"to_whom_user_id" fromDictionary:dict] unsignedIntegerValue];
-        _body = [self objectOrNilForKey:@"body" fromDictionary:dict];
-        _createdAt = [self objectOrNilForKey:@"created_at" fromDictionary:dict];
-        _parentId = [[self objectOrNilForKey:@"parent_id" fromDictionary:dict] unsignedIntegerValue];
-        _user = [MSUser modelObjectWithDictionary:[self objectOrNilForKey:@"user" fromDictionary:dict]];
-        NSArray *replies = [self objectOrNilForKey:@"replies" fromDictionary:dict];
-        NSMutableArray *newReplies = [NSMutableArray arrayWithCapacity:replies.count];
+	if (self && [dict isKindOfClass:[NSDictionary class]]) {
+		_commentId = [[self objectOrNilForKey:@"id" fromDictionary:dict] unsignedIntegerValue];
+		_userId = [[self objectOrNilForKey:@"user_id" fromDictionary:dict] unsignedIntegerValue];
+		_toWhomUserId = [[self objectOrNilForKey:@"to_whom_user_id" fromDictionary:dict] unsignedIntegerValue];
+		_body = [self objectOrNilForKey:@"body" fromDictionary:dict];
+		_createdAt = [self objectOrNilForKey:@"created_at" fromDictionary:dict];
+		_parentId = [[self objectOrNilForKey:@"parent_id" fromDictionary:dict] unsignedIntegerValue];
+		_user = [MSUser modelObjectWithDictionary:[self objectOrNilForKey:@"user" fromDictionary:dict]];
+		NSArray *replies = [self objectOrNilForKey:@"replies" fromDictionary:dict];
+		NSMutableArray *newReplies = [NSMutableArray arrayWithCapacity:replies.count];
 
-        for (NSDictionary *replyDict in replies) {
-            MSComment *comment = [MSComment modelObjectWithDictionary:replyDict];
-            if (!comment) continue;
-            [newReplies addObject:comment];
-        }
+		for (NSDictionary *replyDict in replies) {
+			MSComment *comment = [MSComment modelObjectWithDictionary:replyDict];
+			if (!comment) continue;
+			[newReplies addObject:comment];
+		}
 
-        _replies = newReplies;
-    }
+		_replies = newReplies;
+	}
 
-    return self;
+	return self;
 }
 
 @end

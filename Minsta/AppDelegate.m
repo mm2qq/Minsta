@@ -13,7 +13,7 @@
 
 @interface AppDelegate () <UIApplicationDelegate>
 {
-    MSWindow *_window;
+	MSWindow *_window;
 }
 @end
 
@@ -22,27 +22,32 @@
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [self _setupController];
+	[self _setupController];
 
-    return YES;
+	return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {}
-- (void)applicationDidEnterBackground:(UIApplication *)application {}
-- (void)applicationWillEnterForeground:(UIApplication *)application {}
-- (void)applicationDidBecomeActive:(UIApplication *)application {}
-- (void)applicationWillTerminate:(UIApplication *)application {}
+- (void)applicationWillResignActive:(UIApplication *)application {
+}
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+}
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+}
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+}
+- (void)applicationWillTerminate:(UIApplication *)application {
+}
 
 #pragma mark - Private
 
 - (void)_setupController {
-    MSTabBarController *tabBarController = [MSTabBarController new];
+	MSTabBarController *tabBarController = [MSTabBarController new];
 
-    _window = [[MSWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    _window.backgroundColor = MS_WIHTE_BACKGROUND_COLOR;
-    _window.rootViewController = tabBarController;
+	_window = [[MSWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+	_window.backgroundColor = MS_WIHTE_BACKGROUND_COLOR;
+	_window.rootViewController = tabBarController;
 
-    [_window makeKeyAndVisible];
+	[_window makeKeyAndVisible];
 }
 
 @end
