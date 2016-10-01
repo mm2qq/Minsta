@@ -146,7 +146,7 @@ static NSAttributedString * formatCommentString(NSString *string) {
 	if (!_commentHintNode) {
 		_commentHintNode = [ASTextNode new];
 		_commentHintNode.backgroundColor = self.backgroundColor;
-		_commentHintNode.flexShrink = YES;
+//		_commentHintNode.flexShrink = YES;
 		_commentHintNode.truncationMode = NSLineBreakByTruncatingTail;
 		_commentHintNode.maximumNumberOfLines = 1;
 	}
@@ -158,7 +158,7 @@ static NSAttributedString * formatCommentString(NSString *string) {
 	if (!_timeTextNode) {
 		_timeTextNode = [ASTextNode new];
 		_timeTextNode.backgroundColor = self.backgroundColor;
-		_timeTextNode.flexShrink = YES;
+//		_timeTextNode.flexShrink = YES;
 		_timeTextNode.layerBacked = YES;
 		_timeTextNode.truncationMode = NSLineBreakByTruncatingTail;
 		_timeTextNode.maximumNumberOfLines = 1;
@@ -261,7 +261,7 @@ static NSAttributedString * formatCommentString(NSString *string) {
 	_votesTextNode = [ASTextNode new];
 	_votesTextNode.backgroundColor = self.backgroundColor;
 	_votesTextNode.attributedText = [[ASMutableAttributedStringBuilder alloc] initWithString:votesString attributes:@{NSFontAttributeName : MS_FEED_BOLD_FONT}];
-	_votesTextNode.flexShrink = YES;
+//	_votesTextNode.flexShrink = YES;
 	_votesTextNode.truncationMode = NSLineBreakByTruncatingTail;
 	_votesTextNode.maximumNumberOfLines = 1;
 
@@ -277,7 +277,7 @@ static NSAttributedString * formatCommentString(NSString *string) {
 		_descriptionNode = [ASTextNode new];
 		_descriptionNode.backgroundColor = self.backgroundColor;
 		_descriptionNode.attributedText = formatCommentString(descriptionString);
-		_descriptionNode.flexShrink = YES;
+//		_descriptionNode.flexShrink = YES;
 		_descriptionNode.truncationMode = NSLineBreakByTruncatingTail;
 		_descriptionNode.maximumNumberOfLines = kPhotoFeedCommentMaxLines;
 		[self addSubnode:_descriptionNode];
@@ -311,7 +311,7 @@ static NSAttributedString * formatCommentString(NSString *string) {
 	         ASTextNode *commentTextNode = [ASTextNode new];
 	         commentTextNode.backgroundColor = self.backgroundColor;
 	         commentTextNode.attributedText = formatCommentString(commentString);
-	         commentTextNode.flexShrink = YES;
+//	         commentTextNode.flexShrink = YES;
 	         commentTextNode.truncationMode = NSLineBreakByTruncatingTail;
 	         commentTextNode.maximumNumberOfLines = kPhotoFeedCommentMaxLines;
 	         @weakify(self)

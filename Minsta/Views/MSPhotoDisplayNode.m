@@ -47,10 +47,10 @@
 	return self;
 }
 
-- (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
-	_scrollNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(constrainedSize.max);
-	return [ASStaticLayoutSpec staticLayoutSpecWithChildren:@[_scrollNode]];
-}
+//- (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
+//	_scrollNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(constrainedSize.max);
+//	return [ASStaticLayoutSpec staticLayoutSpecWithChildren:@[_scrollNode]];
+//}
 
 - (void)layoutDidFinish {
 	_scrollNode.view.maximumZoomScale = 3.f;
