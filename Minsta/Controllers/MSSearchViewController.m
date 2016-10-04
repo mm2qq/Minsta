@@ -14,12 +14,12 @@
 #import "MinstaMacro.h"
 
 static const CGFloat kItemMargin = 1.f;
-static const CGFloat kItemSizeWidth = 106.f;
 
 @interface MSSearchViewController () <ASCollectionDataSource, ASCollectionDelegate, MSPhotoFreshCellDelegate>
 
 @property (nonatomic, strong) ASCollectionNode *collectionNode;
 @property (nonatomic, strong) MSPhotoFeed *photoFeed;
+@property (nonatomic, assign) CGFloat itemWidth;
 
 @end
 
@@ -28,6 +28,9 @@ static const CGFloat kItemSizeWidth = 106.f;
 #pragma mark - Lifecycle
 
 - (instancetype)init {
+    CGFloat screenWidth = CGRectGetWidth([UIScreen mainScreen].bounds);
+    NSUInteger numOfItemsPerLine = 3;
+    _itemWidth = floorf((screenWidth - kItemMargin * (numOfItemsPerLine - 1)) / numOfItemsPerLine);
 	UICollectionViewFlowLayout *flowLayout = [UICollectionViewFlowLayout new];
 	flowLayout.minimumLineSpacing = kItemMargin;
 	flowLayout.minimumInteritemSpacing = kItemMargin;
@@ -47,7 +50,7 @@ static const CGFloat kItemSizeWidth = 106.f;
 	[super loadView];
 
 	CGSize screenSize = [UIScreen mainScreen].bounds.size;
-	NSArray *imageSizes = @[@(MSImageSizeIdForStandardSize((CGSize){screenSize.width, screenSize.width * MS_UNCROPPED_PHOTO_RATIO})), @(MSImageSizeIdForStandardSize((CGSize){kItemSizeWidth, kItemSizeWidth}))];
+	NSArray *imageSizes = @[@(MSImageSizeIdForStandardSize((CGSize){screenSize.width, screenSize.width * MS_UNCROPPED_PHOTO_RATIO})), @(MSImageSizeIdForStandardSize((CGSize){_itemWidth, _itemWidth}))];
 	_photoFeed = [[MSPhotoFeed alloc] initWithImageSizes:imageSizes];
 
 	// load datasource
@@ -83,7 +86,7 @@ static const CGFloat kItemSizeWidth = 106.f;
 	CGSize screenSize = [UIScreen mainScreen].bounds.size;
 	CGSize itemSize = indexPath.item == 0
 	                  ? (CGSize){screenSize.width, screenSize.width * MS_UNCROPPED_PHOTO_RATIO}
-	: (CGSize){kItemSizeWidth, kItemSizeWidth};
+                        : (CGSize){_itemWidth, _itemWidth};
 	return ASSizeRangeMake(itemSize, itemSize);
 }
 
