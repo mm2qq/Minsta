@@ -47,15 +47,14 @@
 	return self;
 }
 
-//- (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
-//	_scrollNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(constrainedSize.max);
-//	return [ASStaticLayoutSpec staticLayoutSpecWithChildren:@[_scrollNode]];
-//}
-
-- (void)layoutDidFinish {
-	_scrollNode.view.maximumZoomScale = 3.f;
-	[super layoutDidFinish];
+- (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
+	return [ASCenterLayoutSpec centerLayoutSpecWithCenteringOptions:ASCenterLayoutSpecCenteringXY sizingOptions:ASCenterLayoutSpecSizingOptionDefault child:[ASRatioLayoutSpec ratioLayoutSpecWithRatio:1.f child:_photoNode]];
 }
+
+//- (void)layoutDidFinish {
+//	_scrollNode.view.maximumZoomScale = 3.f;
+//	[super layoutDidFinish];
+//}
 
 - (void)doZoom:(UITapGestureRecognizer *)tapGesture {
 	UIScrollView *scrollView = _scrollNode.view;
@@ -82,11 +81,6 @@
 	_photoNode.URL = _displayItem.imageUrl;
 
 	_scrollNode = [ASScrollNode new];
-	@weakify(self)
-	_scrollNode.layoutSpecBlock = ^ASLayoutSpec * _Nonnull (ASDisplayNode * _Nonnull node, ASSizeRange constrainedSize) {
-		@strongify(self)
-		return [ASCenterLayoutSpec centerLayoutSpecWithCenteringOptions:ASCenterLayoutSpecCenteringXY sizingOptions:ASCenterLayoutSpecSizingOptionDefault child:[ASRatioLayoutSpec ratioLayoutSpecWithRatio:1.f child:self.photoNode]];
-	};
 
 	[_scrollNode addSubnode:_photoNode];
 	[self addSubnode:_scrollNode];
@@ -124,9 +118,8 @@
 	[self _removeActions];
 }
 
-- (void)layout {
-	_pagerNode.frame = self.frame;
-	[super layout];
+- (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
+    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsZero child:_pagerNode];
 }
 
 #pragma mark - ASPagerDataSource

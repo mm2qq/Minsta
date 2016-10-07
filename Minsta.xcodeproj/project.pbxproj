@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04C2568C1D1396DA000E822D /* ZBJBWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C2568A1D1396DA000E822D /* ZBJBWeakProxy.m */; };
-		04F29BA51D13DEF1006BA3BF /* ZBJBPerformanceLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F29BA41D13DEF1006BA3BF /* ZBJBPerformanceLabel.m */; };
 		16B9AC61B8297C1DF90670D7 /* libPods-Minsta.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF9707987C62347B728FBB6 /* libPods-Minsta.a */; };
 		671B9C531CEA10AD006FAE41 /* MSWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 671B9C521CEA10AD006FAE41 /* MSWindow.m */; };
 		673124BA1CE7461E006C25F1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 673124991CE7461E006C25F1 /* AppDelegate.m */; };
@@ -42,10 +40,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		04C256891D1396DA000E822D /* ZBJBWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBJBWeakProxy.h; sourceTree = "<group>"; };
-		04C2568A1D1396DA000E822D /* ZBJBWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBJBWeakProxy.m; sourceTree = "<group>"; };
-		04F29BA31D13DEF1006BA3BF /* ZBJBPerformanceLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBJBPerformanceLabel.h; sourceTree = "<group>"; };
-		04F29BA41D13DEF1006BA3BF /* ZBJBPerformanceLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBJBPerformanceLabel.m; sourceTree = "<group>"; };
 		253163E9B25F9A4C9152FEEB /* Pods-Minsta.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minsta.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Minsta/Pods-Minsta.debug.xcconfig"; sourceTree = "<group>"; };
 		2EF9707987C62347B728FBB6 /* libPods-Minsta.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Minsta.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4417997E28E78C283D43683A /* Pods-Minsta.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minsta.release.xcconfig"; path = "Pods/Target Support Files/Pods-Minsta/Pods-Minsta.release.xcconfig"; sourceTree = "<group>"; };
@@ -227,10 +221,6 @@
 		673124B51CE7461E006C25F1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				04F29BA31D13DEF1006BA3BF /* ZBJBPerformanceLabel.h */,
-				04F29BA41D13DEF1006BA3BF /* ZBJBPerformanceLabel.m */,
-				04C256891D1396DA000E822D /* ZBJBWeakProxy.h */,
-				04C2568A1D1396DA000E822D /* ZBJBWeakProxy.m */,
 				671B9C511CEA10AD006FAE41 /* MSWindow.h */,
 				671B9C521CEA10AD006FAE41 /* MSWindow.m */,
 				6789607D1CF22D40002FC056 /* MSPhotoDisplayNode.h */,
@@ -416,7 +406,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				673124BE1CE7461E006C25F1 /* MSProfileViewController.m in Sources */,
-				04C2568C1D1396DA000E822D /* ZBJBWeakProxy.m in Sources */,
 				67CC69041CEDC7FC00933E90 /* MSPhotoFreshCellNode.m in Sources */,
 				6789607F1CF22D40002FC056 /* MSPhotoDisplayNode.m in Sources */,
 				673124BA1CE7461E006C25F1 /* AppDelegate.m in Sources */,
@@ -433,7 +422,6 @@
 				67DC1C001CE74EFA006B0676 /* MSBaseOperation.m in Sources */,
 				673124BD1CE7461E006C25F1 /* MSHomeViewController.m in Sources */,
 				67900DC51CE88F3100C71A4C /* MSCommentFeed.m in Sources */,
-				04F29BA51D13DEF1006BA3BF /* ZBJBPerformanceLabel.m in Sources */,
 				67900DC21CE88A4000C71A4C /* MSComment.m in Sources */,
 				673124BC1CE7461E006C25F1 /* MSCameraViewController.m in Sources */,
 				67EF2CA31CEB551A0026FE24 /* ASControlNode+MinstaAdd.m in Sources */,

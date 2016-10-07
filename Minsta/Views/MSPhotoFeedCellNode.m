@@ -75,10 +75,10 @@ static NSAttributedString * formatCommentString(NSString *string) {
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
 	// set subnode preferred size
     CGSize size = (CGSize){kFunctionNodeSizeWidth, kFunctionNodeSizeWidth};
-	[_likeControlNode.style setSizeWithCGSize:size];
-    [_commentControlNode.style setSizeWithCGSize:size];
-    [_sendControlNode.style setSizeWithCGSize:size];
-    [_separatorNode.style setSizeWithCGSize:(CGSize){constrainedSize.max.width, 1.f / [UIScreen mainScreen].scale}];
+    _likeControlNode.style.preferredSize = size;
+    _commentControlNode.style.preferredSize = size;
+    _sendControlNode.style.preferredSize = size;
+    _separatorNode.style.preferredSize = (CGSize){constrainedSize.max.width, 1.f / [UIScreen mainScreen].scale};
 
 	// photo ratio layout
 	ASRatioLayoutSpec *ratioLayout = [ASRatioLayoutSpec ratioLayoutSpecWithRatio:1.f child:_photoNode];
