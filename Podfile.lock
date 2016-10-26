@@ -21,11 +21,11 @@ PODS:
     - AsyncDisplayKit/ASDealloc2MainObject
   - AsyncDisplayKit/PINRemoteImage (2.0-beta.1):
     - AsyncDisplayKit/Core
-    - PINRemoteImage/iOS (>= 3.0.0-beta.3)
-  - PINCache (3.0.0-beta)
-  - PINRemoteImage/Core (3.0.0-beta.3):
-    - PINCache (>= 3.0.0-beta)
-  - PINRemoteImage/iOS (3.0.0-beta.3):
+    - PINRemoteImage/iOS (= 3.0.0-beta.5)
+  - PINCache (3.0.1-beta)
+  - PINRemoteImage/Core (3.0.0-beta.5):
+    - PINCache (= 3.0.1-beta)
+  - PINRemoteImage/iOS (3.0.0-beta.5):
     - PINRemoteImage/Core
 
 DEPENDENCIES:
@@ -34,15 +34,15 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   AFNetworking:
-    :path: ../AFNetworking
+    :path: "../AFNetworking"
   AsyncDisplayKit:
-    :path: ../AsyncDisplayKit
+    :path: "../AsyncDisplayKit"
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  AsyncDisplayKit: 0bc09eccc8627e05983b89b9b01daf749c552eeb
-  PINCache: 9b66261ade3d4feb272df4b4dd2e035469909448
-  PINRemoteImage: 308731aa6534500e58fc211b9cc2bb7252df25ba
+  AsyncDisplayKit: 4ef1ca0fac766193f4ccdea5b01e42b82b675683
+  PINCache: 6911fe422a633e18b3d3ddf2bd4f0e55e36e2892
+  PINRemoteImage: 20ca800843e5fb326bc33fa6eb528c3b861d8bd6
 
 PODFILE CHECKSUM: 9a99b6dd0161a2a42b8d108a3978ebd2affdaac5
 
