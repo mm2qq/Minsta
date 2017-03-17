@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/TextKit/ASTextKitCoreTextAdditions.h
+../../../../../AsyncDisplayKit/Source/TextKit/ASTextKitCoreTextAdditions.h

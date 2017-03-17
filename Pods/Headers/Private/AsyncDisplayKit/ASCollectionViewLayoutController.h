@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/Details/ASCollectionViewLayoutController.h
+../../../../../AsyncDisplayKit/Source/Details/ASCollectionViewLayoutController.h

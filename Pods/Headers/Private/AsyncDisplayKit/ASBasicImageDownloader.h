@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/Details/ASBasicImageDownloader.h
+../../../../../AsyncDisplayKit/Source/Details/ASBasicImageDownloader.h

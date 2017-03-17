@@ -1,31 +1,30 @@
 {
   "name": "AsyncDisplayKit",
-  "version": "2.0-beta.1",
+  "version": "2.2",
   "license": {
     "type": "BSD"
   },
   "homepage": "http://asyncdisplaykit.org",
   "authors": {
-    "Scott Goodson": "scottgoodson@gmail.com",
-    "Ryan Nystrom": "rnystrom@fb.com"
+    "Scott Goodson": "scottgoodson@gmail.com"
   },
   "summary": "Smooth asynchronous user interfaces for iOS apps.",
   "source": {
     "git": "https://github.com/facebook/AsyncDisplayKit.git",
-    "tag": "1.9.90"
+    "tag": "2.2"
   },
   "documentation_url": "http://asyncdisplaykit.org/appledoc/",
-  "frameworks": "AssetsLibrary",
   "weak_frameworks": [
     "Photos",
-    "MapKit"
+    "MapKit",
+    "AssetsLibrary"
   ],
   "requires_arc": true,
   "platforms": {
-    "ios": "7.0"
+    "ios": "8.0"
   },
   "default_subspecs": "PINRemoteImage",
-  "social_media_url": "https://twitter.com/fbOpenSource",
+  "social_media_url": "https://twitter.com/AsyncDisplayKit",
   "libraries": "c++",
   "pod_target_xcconfig": {
     "CLANG_CXX_LANGUAGE_STANDARD": "c++11",
@@ -34,38 +33,24 @@
   "subspecs": [
     {
       "name": "Core",
+      "prefix_header_file": "Source/AsyncDisplayKit-Prefix.pch",
       "public_header_files": [
-        "AsyncDisplayKit/*.h",
-        "AsyncDisplayKit/Details/**/*.h",
-        "AsyncDisplayKit/Layout/*.h",
-        "Base/*.h",
-        "AsyncDisplayKit/TextKit/ASTextNodeTypes.h",
-        "AsyncDisplayKit/TextKit/ASTextKitComponents.h"
-      ],
-      "exclude_files": [
-        "AsyncDisplayKit/Private/_AS-objc-internal.h",
-        "AsyncDisplayKit/Details/ASDealloc2MainObject.h",
-        "AsyncDisplayKit/Details/ASDealloc2MainObject.m"
+        "Source/*.h",
+        "Source/Details/**/*.h",
+        "Source/Layout/**/*.h",
+        "Source/Base/*.h",
+        "Source/Debug/AsyncDisplayKit+Debug.h",
+        "Source/TextKit/ASTextNodeTypes.h",
+        "Source/TextKit/ASTextKitComponents.h"
       ],
       "source_files": [
-        "AsyncDisplayKit/**/*.{h,m,mm}",
+        "Source/**/*.{h,m,mm}",
         "Base/*.{h,m}",
-        "AsyncDisplayKit/TextKit/*.h"
+        "Source/TextKit/*.h"
       ],
-      "dependencies": {
-        "AsyncDisplayKit/ASDealloc2MainObject": [
-
-        ]
+      "xcconfig": {
+        "GCC_PRECOMPILE_PREFIX_HEADER": "YES"
       }
-    },
-    {
-      "name": "ASDealloc2MainObject",
-      "requires_arc": false,
-      "source_files": [
-        "AsyncDisplayKit/Private/_AS-objc-internal.h",
-        "AsyncDisplayKit/Details/ASDealloc2MainObject.h",
-        "AsyncDisplayKit/Details/ASDealloc2MainObject.m"
-      ]
     },
     {
       "name": "PINRemoteImage",
@@ -74,7 +59,38 @@
       },
       "dependencies": {
         "PINRemoteImage/iOS": [
-          "= 3.0.0-beta.5"
+          "= 3.0.0-beta.8"
+        ],
+        "PINRemoteImage/PINCache": [
+
+        ],
+        "AsyncDisplayKit/Core": [
+
+        ]
+      }
+    },
+    {
+      "name": "IGListKit",
+      "xcconfig": {
+        "GCC_PREPROCESSOR_DEFINITIONS": "$(inherited) IG_LIST_KIT=1"
+      },
+      "dependencies": {
+        "IGListKit": [
+          "2.1.0"
+        ],
+        "AsyncDisplayKit/Core": [
+
+        ]
+      }
+    },
+    {
+      "name": "Yoga",
+      "xcconfig": {
+        "GCC_PREPROCESSOR_DEFINITIONS": "$(inherited) YOGA=1"
+      },
+      "dependencies": {
+        "Yoga": [
+          "1.0.2"
         ],
         "AsyncDisplayKit/Core": [
 

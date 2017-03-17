@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/Details/ASTraitCollection.h
+../../../../../AsyncDisplayKit/Source/Details/ASTraitCollection.h

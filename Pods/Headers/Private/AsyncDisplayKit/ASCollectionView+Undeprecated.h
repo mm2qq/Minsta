@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/Private/ASCollectionView+Undeprecated.h
+../../../../../AsyncDisplayKit/Source/Private/ASCollectionView+Undeprecated.h

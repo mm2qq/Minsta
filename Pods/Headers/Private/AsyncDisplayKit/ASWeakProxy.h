@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/Details/ASWeakProxy.h
+../../../../../AsyncDisplayKit/Source/Details/ASWeakProxy.h

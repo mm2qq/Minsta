@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/Details/ASCollectionInternal.h
+../../../../../AsyncDisplayKit/Source/Details/ASCollectionInternal.h

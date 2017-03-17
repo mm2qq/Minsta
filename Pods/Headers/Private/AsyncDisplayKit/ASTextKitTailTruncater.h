@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/TextKit/ASTextKitTailTruncater.h
+../../../../../AsyncDisplayKit/Source/TextKit/ASTextKitTailTruncater.h

@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/TextKit/ASTextKitEntityAttribute.h
+../../../../../AsyncDisplayKit/Source/TextKit/ASTextKitEntityAttribute.h

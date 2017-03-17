@@ -70,7 +70,7 @@
 	return ^ASCellNode *() {
 		       MSPhotoFeedCellNode *cell = [[MSPhotoFeedCellNode alloc] initWithPhoto:photo];
 		       cell.delegate = self;
-		       cell.indexPath = indexPath;
+//		       cell.indexPath = indexPath;
 
 		       return cell;
 	};

@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/Private/ASImageNode+CGExtras.h
+../../../../../AsyncDisplayKit/Source/Private/ASImageNode+CGExtras.h

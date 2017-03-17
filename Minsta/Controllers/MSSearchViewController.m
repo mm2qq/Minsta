@@ -76,7 +76,7 @@ static const CGFloat kItemMargin = 1.f;
 	return ^ASCellNode *() {
 		       MSPhotoFreshCellNode *cell = [[MSPhotoFreshCellNode alloc] initWithPhoto:photo shouldCropped:shouldCropped];
 		       cell.delegate = self;
-		       cell.indexPath = indexPath;
+//		       cell.indexPath = indexPath;
 
 		       return cell;
 	};

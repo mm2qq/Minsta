@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/ASVisibilityProtocols.h
+../../../../../AsyncDisplayKit/Source/ASVisibilityProtocols.h

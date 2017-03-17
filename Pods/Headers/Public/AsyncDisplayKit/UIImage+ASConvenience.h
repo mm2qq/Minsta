@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/UIImage+ASConvenience.h
+../../../../../AsyncDisplayKit/Source/UIImage+ASConvenience.h

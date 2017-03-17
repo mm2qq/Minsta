@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/TextKit/ASTextKitRenderer+TextChecking.h
+../../../../../AsyncDisplayKit/Source/TextKit/ASTextKitRenderer+TextChecking.h

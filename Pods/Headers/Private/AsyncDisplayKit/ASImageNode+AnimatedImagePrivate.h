@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/Private/ASImageNode+AnimatedImagePrivate.h
+../../../../../AsyncDisplayKit/Source/Private/ASImageNode+AnimatedImagePrivate.h

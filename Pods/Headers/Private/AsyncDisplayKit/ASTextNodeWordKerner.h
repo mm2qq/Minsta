@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/TextKit/ASTextNodeWordKerner.h
+../../../../../AsyncDisplayKit/Source/TextKit/ASTextNodeWordKerner.h

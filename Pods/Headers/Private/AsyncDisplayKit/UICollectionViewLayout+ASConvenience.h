@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/Details/UICollectionViewLayout+ASConvenience.h
+../../../../../AsyncDisplayKit/Source/Details/UICollectionViewLayout+ASConvenience.h

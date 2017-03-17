@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/ASTextNode+Beta.h
+../../../../../AsyncDisplayKit/Source/ASTextNode+Beta.h

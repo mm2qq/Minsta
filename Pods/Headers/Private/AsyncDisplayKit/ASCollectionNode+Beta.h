@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/ASCollectionNode+Beta.h
+../../../../../AsyncDisplayKit/Source/ASCollectionNode+Beta.h

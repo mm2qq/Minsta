@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/Details/ASMutableAttributedStringBuilder.h
+../../../../../AsyncDisplayKit/Source/Details/ASMutableAttributedStringBuilder.h

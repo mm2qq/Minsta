@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/TextKit/ASTextKitFontSizeAdjuster.h
+../../../../../AsyncDisplayKit/Source/TextKit/ASTextKitFontSizeAdjuster.h

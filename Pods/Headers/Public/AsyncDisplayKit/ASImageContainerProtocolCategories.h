@@ -1,1 +1,1 @@
-../../../../../AsyncDisplayKit/AsyncDisplayKit/Details/ASImageContainerProtocolCategories.h
+../../../../../AsyncDisplayKit/Source/Details/ASImageContainerProtocolCategories.h
