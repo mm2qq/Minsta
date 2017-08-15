@@ -1,1 +1,0 @@
-../../../../../AsyncDisplayKit/Source/Details/ASBasicImageDownloader.h

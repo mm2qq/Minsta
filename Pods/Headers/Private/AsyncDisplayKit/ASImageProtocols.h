@@ -1,1 +1,0 @@
-../../../../../AsyncDisplayKit/Source/Details/ASImageProtocols.h
